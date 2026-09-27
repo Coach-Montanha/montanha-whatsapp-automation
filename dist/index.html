@@ -1703,7 +1703,7 @@
       if (window.location.origin.includes('localhost') || window.location.origin.includes('127.0.0.1')) {
         return 'http://localhost:3001';
       }
-      return 'https://bent-peripheral-bones-can.trycloudflare.com';
+      return 'https://freeware-dsc-lock-pasta.trycloudflare.com';
     }
 
     let waPollInterval = null;
@@ -1746,24 +1746,97 @@
 
     let liveHistoryInterval = null;
 
+    // ====================================================================
+    // PERMANENT OFFLINE-FIRST HISTORY STORAGE (LOCALSTORAGE + BACKEND SYNC)
+    // ====================================================================
+    const PERMANENT_DISPATCHES_KEY = 'montanha_permanent_dispatches_history_v2';
+
+    function getStoredPermanentHistory() {
+      try {
+        const raw = localStorage.getItem(PERMANENT_DISPATCHES_KEY);
+        return raw ? JSON.parse(raw) : [];
+      } catch (e) {
+        return [];
+      }
+    }
+
+    function saveStoredPermanentHistory(items) {
+      try {
+        localStorage.setItem(PERMANENT_DISPATCHES_KEY, JSON.stringify(items));
+      } catch (e) {}
+    }
+
+    function renderHistoryRows(items, isOffline = false) {
+      const tbody = document.getElementById('liveDispatchesDashboardBody');
+      if (!tbody) return;
+
+      if (!items || items.length === 0) {
+        tbody.innerHTML = `
+          <tr>
+            <td colspan="6" class="p-6 text-center text-slate-400">
+              <span class="block text-lg mb-1">📭</span>
+              Nenhum disparo ou agendamento registrado até o momento.
+            </td>
+          </tr>
+        `;
+        return;
+      }
+
+      tbody.innerHTML = items.map(item => `
+        <tr class="hover:bg-slate-800/40 transition">
+          <td class="p-3 font-mono font-medium text-slate-300 text-[11px] whitespace-nowrap">${item.date}</td>
+          <td class="p-3 font-bold text-white max-w-[160px] truncate" title="${item.targets}">${item.targets}</td>
+          <td class="p-3">
+            <div class="text-slate-200 line-clamp-1 max-w-[240px] text-[11px]">${item.message}</div>
+            <div class="text-[10px] text-purple-400 font-medium">${item.media}</div>
+          </td>
+          <td class="p-3 whitespace-nowrap">
+            <div class="mb-0.5 text-[10px] font-semibold text-slate-400">${item.type}</div>
+            ${item.statusBadge}
+          </td>
+          <td class="p-3 whitespace-nowrap">
+            <span class="block font-mono text-[10px] text-slate-400">${item.auditUser || 'albertosarly@gmail.com'}</span>
+            <span class="block font-mono text-[9px] text-slate-500">${isOffline ? '📱 Salvo Localmente' : 'IP: ' + (item.clientIp || '127.0.0.1')}</span>
+          </td>
+          <td class="p-3 text-right whitespace-nowrap">
+            <button type="button" onclick="deleteSingleHistoryItem('${item.id}')" title="Excluir este registro permanentemente" class="bg-red-950/40 hover:bg-red-900/60 text-red-400 border border-red-500/30 px-2.5 py-1 rounded-lg text-xs font-bold transition cursor-pointer">
+              🗑️ Excluir
+            </button>
+          </td>
+        </tr>
+      `).join('');
+
+      const statDispatchesCount = document.getElementById('statDispatchesCount');
+      if (statDispatchesCount) {
+        const executedCount = items.filter(i => (i.type && i.type.includes('Enviado')) || (i.statusBadge && (i.statusBadge.includes('Concluído') || i.statusBadge.includes('Executado')))).length;
+        statDispatchesCount.textContent = executedCount || items.length;
+      }
+    }
+
     async function syncLiveHistoryFromBackend() {
       const tbody = document.getElementById('liveDispatchesDashboardBody');
       if (!tbody) return;
 
+      // 1. Immediately render cached items from LocalStorage if table is in loading state
+      const currentCache = getStoredPermanentHistory();
+      if (tbody.innerHTML.includes('Carregando histórico') && currentCache.length > 0) {
+        renderHistoryRows(currentCache, false);
+      }
+
       try {
         const baseUrl = getApiBaseUrl();
-        const res = await fetch(baseUrl + '/api/dispatches-history');
+        const res = await fetch(baseUrl + '/api/dispatches-history', { cache: 'no-store' });
         if (!res.ok) throw new Error('HTTP ' + res.status);
         const data = await res.json();
         
         const auditLogs = data.auditLogs || [];
         const schedules = data.schedules || [];
 
-        const items = [];
+        const remoteItems = [];
 
         auditLogs.forEach(log => {
           const targets = Array.isArray(log.target_contacts) ? log.target_contacts.join(', ') : (log.target_contacts || 'N/A');
-          items.push({
+          remoteItems.push({
             id: log.id || ('audit_' + log.timestamp),
             date: new Date(log.timestamp).toLocaleString('pt-BR'),
             rawDate: new Date(log.timestamp).getTime(),
@@ -1771,8 +1844,8 @@
             message: log.message_preview || '(Mensagem em texto)',
             media: log.media_path ? '📎 ' + log.media_path : '🚫 Texto',
             type: log.action === 'DISPARO_IMEDIATO' ? '⚡ Envio Imediato' : '⏳ Agendado',
-            statusBadge: '<span class="inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-bold bg-emerald-500/20 text-emerald-400 border border-emerald-500/30">✓ Executado</span>',
-            auditUser: log.user_email || 'demo@eduflow.app',
+            statusBadge: '<span class="inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-bold bg-emerald-500/20 text-emerald-400 border border-emerald-500/30">✓ Concluído</span>',
+            auditUser: log.user_email || 'albertosarly@gmail.com',
             clientIp: log.client_ip || '127.0.0.1'
           });
         });
@@ -1792,7 +1865,7 @@
             badge = '<span class="inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-bold bg-amber-500/20 text-amber-400 border border-amber-500/30 animate-pulse">⏳ Aguardando Horário</span>';
           }
 
-          items.push({
+          remoteItems.push({
             id: s.id || ('sched_' + s.createdAt),
             date: s.datetime || 'Data programada',
             rawDate: new Date(s.datetime ? s.datetime.replace(' às ', 'T').replace(' ', 'T') : s.createdAt).getTime() || Date.now(),
@@ -1801,76 +1874,63 @@
             media: s.imagePath ? '📎 Anexo' : '🚫 Texto',
             type: typeLabel,
             statusBadge: badge,
-            auditUser: currentUser ? currentUser.email : 'demo@eduflow.app',
+            auditUser: currentUser ? currentUser.email : 'albertosarly@gmail.com',
             clientIp: '127.0.0.1'
           });
         });
 
-        items.sort((a, b) => b.rawDate - a.rawDate);
+        // Merge remote items with local cache by ID (remote updates status, preserves all records)
+        const mergedMap = new Map();
+        currentCache.forEach(item => mergedMap.set(item.id, item));
+        remoteItems.forEach(item => mergedMap.set(item.id, item));
 
-        if (items.length === 0) {
-          tbody.innerHTML = `
-            <tr>
-              <td colspan="6" class="p-6 text-center text-slate-400">
-                <span class="block text-lg mb-1">📭</span>
-                Nenhum disparo ou agendamento registrado até o momento.
-              </td>
-            </tr>
-          `;
-          return;
-        }
+        const finalItems = Array.from(mergedMap.values());
+        finalItems.sort((a, b) => b.rawDate - a.rawDate);
 
-        tbody.innerHTML = items.map(item => `
-          <tr class="hover:bg-slate-800/40 transition">
-            <td class="p-3 font-mono font-medium text-slate-300 text-[11px] whitespace-nowrap">${item.date}</td>
-            <td class="p-3 font-bold text-white max-w-[160px] truncate" title="${item.targets}">${item.targets}</td>
-            <td class="p-3">
-              <div class="text-slate-200 line-clamp-1 max-w-[240px] text-[11px]">${item.message}</div>
-              <div class="text-[10px] text-purple-400 font-medium">${item.media}</div>
-            </td>
-            <td class="p-3 whitespace-nowrap">
-              <div class="mb-0.5 text-[10px] font-semibold text-slate-400">${item.type}</div>
-              ${item.statusBadge}
-            </td>
-            <td class="p-3 whitespace-nowrap">
-              <span class="block font-mono text-[10px] text-slate-400">${item.auditUser}</span>
-              <span class="block font-mono text-[9px] text-slate-500">IP: ${item.clientIp}</span>
-            </td>
-            <td class="p-3 text-right whitespace-nowrap">
-              <button type="button" onclick="deleteSingleHistoryItem('${item.id}')" title="Excluir este disparo do histórico" class="bg-red-950/40 hover:bg-red-900/60 text-red-400 border border-red-500/30 px-2 py-1 rounded-lg text-xs font-bold transition">
-                🗑️ Excluir
-              </button>
-            </td>
-          </tr>
-        `).join('');
-
-        const statDispatchesCount = document.getElementById('statDispatchesCount');
-        if (statDispatchesCount) {
-          const executedCount = schedules.filter(s => s.status === 'executed').length;
-          statDispatchesCount.textContent = (auditLogs.length + executedCount);
-        }
+        saveStoredPermanentHistory(finalItems);
+        renderHistoryRows(finalItems, false);
       } catch (err) {
-        console.warn('Sync live history warning:', err.message);
+        console.warn('Backend indisponível, mantendo histórico permanente local ativo:', err.message);
+        const cached = getStoredPermanentHistory();
+        renderHistoryRows(cached, true);
       }
     }
 
     async function deleteSingleHistoryItem(id) {
-      if (!confirm('Deseja excluir este item do histórico de disparos?')) return;
-      const baseUrl = getApiBaseUrl();
+      if (!confirm('Deseja excluir este item do histórico permanentemente?')) return;
+      
+      let cached = getStoredPermanentHistory();
+      cached = cached.filter(item => item.id !== id);
+      saveStoredPermanentHistory(cached);
+      renderHistoryRows(cached, false);
+
       try {
+        const baseUrl = getApiBaseUrl();
         await fetch(baseUrl + '/api/delete-history-item', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ id })
         });
-      } catch(e){}
+      } catch (e) {
+        console.warn('Erro ao notificar exclusão no backend:', e.message);
+      }
+    }
 
-      const userEmail = (currentUser && currentUser.email) ? currentUser.email : 'demo@eduflow.app';
-      let history = loadDispatchesHistory();
-      history = history.filter(h => h.id !== id);
-      localStorage.setItem('eduflow_history_' + userEmail, JSON.stringify(history));
-      
-      syncLiveHistoryFromBackend();
+    async function clearAllHistory() {
+      if (!confirm('Atenção: Tem certeza de que deseja apagar TODO o histórico de mensagens permanentemente?')) return;
+
+      saveStoredPermanentHistory([]);
+      renderHistoryRows([], false);
+
+      try {
+        const baseUrl = getApiBaseUrl();
+        await fetch(baseUrl + '/api/clear-history', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' }
+        });
+      } catch (e) {
+        console.warn('Erro ao limpar histórico no backend:', e.message);
+      }
     }
 
     function startWaPolling() {
@@ -3056,18 +3116,6 @@
       syncLiveHistoryFromBackend();
     }
 
-    function clearAllHistory() {
-      if (confirm('Deseja limpar completamente todo o histórico local?')) {
-        const email = (currentUser && currentUser.email) ? currentUser.email : 'demo@eduflow.app';
-        localStorage.removeItem('eduflow_history_' + email);
-        try {
-          const baseUrl = getApiBaseUrl();
-          fetch(baseUrl + '/api/clear-history', { method: 'POST' });
-        } catch(e){}
-        renderDispatchesHistory();
-      }
-    }
-
     function triggerSendNow() {
       saveDispatchItem('⚡ Enviado (Agora)', '✓ Enviado', true);
     }
@@ -3119,19 +3167,25 @@
       const mediaSelect = document.getElementById('mediaSelect');
       const media = uploadedCustomFileName || (mediaSelect ? mediaSelect.value : '');
 
-      const userEmail = (currentUser && currentUser.email) ? currentUser.email : 'demo@eduflow.app';
+      const userEmail = (currentUser && currentUser.email) ? currentUser.email : 'albertosarly@gmail.com';
 
-      const history = loadDispatchesHistory();
-      history.unshift({
-        target: targetContacts.length === 1 ? targetContacts[0] : `👥 ${targetContacts.length} Destinatários`,
-        media: media || '',
-        message,
-        datetime: datetimeStr,
-        status: isImmediate ? '⚡ Enviando via WhatsApp...' : statusStr
-      });
-
-      localStorage.setItem('eduflow_history_' + userEmail, JSON.stringify(history));
-      renderDispatchesHistory();
+      // 1. Immediately record into permanent local history so it is never lost
+      const permItem = {
+        id: 'dispatch_' + Date.now(),
+        date: datetimeStr || new Date().toLocaleString('pt-BR'),
+        rawDate: Date.now(),
+        targets: targetContacts.length === 1 ? targetContacts[0] : `👥 ${targetContacts.length} Destinatários`,
+        message: message ? message.substring(0, 100) : '',
+        media: media ? '📎 ' + media : '🚫 Texto',
+        type: isImmediate ? '⚡ Envio Imediato' : '⏳ Programado',
+        statusBadge: isImmediate ? '<span class="inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-bold bg-emerald-500/20 text-emerald-400 border border-emerald-500/30">✓ Concluído</span>' : '<span class="inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-bold bg-amber-500/20 text-amber-400 border border-amber-500/30 animate-pulse">⏳ Aguardando Horário</span>',
+        auditUser: userEmail,
+        clientIp: '127.0.0.1'
+      };
+      const currentPerm = getStoredPermanentHistory();
+      currentPerm.unshift(permItem);
+      saveStoredPermanentHistory(currentPerm);
+      renderHistoryRows(currentPerm, false);
 
       const baseUrl = getApiBaseUrl();
       const endpoint = isImmediate ? '/api/send-now' : '/api/schedule';
