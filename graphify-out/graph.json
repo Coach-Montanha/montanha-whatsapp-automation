@@ -1,0 +1,201 @@
+{
+  "nodes": [
+    {
+      "id": ".ua/config.json",
+      "label": "config.json",
+      "type": "code",
+      "size": 79,
+      "exports": [],
+      "functions": []
+    },
+    {
+      "id": ".ua/knowledge-graph.json",
+      "label": "knowledge-graph.json",
+      "type": "code",
+      "size": 8626,
+      "exports": [],
+      "functions": []
+    },
+    {
+      "id": ".ua/meta.json",
+      "label": "meta.json",
+      "type": "code",
+      "size": 199,
+      "exports": [],
+      "functions": []
+    },
+    {
+      "id": ".ua/tmp/ua-import-map-input.json",
+      "label": "ua-import-map-input.json",
+      "type": "code",
+      "size": 2552,
+      "exports": [],
+      "functions": []
+    },
+    {
+      "id": ".ua/tmp/ua-import-map-output.json",
+      "label": "ua-import-map-output.json",
+      "type": "code",
+      "size": 702,
+      "exports": [],
+      "functions": []
+    },
+    {
+      "id": ".ua/tmp/ua-scan-files.json",
+      "label": "ua-scan-files.json",
+      "type": "code",
+      "size": 3000,
+      "exports": [],
+      "functions": []
+    },
+    {
+      "id": "AGENTS.md",
+      "label": "AGENTS.md",
+      "type": "code",
+      "size": 11700,
+      "exports": [],
+      "functions": []
+    },
+    {
+      "id": "capacitor.config.json",
+      "label": "capacitor.config.json",
+      "type": "code",
+      "size": 298,
+      "exports": [],
+      "functions": []
+    },
+    {
+      "id": "DEV_GUIDE.md",
+      "label": "DEV_GUIDE.md",
+      "type": "code",
+      "size": 5644,
+      "exports": [],
+      "functions": []
+    },
+    {
+      "id": "index.html",
+      "label": "index.html",
+      "type": "view",
+      "size": 172244,
+      "exports": [],
+      "functions": []
+    },
+    {
+      "id": "package.json",
+      "label": "package.json",
+      "type": "code",
+      "size": 251,
+      "exports": [],
+      "functions": []
+    },
+    {
+      "id": "public/ecosystem-auth-service.js",
+      "label": "ecosystem-auth-service.js",
+      "type": "code",
+      "size": 10809,
+      "exports": [
+        "generateTempPassword"
+      ],
+      "functions": [
+        "validateEmailMx",
+        "checkAndLockGuestDemo",
+        "sendOtpToken",
+        "verifyOtpToken",
+        "cleanToken",
+        "checkProjectAccess",
+        "generateTempPassword",
+        "generateTempAccessInvite",
+        "cleanEmail",
+        "cleanPhone"
+      ]
+    },
+    {
+      "id": "README.md",
+      "label": "README.md",
+      "type": "code",
+      "size": 2196,
+      "exports": [],
+      "functions": []
+    },
+    {
+      "id": "scripts/build.mjs",
+      "label": "build.mjs",
+      "type": "code",
+      "size": 805,
+      "exports": [],
+      "functions": []
+    },
+    {
+      "id": "scripts/dev.mjs",
+      "label": "dev.mjs",
+      "type": "code",
+      "size": 1278,
+      "exports": [],
+      "functions": []
+    },
+    {
+      "id": "src/services/ecosystem-auth-service.js",
+      "label": "ecosystem-auth-service.js",
+      "type": "code",
+      "size": 10809,
+      "exports": [
+        "generateTempPassword"
+      ],
+      "functions": [
+        "validateEmailMx",
+        "checkAndLockGuestDemo",
+        "sendOtpToken",
+        "verifyOtpToken",
+        "cleanToken",
+        "checkProjectAccess",
+        "generateTempPassword",
+        "generateTempAccessInvite",
+        "cleanEmail",
+        "cleanPhone"
+      ]
+    },
+    {
+      "id": "tsconfig.json",
+      "label": "tsconfig.json",
+      "type": "code",
+      "size": 330,
+      "exports": [],
+      "functions": []
+    },
+    {
+      "id": "vercel.json",
+      "label": "vercel.json",
+      "type": "code",
+      "size": 804,
+      "exports": [],
+      "functions": []
+    }
+  ],
+  "edges": [
+    {
+      "source": "scripts/build.mjs",
+      "target": "node:fs/promises",
+      "type": "imports"
+    },
+    {
+      "source": "scripts/build.mjs",
+      "target": "node:fs",
+      "type": "imports"
+    },
+    {
+      "source": "scripts/dev.mjs",
+      "target": "node:fs",
+      "type": "imports"
+    },
+    {
+      "source": "scripts/dev.mjs",
+      "target": "node:http",
+      "type": "imports"
+    },
+    {
+      "source": "scripts/dev.mjs",
+      "target": "node:path",
+      "type": "imports"
+    }
+  ]
+}

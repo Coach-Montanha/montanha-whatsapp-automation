@@ -1,0 +1,320 @@
+{
+  "version": "1.0.0",
+  "project": {
+    "name": "Montanha WhatsApp Automation",
+    "languages": [
+      "html",
+      "javascript",
+      "json",
+      "markdown",
+      "plaintext",
+      "sql",
+      "xml"
+    ],
+    "frameworks": [],
+    "description": "Disparador automatizado inteligente para WhatsApp com Anti-Ban, Spin-Tax, cadência humanizada, controle de listas e webhooks Cloudflare.",
+    "analyzedAt": "2026-10-02T02:42:41.306Z",
+    "gitCommitHash": "00792a77dcc44d4b91ba83da8c5daf97466610d2",
+    "entryPoint": "index.html",
+    "category": "Marketing Dispatch & Automation Hub"
+  },
+  "nodes": [
+    {
+      "id": "file:.lovable/build",
+      "type": "file",
+      "name": "build",
+      "filePath": ".lovable/build",
+      "summary": "Módulo de código code: build",
+      "tags": [
+        "code",
+        "unknown"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:.lovable/build:dev",
+      "type": "file",
+      "name": "build:dev",
+      "filePath": ".lovable/build:dev",
+      "summary": "Módulo de código code: build:dev",
+      "tags": [
+        "code",
+        "unknown"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:.lovable/dev",
+      "type": "file",
+      "name": "dev",
+      "filePath": ".lovable/dev",
+      "summary": "Módulo de código code: dev",
+      "tags": [
+        "code",
+        "unknown"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "document:AGENTS.md",
+      "type": "document",
+      "name": "AGENTS.md",
+      "filePath": "AGENTS.md",
+      "summary": "Diretrizes oficiais da Vercel e regras de IA para desenvolvimento sustentável.",
+      "tags": [
+        "docs",
+        "markdown"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "document:DEV_GUIDE.md",
+      "type": "document",
+      "name": "DEV_GUIDE.md",
+      "filePath": "DEV_GUIDE.md",
+      "summary": "Guia confidencial de arquitetura interna, onboarding técnico e troubleshooting.",
+      "tags": [
+        "docs",
+        "markdown"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "document:README.md",
+      "type": "document",
+      "name": "README.md",
+      "filePath": "README.md",
+      "summary": "Documentação técnica de projeto: README.md.",
+      "tags": [
+        "docs",
+        "markdown"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "config:capacitor.config.json",
+      "type": "config",
+      "name": "capacitor.config.json",
+      "filePath": "capacitor.config.json",
+      "summary": "Arquivo de configuração de ambiente e build: capacitor.config.json.",
+      "tags": [
+        "config",
+        "json"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:ecosystem_schema.sql",
+      "type": "file",
+      "name": "ecosystem_schema.sql",
+      "filePath": "ecosystem_schema.sql",
+      "summary": "Módulo de código data: ecosystem_schema.sql",
+      "tags": [
+        "data",
+        "sql"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:index.html",
+      "type": "file",
+      "name": "index.html",
+      "filePath": "index.html",
+      "summary": "Documento HTML principal de montagem da SPA e declaração de viewports.",
+      "tags": [
+        "markup",
+        "html"
+      ],
+      "complexity": "complex"
+    },
+    {
+      "id": "config:package.json",
+      "type": "config",
+      "name": "package.json",
+      "filePath": "package.json",
+      "summary": "Manifesto de dependências, scripts e configuração do projeto Node/Vite.",
+      "tags": [
+        "config",
+        "json"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:public/ecosystem-auth-service.js",
+      "type": "file",
+      "name": "ecosystem-auth-service.js",
+      "filePath": "public/ecosystem-auth-service.js",
+      "summary": "Módulo de autenticação, validação de senhas de 10 dígitos e controle de sessões.",
+      "tags": [
+        "code",
+        "javascript"
+      ],
+      "complexity": "complex"
+    },
+    {
+      "id": "document:public/robots.txt",
+      "type": "document",
+      "name": "robots.txt",
+      "filePath": "public/robots.txt",
+      "summary": "Documentação técnica de projeto: robots.txt.",
+      "tags": [
+        "docs",
+        "txt"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "config:public/sitemap.xml",
+      "type": "config",
+      "name": "sitemap.xml",
+      "filePath": "public/sitemap.xml",
+      "summary": "Arquivo de configuração de ambiente e build: sitemap.xml.",
+      "tags": [
+        "config",
+        "xml"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:scripts/build.mjs",
+      "type": "file",
+      "name": "build.mjs",
+      "filePath": "scripts/build.mjs",
+      "summary": "Módulo de código code: build.mjs",
+      "tags": [
+        "code",
+        "javascript"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:scripts/dev.mjs",
+      "type": "file",
+      "name": "dev.mjs",
+      "filePath": "scripts/dev.mjs",
+      "summary": "Módulo de código code: dev.mjs",
+      "tags": [
+        "code",
+        "javascript"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:src/services/ecosystem-auth-service.js",
+      "type": "file",
+      "name": "ecosystem-auth-service.js",
+      "filePath": "src/services/ecosystem-auth-service.js",
+      "summary": "Módulo de autenticação, validação de senhas de 10 dígitos e controle de sessões.",
+      "tags": [
+        "code",
+        "javascript"
+      ],
+      "complexity": "complex"
+    },
+    {
+      "id": "file:supabase_schema.sql",
+      "type": "file",
+      "name": "supabase_schema.sql",
+      "filePath": "supabase_schema.sql",
+      "summary": "Módulo de código data: supabase_schema.sql",
+      "tags": [
+        "data",
+        "sql"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "config:tsconfig.json",
+      "type": "config",
+      "name": "tsconfig.json",
+      "filePath": "tsconfig.json",
+      "summary": "Arquivo de configuração de ambiente e build: tsconfig.json.",
+      "tags": [
+        "config",
+        "json"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "config:vercel.json",
+      "type": "config",
+      "name": "vercel.json",
+      "filePath": "vercel.json",
+      "summary": "Arquivo de configuração de ambiente e build: vercel.json.",
+      "tags": [
+        "config",
+        "json"
+      ],
+      "complexity": "simple"
+    }
+  ],
+  "edges": [],
+  "layers": [
+    {
+      "id": "layer:core",
+      "name": "Core",
+      "description": "Core application files",
+      "nodeIds": [
+        "file:.lovable/build",
+        "file:.lovable/build:dev",
+        "file:.lovable/dev",
+        "file:ecosystem_schema.sql",
+        "file:index.html",
+        "file:public/ecosystem-auth-service.js",
+        "file:scripts/build.mjs",
+        "file:scripts/dev.mjs",
+        "file:supabase_schema.sql"
+      ]
+    },
+    {
+      "id": "layer:service-layer",
+      "name": "Service Layer",
+      "description": "Business logic and application services",
+      "nodeIds": [
+        "file:src/services/ecosystem-auth-service.js"
+      ]
+    }
+  ],
+  "tour": [
+    {
+      "order": 1,
+      "title": "Core",
+      "description": "Core application files. Key files: build, build:dev, dev, ecosystem_schema.sql, index.html, ecosystem-auth-service.js, build.mjs, dev.mjs, supabase_schema.sql.",
+      "nodeIds": [
+        "file:.lovable/build",
+        "file:.lovable/build:dev",
+        "file:.lovable/dev",
+        "file:ecosystem_schema.sql",
+        "file:index.html",
+        "file:public/ecosystem-auth-service.js",
+        "file:scripts/build.mjs",
+        "file:scripts/dev.mjs",
+        "file:supabase_schema.sql"
+      ]
+    },
+    {
+      "order": 2,
+      "title": "Service Layer",
+      "description": "Business logic and application services. Key files: ecosystem-auth-service.js.",
+      "nodeIds": [
+        "file:src/services/ecosystem-auth-service.js"
+      ]
+    },
+    {
+      "order": 3,
+      "title": "Supporting Components",
+      "description": "Additional supporting files: AGENTS.md, DEV_GUIDE.md, README.md, capacitor.config.json, package.json, robots.txt, sitemap.xml, tsconfig.json, vercel.json.",
+      "nodeIds": [
+        "document:AGENTS.md",
+        "document:DEV_GUIDE.md",
+        "document:README.md",
+        "config:capacitor.config.json",
+        "config:package.json",
+        "document:public/robots.txt",
+        "config:public/sitemap.xml",
+        "config:tsconfig.json",
+        "config:vercel.json"
+      ]
+    }
+  ]
+}
