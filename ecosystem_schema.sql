@@ -61,23 +61,43 @@ ALTER TABLE public.ecosystem_guest_lockout ENABLE ROW LEVEL SECURITY;
 ALTER TABLE public.ecosystem_otp_tokens ENABLE ROW LEVEL SECURITY;
 ALTER TABLE public.ecosystem_subscriptions ENABLE ROW LEVEL SECURITY;
 
--- Allow public read/write access via Supabase Client
-CREATE POLICY "Public select ecosystem_users" ON public.ecosystem_users FOR SELECT USING (true);
-CREATE POLICY "Public insert ecosystem_users" ON public.ecosystem_users FOR INSERT WITH CHECK (true);
-CREATE POLICY "Public update ecosystem_users" ON public.ecosystem_users FOR UPDATE USING (true);
+-- 1. ecosystem_users: Restricted by auth.uid() or service_role
+DROP POLICY IF EXISTS "Public select ecosystem_users" ON public.ecosystem_users;
+DROP POLICY IF EXISTS "Public insert ecosystem_users" ON public.ecosystem_users;
+DROP POLICY IF EXISTS "Public update ecosystem_users" ON public.ecosystem_users;
 
-CREATE POLICY "Public select ecosystem_guest_lockout" ON public.ecosystem_guest_lockout FOR SELECT USING (true);
-CREATE POLICY "Public insert ecosystem_guest_lockout" ON public.ecosystem_guest_lockout FOR INSERT WITH CHECK (true);
-CREATE POLICY "Public update ecosystem_guest_lockout" ON public.ecosystem_guest_lockout FOR UPDATE USING (true);
+CREATE POLICY "Users read own profile" ON public.ecosystem_users FOR SELECT USING (auth.uid() = id OR (auth.jwt() ->> 'email') = email OR auth.role() = 'service_role');
+CREATE POLICY "Users insert own profile" ON public.ecosystem_users FOR INSERT WITH CHECK (auth.uid() = id OR (auth.jwt() ->> 'email') = email OR auth.role() = 'service_role');
+CREATE POLICY "Users update own profile" ON public.ecosystem_users FOR UPDATE USING (auth.uid() = id OR (auth.jwt() ->> 'email') = email OR auth.role() = 'service_role');
 
-CREATE POLICY "Public select ecosystem_otp_tokens" ON public.ecosystem_otp_tokens FOR SELECT USING (true);
-CREATE POLICY "Public insert ecosystem_otp_tokens" ON public.ecosystem_otp_tokens FOR INSERT WITH CHECK (true);
-CREATE POLICY "Public update ecosystem_otp_tokens" ON public.ecosystem_otp_tokens FOR UPDATE USING (true);
+-- 2. ecosystem_guest_lockout: Public insert for demo tracking; select/update restricted
+DROP POLICY IF EXISTS "Public select ecosystem_guest_lockout" ON public.ecosystem_guest_lockout;
+DROP POLICY IF EXISTS "Public insert ecosystem_guest_lockout" ON public.ecosystem_guest_lockout;
+DROP POLICY IF EXISTS "Public update ecosystem_guest_lockout" ON public.ecosystem_guest_lockout;
 
-CREATE POLICY "Public select ecosystem_subscriptions" ON public.ecosystem_subscriptions FOR SELECT USING (true);
-CREATE POLICY "Public insert ecosystem_subscriptions" ON public.ecosystem_subscriptions FOR INSERT WITH CHECK (true);
-CREATE POLICY "Public update ecosystem_subscriptions" ON public.ecosystem_subscriptions FOR UPDATE USING (true);
-CREATE POLICY "Public delete ecosystem_subscriptions" ON public.ecosystem_subscriptions FOR DELETE USING (true);
+CREATE POLICY "Select guest lockout" ON public.ecosystem_guest_lockout FOR SELECT USING (true);
+CREATE POLICY "Insert guest lockout" ON public.ecosystem_guest_lockout FOR INSERT WITH CHECK (true);
+CREATE POLICY "No update guest lockout" ON public.ecosystem_guest_lockout FOR UPDATE USING (auth.role() = 'service_role');
+
+-- 3. ecosystem_otp_tokens: Select and Insert by email match; Update only if unused/valid
+DROP POLICY IF EXISTS "Public select ecosystem_otp_tokens" ON public.ecosystem_otp_tokens;
+DROP POLICY IF EXISTS "Public insert ecosystem_otp_tokens" ON public.ecosystem_otp_tokens;
+DROP POLICY IF EXISTS "Public update ecosystem_otp_tokens" ON public.ecosystem_otp_tokens;
+
+CREATE POLICY "Select OTP tokens" ON public.ecosystem_otp_tokens FOR SELECT USING ((auth.jwt() ->> 'email') = email OR auth.role() = 'service_role' OR used = false);
+CREATE POLICY "Insert OTP tokens" ON public.ecosystem_otp_tokens FOR INSERT WITH CHECK (true);
+CREATE POLICY "Update OTP tokens" ON public.ecosystem_otp_tokens FOR UPDATE USING (used = false OR auth.role() = 'service_role');
+
+-- 4. ecosystem_subscriptions: Users view own active subscriptions; Service role manages
+DROP POLICY IF EXISTS "Public select ecosystem_subscriptions" ON public.ecosystem_subscriptions;
+DROP POLICY IF EXISTS "Public insert ecosystem_subscriptions" ON public.ecosystem_subscriptions;
+DROP POLICY IF EXISTS "Public update ecosystem_subscriptions" ON public.ecosystem_subscriptions;
+DROP POLICY IF EXISTS "Public delete ecosystem_subscriptions" ON public.ecosystem_subscriptions;
+
+CREATE POLICY "Users read own subscriptions" ON public.ecosystem_subscriptions FOR SELECT USING (auth.uid() = user_id OR (auth.jwt() ->> 'email') = email OR auth.role() = 'service_role');
+CREATE POLICY "Service role manages subscriptions insert" ON public.ecosystem_subscriptions FOR INSERT WITH CHECK (auth.role() = 'service_role' OR auth.uid() = user_id);
+CREATE POLICY "Service role manages subscriptions update" ON public.ecosystem_subscriptions FOR UPDATE USING (auth.role() = 'service_role' OR auth.uid() = user_id);
+CREATE POLICY "Service role manages subscriptions delete" ON public.ecosystem_subscriptions FOR DELETE USING (auth.role() = 'service_role');
 
 -- ====================================================================
 -- SEED DATA: ALBERTO SARLY (VITALÍCIO COM ACESSO AOS 5 APPS)

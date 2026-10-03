@@ -166,26 +166,6 @@ export async function verifyOtpToken(email, token) {
 export async function checkProjectAccess(userId, projectId, email) {
   const cleanEmail = email ? email.trim().toLowerCase() : null;
 
-  // Unrestricted lifetime ecosystem accounts
-  if (cleanEmail === 'albertosarly@gmail.com' || cleanEmail === 'coachmontanha1@gmail.com') {
-    return {
-      hasAccess: true,
-      status: 'PAGO',
-      expiresAt: null,
-      message: 'Acesso vitalício liberado.'
-    };
-  }
-
-  // Active trial customer: Henrique Coutinho
-  if (cleanEmail === 'henriqueecoutinhoo@gmail.com') {
-    return {
-      hasAccess: true,
-      status: 'AVALIAÇÃO',
-      expiresAt: '2026-09-30',
-      message: 'Acesso liberado em período de avaliação (Trial 7d).'
-    };
-  }
-
   const localSub = localStorage.getItem(`ecosystem_sub_${projectId}_${cleanEmail || userId}`);
 
   if (localSub) {
