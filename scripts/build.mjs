@@ -22,4 +22,12 @@ for (const file of files) {
   }
 }
 
+// Ensure /auth route resolves on Vercel for single page HTML
+const indexSource = new URL('index.html', projectRoot)
+const authHtmlTarget = new URL('auth.html', outputDirectory)
+const authDirTarget = new URL('auth/', outputDirectory)
+await cp(indexSource, authHtmlTarget)
+await mkdir(authDirTarget, { recursive: true })
+await cp(indexSource, new URL('index.html', authDirTarget))
+
 console.log('Built static application in dist/')

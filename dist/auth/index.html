@@ -1,0 +1,3276 @@
+<!DOCTYPE html>
+<html lang="pt-BR" class="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Montanha WhatsApp Automation — Automação SaaS Multi-Tenant, CRM & Disparos Inteligentes via WhatsApp</title>
+  <meta name="description" content="Montanha WhatsApp Automation — Automação SaaS Multi-Tenant, CRM & Disparos Inteligentes via WhatsApp">
+  <link rel="canonical" href="https://montanha-whatsapp-automation.vercel.app/">
+  <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
+  <meta name="google-site-verification" content="GSC_VERIFICATION_PLACEHOLDER">
+
+  <!-- Open Graph / Facebook -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://montanha-whatsapp-automation.vercel.app/">
+  <meta property="og:site_name" content="Montanha WhatsApp Automation">
+  <meta property="og:title" content="Montanha WhatsApp Automation — Automação SaaS Multi-Tenant, CRM & Disparos Inteligentes via WhatsApp">
+  <meta property="og:description" content="Automação SaaS Multi-Tenant, CRM & Disparos Inteligentes via WhatsApp.">
+  <meta property="og:image" content="https://montanha-whatsapp-automation.vercel.app/icons/icon-512.png">
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Montanha WhatsApp Automation — Automação SaaS Multi-Tenant, CRM & Disparos Inteligentes via WhatsApp">
+  <meta name="twitter:description" content="Automação SaaS Multi-Tenant, CRM & Disparos Inteligentes via WhatsApp.">
+  <meta name="twitter:image" content="https://montanha-whatsapp-automation.vercel.app/icons/icon-512.png">
+
+  <!-- Schema.org JSON-LD -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "Montanha WhatsApp Automation",
+    "headline": "Automação SaaS Multi-Tenant, CRM & Disparos Inteligentes via WhatsApp",
+    "operatingSystem": "Web",
+    "applicationCategory": "BusinessApplication",
+    "description": "Automação SaaS Multi-Tenant, CRM & Disparos Inteligentes via WhatsApp.",
+    "url": "https://montanha-whatsapp-automation.vercel.app/",
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "BRL"
+    },
+    "author": {
+      "@type": "Organization",
+      "name": "Ecossistema Montanha",
+      "url": "https://montanha-whatsapp-automation.vercel.app/"
+    }
+  }
+  </script>
+
+  <!-- PWA & Mobile Native Metadata -->
+  <link rel="manifest" href="/manifest.json">
+  <meta name="theme-color" content="#0f172a">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+  <!-- Tailwind CSS & Lucide Icons & Ecosystem Auth -->
+  <script src="https://www.gstatic.com/antigravity/web/dev/tailwindcss.min.js"></script>
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <script src="/ecosystem-auth-service.js"></script>
+
+  <style>
+    :root {
+      --background: #0f172a;
+      --card: #1e293b;
+      --border: #334155;
+      --foreground: #f8fafc;
+      --muted-foreground: #94a3b8;
+      --primary: #8b5cf6;
+      --accent: #06b6d4;
+    }
+    .custom-scrollbar::-webkit-scrollbar {
+      width: 5px;
+      height: 5px;
+    }
+    .custom-scrollbar::-webkit-scrollbar-track {
+      background: #0f172a;
+    }
+    .custom-scrollbar::-webkit-scrollbar-thumb {
+      background: #334155;
+      border-radius: 4px;
+    }
+  </style>
+</head>
+<body class="bg-[var(--background)] text-[var(--foreground)] antialiased min-h-screen pb-20 md:pb-6 select-none font-sans">
+
+  <!-- Impersonation Support Banner -->
+  <aside id="impersonationBanner" aria-label="Aviso de Modo Suporte Técnico" class="hidden sticky top-0 z-[9999] w-full bg-gradient-to-r from-amber-500/20 via-purple-500/20 to-cyan-500/20 border-b border-amber-500/40 backdrop-blur-xl px-4 py-2 text-xs text-amber-200 shadow-lg">
+    <div class="max-w-7xl mx-auto flex flex-wrap items-center justify-between gap-3">
+      <div class="flex items-center gap-2">
+        <span class="p-1 rounded-lg bg-amber-500/30 text-amber-300">🛡️</span>
+        <div class="flex flex-wrap items-center gap-1.5">
+          <span class="font-extrabold uppercase tracking-wider text-[11px] text-amber-300">Modo Suporte Técnico:</span>
+          <span>Você está operando como</span>
+          <span id="impersonationEmailDisplay" class="font-mono font-bold text-white bg-slate-900/80 px-2 py-0.5 rounded border border-amber-500/30">user@email.com</span>
+          <span class="text-[10px] text-slate-400 hidden sm:inline">(Privilégios de SuperAdmin ativos)</span>
+        </div>
+      </div>
+      <div class="flex items-center gap-2">
+        <span class="inline-flex items-center gap-1 text-[10px] font-bold uppercase tracking-wider text-emerald-300 bg-emerald-500/20 border border-emerald-500/40 px-2 py-0.5 rounded-full">✓ Sessão Ativa</span>
+        <button type="button" onclick="clearImpersonation()" class="inline-flex items-center gap-1 px-3 py-1 rounded-lg bg-amber-500/20 hover:bg-amber-500/30 text-amber-200 border border-amber-500/50 font-bold transition text-xs cursor-pointer">
+          Sair do modo suporte
+        </button>
+      </div>
+    </div>
+  </aside>
+
+  <!-- ==================================================================== -->
+  <!-- 0. ECOSYSTEM SPLASH SCREEN (INSTANT FIRST PAINT) -->
+  <!-- ==================================================================== -->
+  <style>
+    #app-preloader {
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      z-index: 999999;
+      background-color: #0f172a;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      transition: opacity 0.4s ease, visibility 0.4s ease;
+    }
+    #app-preloader.preloader-hidden {
+      opacity: 0 !important;
+      visibility: hidden !important;
+      pointer-events: none !important;
+      display: none !important;
+    }
+    .preloader-emblem-wrap {
+      position: relative;
+      width: 96px;
+      height: 96px;
+      border-radius: 28px;
+      background: linear-gradient(135deg, #4c1d95 0%, #0f172a 100%);
+      border: 2px solid rgba(168, 85, 247, 0.4);
+      box-shadow: 0 0 35px rgba(168, 85, 247, 0.35), inset 0 0 15px rgba(168, 85, 247, 0.15);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      animation: preloaderPulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+    }
+    .preloader-aura-ring {
+      position: absolute;
+      inset: -6px;
+      border-radius: 34px;
+      border: 1.5px solid rgba(168, 85, 247, 0.25);
+      animation: auraExpand 2.5s linear infinite;
+    }
+    .preloader-title {
+      margin-top: 22px;
+      font-size: 22px;
+      font-weight: 900;
+      letter-spacing: -0.02em;
+      color: #f8fafc;
+      text-align: center;
+    }
+    .preloader-title span {
+      color: #a855f7;
+    }
+    .preloader-subtitle {
+      margin-top: 6px;
+      font-size: 13px;
+      font-weight: 500;
+      color: #94a3b8;
+      text-align: center;
+      max-width: 380px;
+      padding: 0 16px;
+    }
+    .preloader-spinner {
+      margin-top: 24px;
+      width: 26px;
+      height: 26px;
+      border: 3px solid rgba(168, 85, 247, 0.15);
+      border-top-color: #a855f7;
+      border-radius: 50%;
+      animation: preloaderSpin 0.75s linear infinite;
+    }
+    @keyframes preloaderPulse {
+      0%, 100% { transform: scale(1); box-shadow: 0 0 35px rgba(168, 85, 247, 0.35); }
+      50% { transform: scale(1.05); box-shadow: 0 0 50px rgba(168, 85, 247, 0.55); }
+    }
+    @keyframes auraExpand {
+      0% { opacity: 0.8; transform: scale(0.95); }
+      100% { opacity: 0; transform: scale(1.2); }
+    }
+    @keyframes preloaderSpin {
+      to { transform: rotate(360deg); }
+    }
+  </style>
+
+  <div id="app-preloader" aria-label="Carregando Montanha WhatsApp Automation...">
+    <div className="preloader-emblem-wrap">
+      <div className="preloader-aura-ring"></div>
+      <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="#a855f7" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+      </svg>
+    </div>
+    <div className="preloader-title">Montanha <span>WhatsApp Automation</span></div>
+    <div className="preloader-subtitle">Automação SaaS Multi-Tenant, CRM &amp; Disparos Inteligentes via WhatsApp</div>
+    <div className="preloader-spinner"></div>
+  </div>
+
+  <script>
+    (function(){
+      function dismiss(){
+        var p = document.getElementById('app-preloader');
+        if(p){
+          p.classList.add('preloader-hidden');
+          p.style.display = 'none';
+        }
+      }
+      if (document.readyState === 'complete') {
+        setTimeout(dismiss, 100);
+      } else {
+        window.addEventListener('load', function(){ setTimeout(dismiss, 100); });
+        setTimeout(dismiss, 600);
+      }
+    })();
+  </script>
+
+  <!-- ==================================================================== -->
+  <!-- 1. AUTH SCREEN (LOGIN / CADASTRO) -->
+  <!-- ==================================================================== -->
+  <div id="authScreen" class="min-h-screen w-full bg-slate-950 text-slate-100 flex flex-col items-center justify-center p-4 font-sans relative overflow-hidden">
+    <!-- Dynamic Background Mesh -->
+    <div aria-hidden class="pointer-events-none absolute inset-0 -z-10 overflow-hidden">
+      <div class="absolute -top-40 -left-40 h-[600px] w-[600px] rounded-full bg-[#10b981]/25 blur-[160px]"></div>
+      <div class="absolute -bottom-40 -right-40 h-[600px] w-[600px] rounded-full bg-[#059669]/20 blur-[160px]"></div>
+    </div>
+
+    <!-- Floating Hero Stage Card -->
+    <div class="w-full max-w-[920px] bg-slate-900/90 border border-[#10b981]/30 rounded-3xl shadow-[0_0_60px_rgba(16,185,129,0.25)] backdrop-blur-2xl overflow-hidden flex flex-col md:flex-row min-h-[580px] my-auto">
+      
+      <!-- A) NAV RAIL -->
+      <nav class="w-full md:w-24 bg-slate-950/80 border-b md:border-b-0 md:border-r border-slate-800/80 p-4 flex md:flex-col items-center justify-between z-20 flex-shrink-0">
+        <div class="flex flex-col items-center gap-2">
+          <div class="h-12 w-12 rounded-2xl bg-gradient-to-br from-[#10b981] to-[#059669] p-0.5 shadow-lg shadow-[#10b981]/40 flex items-center justify-center">
+            <div class="h-full w-full bg-slate-950 rounded-[14px] flex items-center justify-center font-black text-white text-xl">
+              WA
+            </div>
+          </div>
+          <span class="text-[10px] font-black tracking-widest text-[#10b981] uppercase">SaaS</span>
+        </div>
+
+        <div class="flex md:flex-col items-center gap-3">
+          <button id="tabLogin" type="button" onclick="switchAuthTab('login')" aria-label="Entrar na conta" class="min-h-[44px] min-w-[44px] px-4 py-2 md:py-3 rounded-xl flex flex-col items-center justify-center gap-1 transition-all text-xs font-bold bg-[#10b981] text-slate-950 shadow-lg shadow-[#10b981]/40">
+            <span>Entrar</span>
+          </button>
+          <button id="tabRegister" type="button" onclick="switchAuthTab('register')" aria-label="Criar nova conta" class="min-h-[44px] min-w-[44px] px-4 py-2 md:py-3 rounded-xl flex flex-col items-center justify-center gap-1 transition-all text-xs font-bold text-slate-400 hover:text-white hover:bg-slate-800/50">
+            <span>Cadastrar</span>
+          </button>
+        </div>
+
+        <div class="hidden md:flex flex-col items-center text-[10px] text-slate-400">
+          <span class="text-[#10b981] font-bold">SSL 256</span>
+        </div>
+      </nav>
+
+      <!-- B) FLOATING HERO CARD -->
+      <div class="w-full md:w-80 relative overflow-hidden bg-gradient-to-br from-slate-950 via-slate-900 to-[#10b981]/30 p-6 md:p-8 flex flex-col justify-between border-b md:border-b-0 md:border-r border-slate-800/80">
+        <div aria-hidden class="absolute -top-24 -left-24 w-64 h-64 bg-[#10b981]/30 rounded-full blur-3xl pointer-events-none"></div>
+        
+        <div class="relative z-10 space-y-4">
+          <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#10b981]/20 border border-[#10b981]/40 text-[#10b981] text-xs font-bold">
+            <span>EMERALD GLOW • WHATSAPP</span>
+          </div>
+
+          <div id="heroTextContainer" class="space-y-3">
+            <h2 id="heroTitle" class="text-2xl md:text-3xl font-extrabold text-white tracking-tight leading-tight">
+              Montanha WhatsApp Automation
+            </h2>
+            <p id="heroSubtitle" class="text-xs text-slate-300 leading-relaxed">
+              Automação SaaS Multi-Tenant, CRM &amp; Disparos Inteligentes via WhatsApp com máxima taxa de entrega.
+            </p>
+          </div>
+        </div>
+
+        <div class="relative z-10 pt-6 border-t border-slate-800/80 space-y-3 text-xs text-slate-400">
+          <div class="flex items-center gap-2">
+            <span class="text-[#10b981] font-bold">✓</span>
+            <span>PIN de 10 Dígitos Padronizado</span>
+          </div>
+          <div class="flex items-center gap-2">
+            <span class="text-[#10b981] font-bold">✓</span>
+            <span>Instâncias WhatsApp Multi-Tenant</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- C) FORM PANEL -->
+      <div class="flex-1 p-6 md:p-10 flex flex-col justify-between bg-slate-950/60">
+        <div class="space-y-6 my-auto">
+          <div class="flex items-center justify-between">
+            <div>
+              <h3 id="formPanelTitle" class="text-xl font-bold text-white">Acessar Plataforma</h3>
+              <p class="text-xs text-slate-400 mt-0.5">Informe seu e-mail e PIN de 10 dígitos para entrar.</p>
+            </div>
+            <span class="text-[11px] font-bold text-[#10b981] bg-[#10b981]/15 px-2.5 py-1 rounded-lg border border-[#10b981]/30">
+              PIN 10 Dígitos
+            </span>
+          </div>
+
+          <form id="authForm" onsubmit="handleAuthSubmit(event)" class="space-y-4 text-xs">
+            <div id="nameFieldContainer" class="hidden space-y-1.5">
+              <label class="block font-bold text-slate-300 uppercase tracking-wider text-[11px]">Nome Completo ou Empresa</label>
+              <input type="text" id="authName" placeholder="Seu nome ou da sua empresa" style="font-size: 16px;" class="w-full h-11 px-4 bg-slate-900 border border-slate-800 rounded-xl text-white placeholder-slate-500 focus:outline-none focus:border-[#10b981] text-base md:text-sm">
+            </div>
+
+            <div class="space-y-1.5">
+              <label class="block font-bold text-slate-300 uppercase tracking-wider text-[11px]">Email Comercial</label>
+              <input type="email" id="authEmail" required placeholder="seu.email@exemplo.com" style="font-size: 16px;" class="w-full h-11 px-4 bg-slate-900 border border-slate-800 rounded-xl text-white placeholder-slate-500 focus:outline-none focus:border-[#10b981] text-base md:text-sm">
+            </div>
+
+            <div class="space-y-1.5">
+              <div class="flex justify-between items-center">
+                <label class="font-bold text-slate-300 uppercase tracking-wider text-[11px]">PIN de Accesso (10 dígitos)</label>
+                <button type="button" onclick="showPasswordResetPrompt()" class="text-xs font-bold text-[#10b981] hover:underline">Esqueci a senha</button>
+              </div>
+              <input type="password" id="authPassword" required inputmode="numeric" pattern="[0-9]*" maxlength="10" placeholder="•••••••••• (10 dígitos)" style="font-size: 16px;" oninput="updatePinCounter(this)" class="w-full h-11 px-4 bg-slate-900 border border-slate-800 rounded-xl text-white font-mono tracking-widest placeholder-slate-500 focus:outline-none focus:border-[#10b981] text-base md:text-sm">
+              <div class="flex justify-between items-center pt-0.5">
+                <span id="pinProgressCounter" class="text-[10px] text-slate-400 font-mono">0 / 10 dígitos</span>
+                <span class="text-[10px] text-[#10b981]">Formato mandatório</span>
+              </div>
+            </div>
+
+            <button type="submit" id="authSubmitBtn" aria-label="Entrar na Conta" class="w-full h-11 rounded-xl bg-gradient-to-r from-[#10b981] to-[#059669] text-slate-950 font-black text-xs uppercase tracking-wider shadow-lg shadow-[#10b981]/30 hover:opacity-95 transition-all flex items-center justify-center gap-2 min-h-[44px]">
+              Entrar na Conta
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <!-- Footer Ecosystem Button -->
+    <div class="pt-4 text-center">
+      <button type="button" onclick="toggleEcosystemBar()" class="text-xs text-purple-400 hover:text-purple-300 font-bold inline-flex items-center gap-1.5 px-4 py-2 rounded-full bg-purple-500/10 border border-purple-500/30 transition-all cursor-pointer shadow-md">
+        <span>🌐 Ecossistema (5 Apps Integrados)</span>
+        <span id="ecoToggleIcon">▼</span>
+      </button>
+    </div>
+
+    <!-- Ecosystem Apps Selector Drawer -->
+    <div id="ecosystemBar" class="hidden mt-3 max-w-md w-full p-3.5 rounded-2xl bg-slate-900/95 border border-purple-500/40 shadow-2xl space-y-2 text-left animate-in fade-in">
+      <div class="text-[11px] font-bold text-purple-300 uppercase tracking-wider flex items-center gap-1.5">
+        <span>✨ Plataformas Integradas do Ecossistema</span>
+      </div>
+      <div class="space-y-1.5 max-h-52 overflow-y-auto pr-1">
+        <div class="p-2 rounded-xl border text-xs flex items-center justify-between bg-purple-500/10 border-purple-500/50 text-white">
+          <div class="flex flex-col">
+            <span class="font-bold flex items-center gap-1.5">
+              <span class="w-2 h-2 rounded-full bg-purple-500"></span>
+              Montanha WhatsApp Automation
+            </span>
+            <span class="text-[10px] text-slate-400">Automação Multi-Tenant &amp; Disparos WhatsApp</span>
+          </div>
+          <span class="text-[9px] font-extrabold px-2 py-0.5 rounded-full border bg-purple-500/20 text-purple-300 border-purple-500/40">ATUAL</span>
+        </div>
+
+        <div class="p-2 rounded-xl border text-xs flex items-center justify-between bg-slate-950/60 border-slate-800 text-slate-300">
+          <div class="flex flex-col">
+            <span class="font-bold flex items-center gap-1.5">
+              <span class="w-2 h-2 rounded-full bg-amber-500"></span>
+              Montanha PDF Studio
+            </span>
+            <span class="text-[10px] text-slate-400">Diagramação Editorial &amp; Publicações com IA</span>
+          </div>
+          <span class="text-[9px] font-extrabold px-2 py-0.5 rounded-full border bg-amber-500/20 text-amber-300 border-amber-500/40">Diagramação</span>
+        </div>
+
+        <div class="p-2 rounded-xl border text-xs flex items-center justify-between bg-slate-950/60 border-slate-800 text-slate-300">
+          <div class="flex flex-col">
+            <span class="font-bold flex items-center gap-1.5">
+              <span class="w-2 h-2 rounded-full bg-emerald-500"></span>
+              Montanha Personal Studio
+            </span>
+            <span class="text-[10px] text-slate-400">Gestão Financeira &amp; Inteligência para Studios</span>
+          </div>
+          <span class="text-[9px] font-extrabold px-2 py-0.5 rounded-full border bg-emerald-500/20 text-emerald-300 border-emerald-500/40">Finanças</span>
+        </div>
+
+        <div class="p-2 rounded-xl border text-xs flex items-center justify-between bg-slate-950/60 border-slate-800 text-slate-300">
+          <div class="flex flex-col">
+            <span class="font-bold flex items-center gap-1.5">
+              <span class="w-2 h-2 rounded-full bg-cyan-500"></span>
+              Montanha Hybrid Training
+            </span>
+            <span class="text-[10px] text-slate-400">Alta Performance &amp; Periodização de Treino</span>
+          </div>
+          <span class="text-[9px] font-extrabold px-2 py-0.5 rounded-full border bg-cyan-500/20 text-cyan-300 border-cyan-500/40">Treino</span>
+        </div>
+
+        <div class="p-2 rounded-xl border text-xs flex items-center justify-between bg-slate-950/60 border-slate-800 text-slate-300">
+          <div class="flex flex-col">
+            <span class="font-bold flex items-center gap-1.5">
+              <span class="w-2 h-2 rounded-full bg-indigo-500"></span>
+              Montanha Language AI
+            </span>
+            <span class="text-[10px] text-slate-400">Tutor de Idiomas com IA &amp; Treinos Diários</span>
+          </div>
+          <span class="text-[9px] font-extrabold px-2 py-0.5 rounded-full border bg-indigo-500/20 text-indigo-300 border-indigo-500/40">Idiomas</span>
+        </div>
+      </div>
+    </div>
+    </div>
+  </div>
+
+  <script>
+    function toggleEcosystemBar() {
+      var bar = document.getElementById('ecosystemBar');
+      var icon = document.getElementById('ecoToggleIcon');
+      if (bar) {
+        if (bar.classList.contains('hidden')) {
+          bar.classList.remove('hidden');
+          if (icon) icon.innerText = '▲';
+        } else {
+          bar.classList.add('hidden');
+          if (icon) icon.innerText = '▼';
+        }
+      }
+    }
+  </script>
+
+  <!-- ==================================================================== -->
+  <!-- 2. MAIN APP SHELL (PROTECTED) -->
+  <!-- ==================================================================== -->
+  <div id="appShell" class="hidden max-w-7xl mx-auto p-4 md:p-6 space-y-6">
+
+    <!-- Top Navigation / Header -->
+    <header class="bg-[var(--card)] border border-[var(--border)] rounded-2xl p-4 shadow-xl flex justify-between items-center gap-4">
+      <div class="flex items-center gap-3">
+        <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-purple-600 to-cyan-500 flex items-center justify-center text-white font-black text-xl shadow-md">
+          MW
+        </div>
+        <div>
+          <h2 class="font-extrabold text-sm md:text-base text-white flex items-center gap-2">
+            Montanha WhatsApp Automation <span class="text-xs bg-purple-500/20 text-purple-300 border border-purple-500/30 px-2 py-0.5 rounded-full">SaaS</span>
+          </h2>
+          <p id="userEmailBadge" class="text-[11px] text-[var(--muted-foreground)]">demo@eduflow.app</p>
+        </div>
+      </div>
+
+      <div class="flex items-center gap-2 sm:gap-3">
+        <button onclick="switchTab('create')" class="bg-gradient-to-r from-purple-600 to-cyan-500 hover:opacity-90 text-white text-xs font-bold px-3 py-1.5 rounded-xl shadow-md transition flex items-center gap-1.5 cursor-pointer">
+          ✨ Criar Mensagens IA
+        </button>
+
+        <div class="hidden sm:flex items-center gap-2 bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 text-xs px-3 py-1.5 rounded-xl font-semibold">
+          <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+          <span id="headerConnectionStatus">WhatsApp Conectado</span>
+        </div>
+
+        <button onclick="handleLogout()" class="bg-red-500/10 hover:bg-red-500/20 text-red-400 border border-red-500/30 px-3 py-1.5 rounded-xl text-xs font-semibold transition">
+          Sair
+        </button>
+      </div>
+    </header>
+
+    <!-- Main Flex Container with Left Sidebar & Content -->
+    <div class="flex flex-col md:flex-row gap-6 items-start">
+
+      <!-- Desktop Left Sidebar with SpotlightIndicator -->
+      <aside class="hidden md:flex flex-col w-56 bg-[var(--card)] border border-[var(--border)] rounded-2xl p-3 shadow-xl shrink-0 sticky top-6">
+        <div class="flex items-center gap-2.5 p-3 mb-2 border-b border-[var(--border)]">
+          <div class="w-8 h-8 rounded-xl bg-gradient-to-tr from-purple-600 to-cyan-500 flex items-center justify-center text-white font-black text-sm shadow-md">
+            MW
+          </div>
+          <div>
+            <h3 class="font-extrabold text-xs text-white">Montanha WhatsApp Automation</h3>
+            <p class="text-[10px] text-[var(--muted-foreground)]">Automação SaaS Multi-Tenant, CRM & Disparos Inteligentes via WhatsApp</p>
+          </div>
+        </div>
+
+        <div id="desktopSpotlightNav" class="relative flex flex-col gap-1">
+          <span id="desktopSpotlightBar" class="pointer-events-none absolute left-1 w-1 rounded-sm bg-purple-500 shadow-[2px_0_5px_rgba(168,85,247,.8),4px_0_11px_rgba(168,85,247,.45)] transition-[top,height] duration-300 ease-[cubic-bezier(.4,0,.2,1)]"></span>
+          <button onclick="switchTab('dashboard')" id="sideNavDash" class="side-nav-btn flex items-center gap-3 px-3 py-2.5 rounded-xl text-xs font-bold text-white bg-purple-600/20 text-left transition-colors cursor-pointer">
+            <span>📊</span> Dashboard
+          </button>
+          <button onclick="switchTab('contacts')" id="sideNavContacts" class="side-nav-btn flex items-center gap-3 px-3 py-2.5 rounded-xl text-xs font-semibold text-[var(--muted-foreground)] hover:text-white hover:bg-slate-800/50 text-left transition-colors cursor-pointer">
+            <span>👥</span> Contatos
+          </button>
+          <button onclick="switchTab('create')" id="sideNavCreate" class="side-nav-btn flex items-center gap-3 px-3 py-2.5 rounded-xl text-xs font-semibold text-[var(--muted-foreground)] hover:text-white hover:bg-slate-800/50 text-left transition-colors cursor-pointer">
+            <span>✨</span> Criar Mensagens IA
+          </button>
+          <button onclick="switchTab('qrcode')" id="sideNavQrcode" class="side-nav-btn flex items-center gap-3 px-3 py-2.5 rounded-xl text-xs font-semibold text-[var(--muted-foreground)] hover:text-white hover:bg-slate-800/50 text-left transition-colors cursor-pointer">
+            <span>📱</span> QR Code
+          </button>
+        </div>
+      </aside>
+
+      <main class="flex-1 w-full space-y-6">
+
+    <!-- TAB CONTENT 1: DASHBOARD (WORKFLOW COMPLETO ESTILO BACKEND) -->
+    <section id="tabContentDashboard" class="tab-page space-y-6">
+      
+      <!-- Top Summary Cards -->
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+        <div class="bg-[var(--card)] border border-[var(--border)] rounded-xl p-5 shadow-sm space-y-2">
+          <div class="flex justify-between items-center text-[var(--muted-foreground)]">
+            <span class="text-xs font-bold uppercase tracking-wider">Total de Contatos Reais</span>
+            <span class="text-purple-400">👥</span>
+          </div>
+          <div id="statContactsCount" class="text-3xl font-extrabold text-white">0</div>
+          <span class="text-xs text-emerald-400 font-medium">✓ Agenda Base Sincronizada</span>
+        </div>
+
+        <div class="bg-[var(--card)] border border-[var(--border)] rounded-xl p-5 shadow-sm space-y-2">
+          <div class="flex justify-between items-center text-[var(--muted-foreground)]">
+            <span class="text-xs font-bold uppercase tracking-wider">Turma CTH (Híbrido)</span>
+            <span class="text-cyan-400">🏋️</span>
+          </div>
+          <div id="statCthCount" class="text-3xl font-extrabold text-white">0</div>
+          <span class="text-xs text-cyan-400 font-medium">🏋️ Alunos Treinamento Híbrido</span>
+        </div>
+
+        <div class="bg-[var(--card)] border border-[var(--border)] rounded-xl p-5 shadow-sm space-y-2">
+          <div class="flex justify-between items-center text-[var(--muted-foreground)]">
+            <span class="text-xs font-bold uppercase tracking-wider">Leads & Interessados</span>
+            <span class="text-amber-400">⚡</span>
+          </div>
+          <div id="statLeadsCount" class="text-3xl font-extrabold text-white">0</div>
+          <span class="text-xs text-amber-400 font-medium">🚀 Potenciais Novos Alunos</span>
+        </div>
+
+        <div class="bg-[var(--card)] border border-[var(--border)] rounded-xl p-5 shadow-sm space-y-2">
+          <div class="flex justify-between items-center text-[var(--muted-foreground)]">
+            <span class="text-xs font-bold uppercase tracking-wider">Disparos Registrados</span>
+            <span class="text-emerald-400">✓</span>
+          </div>
+          <div id="statDispatchesCount" class="text-3xl font-extrabold text-white">0</div>
+          <span class="text-xs text-purple-400 font-medium">📱 Modo PWA Nativo Habilitado</span>
+        </div>
+      </div>
+
+      <!-- Main Workspace 2-Column Grid (Backend Dashboard Layout) -->
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+
+        <!-- Column 1: Nominal Contact Selector (6 cols) -->
+        <div class="lg:col-span-6 bg-[var(--card)] border border-[var(--border)] rounded-2xl p-6 space-y-4 shadow-xl">
+          <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-2 border-b border-[var(--border)] pb-4">
+            <div>
+              <h3 class="font-bold text-base text-white">1. Seleção Nominal de Contatos</h3>
+              <p class="text-xs text-[var(--muted-foreground)]">Filtre, busque e selecione nominalmente os destinatários</p>
+            </div>
+            
+            <div class="flex flex-wrap items-center gap-1.5">
+              <button type="button" onclick="selectAllContactsInBase()" title="Selecionar todos os contatos da base" class="text-[11px] text-purple-300 hover:text-purple-200 font-bold bg-purple-600/20 border border-purple-500/30 px-2.5 py-1 rounded-lg transition cursor-pointer">
+                ✓ Todos da Base
+              </button>
+              <button type="button" onclick="selectAllInActiveGroup()" title="Selecionar todos os contatos do grupo/categoria atual" class="text-[11px] text-cyan-300 hover:text-cyan-200 font-bold bg-cyan-600/20 border border-cyan-500/30 px-2.5 py-1 rounded-lg transition cursor-pointer">
+                ✓ Todos do Grupo
+              </button>
+              <button type="button" onclick="clearSelectedContacts()" title="Limpar seleção" class="text-[11px] text-red-400 hover:text-red-300 font-bold bg-red-950/30 border border-red-500/30 px-2 py-1 rounded-lg transition cursor-pointer">
+                ✕ Limpar
+              </button>
+            </div>
+          </div>
+
+          <!-- Search & Filter Bar -->
+          <div class="flex flex-col sm:flex-row gap-3">
+            <input type="text" id="contactSearchInput" oninput="renderContactsTable()" placeholder="🔍 Buscar por Nome ou Telefone..." class="flex-1 bg-[var(--background)] border border-[var(--border)] rounded-xl px-3 py-2 text-xs text-white outline-none focus:border-purple-500 font-medium">
+            
+            <select id="categoryFilterSelect" onchange="renderContactsTable()" class="bg-[var(--background)] border border-[var(--border)] rounded-xl px-3 py-2 text-xs text-white outline-none focus:border-purple-500 font-semibold">
+              <option value="all">Todas as Categorias</option>
+              <option value="CTH">🏋️ CTH (Híbrido)</option>
+              <option value="LEAD">🚀 LEAD</option>
+              <option value="PT">👤 PT</option>
+              <option value="GERAL">📋 GERAL</option>
+            </select>
+          </div>
+
+          <!-- Action badge for Contacts -->
+          <div class="flex items-center justify-between gap-2 bg-[var(--background)] p-3 rounded-xl border border-[var(--border)] text-xs">
+            <span id="selectedCountBadge" class="font-bold text-purple-300">Nenhum contato selecionado</span>
+            <button type="button" onclick="switchTab('contacts')" class="text-[11px] text-purple-400 hover:underline font-bold">
+              ⚙️ Gerenciar / Adicionar Contatos →
+            </button>
+          </div>
+
+          <!-- Scrollable Contacts List -->
+          <div class="border border-[var(--border)] rounded-xl overflow-hidden bg-[var(--background)]">
+            <div class="max-h-[380px] overflow-y-auto custom-scrollbar divide-y divide-[var(--border)]" id="contactsTableList">
+              <!-- Rendered dynamically via JS -->
+            </div>
+          </div>
+        </div>
+
+        <!-- Column 2: Configure WhatsApp Dispatch (6 cols) -->
+        <div class="lg:col-span-6 bg-[var(--card)] border border-[var(--border)] rounded-2xl p-6 space-y-4 shadow-xl">
+          <div class="border-b border-[var(--border)] pb-4">
+            <h3 class="font-bold text-base text-white">2. Configurar Disparo WhatsApp</h3>
+            <p class="text-xs text-[var(--muted-foreground)]">Mensagem de texto, anexos opcionais e agendamento</p>
+          </div>
+
+          <!-- Selected target summary -->
+          <div class="bg-[var(--background)] p-3 rounded-xl border border-purple-500/30 text-xs space-y-1">
+            <span class="block text-[11px] text-[var(--muted-foreground)] font-semibold uppercase tracking-wider">DESTINATÁRIOS SELECIONADOS:</span>
+            <span id="dispatchTargetSummary" class="font-bold text-sm text-amber-400 block">⚠️ Nenhum contato selecionado (Selecione ao menos 1)</span>
+          </div>
+
+          <!-- Form controls -->
+          <div class="space-y-4 text-xs">
+            
+            <!-- Quick templates bar -->
+            <div class="space-y-1.5">
+              <div class="flex justify-between items-center">
+                <label class="font-semibold text-slate-300">Modelos Rápidos:</label>
+                <button type="button" onclick="openTemplatesModal()" class="text-[11px] text-purple-400 hover:underline font-bold">⚙️ Editar Modelos</button>
+              </div>
+              <div id="quickTemplatesContainer" class="flex flex-wrap gap-2">
+                <!-- Rendered dynamically -->
+              </div>
+            </div>
+
+            <!-- Message text area with Paperclip Attachment -->
+            <div class="space-y-2">
+              <div class="flex items-center justify-between">
+                <label class="font-semibold text-slate-300 flex items-center gap-1.5">
+                  <span>💬 Mensagem do Disparo:</span>
+                </label>
+                <button type="button" onclick="triggerDeviceFileInput()" title="Anexar Imagem ou Arquivo" class="inline-flex items-center gap-1.5 text-xs text-purple-300 hover:text-purple-200 bg-purple-600/20 hover:bg-purple-600/30 border border-purple-500/40 px-3 py-1.5 rounded-xl transition font-bold cursor-pointer shadow-sm">
+                  <span>📎</span> Anexar Imagem / Arquivo
+                </button>
+              </div>
+
+              <input type="file" id="deviceFileInput" onchange="uploadDeviceFile(this)" class="hidden" accept="image/*,video/*,application/pdf">
+
+              <div id="fileUploadBadge" class="hidden flex items-center justify-between text-emerald-400 font-semibold text-[11px] bg-emerald-500/10 p-2.5 rounded-xl border border-emerald-500/30">
+                <span id="fileNameDisplay" class="flex items-center gap-1.5">
+                  <span>📎</span> Arquivo Anexado
+                </span>
+                <button type="button" onclick="resetFileSelection()" class="text-red-400 hover:text-red-300 text-xs font-bold hover:underline">
+                  ✕ Remover Anexo
+                </button>
+              </div>
+
+              <textarea id="messageText" rows="4" placeholder="Escreva a mensagem personalizada aqui... Ex: {Olá|Oi|Tudo bem}, {seu agendamento|seu treino} está pronto!" class="w-full bg-[var(--background)] border border-[var(--border)] rounded-xl p-3 text-white outline-none focus:border-purple-500 resize-none font-sans text-xs leading-relaxed"></textarea>
+            </div>
+
+            <!-- Anti-Ban Cadence Protection Info Card -->
+            <div class="bg-purple-950/40 border border-purple-500/30 rounded-xl p-3 text-[11px] space-y-2 text-purple-200 shadow-inner">
+              <div class="flex items-center justify-between font-bold text-amber-300">
+                <span class="flex items-center gap-1.5 text-xs">🛡️ Proteção Antibloqueio WhatsApp</span>
+                <span class="text-[10px] bg-emerald-500/20 text-emerald-300 border border-emerald-500/40 px-2 py-0.5 rounded-full font-mono font-bold">15s-45s / Lote 10</span>
+              </div>
+              <p class="text-slate-300 leading-normal">
+                Disparos em massa utilizam intervalo humano variado (15s a 45s) com pausa automática de 2 min a cada 10 disparos para proteger seu chip contra restrições da Meta.
+              </p>
+              <div class="text-[10px] text-purple-200 bg-purple-900/50 p-2 rounded-lg border border-purple-500/30 flex items-start gap-1.5">
+                <span class="text-amber-400">💡</span>
+                <div>
+                  <strong class="text-amber-300">Dica Anti-Spam (Spin-Tax):</strong> Use chaves com opções divididas por barra como <code>{Olá|Oi|Tudo bem}</code> no texto. O sistema alternará aleatoriamente as palavras em cada envio!
+                </div>
+              </div>
+            </div>
+
+            <!-- Scheduling / Immediate controls -->
+            <div class="grid grid-cols-2 gap-3 pt-1">
+              <div>
+                <label class="block font-semibold text-slate-300 mb-1">Data:</label>
+                <input type="date" id="scheduleDate" class="w-full bg-[var(--background)] border border-[var(--border)] rounded-xl p-2.5 text-white outline-none focus:border-purple-500 font-mono">
+              </div>
+              <div>
+                <label class="block font-semibold text-slate-300 mb-1">Horário:</label>
+                <input type="time" id="scheduleTime" class="w-full bg-[var(--background)] border border-[var(--border)] rounded-xl p-2.5 text-white outline-none focus:border-purple-500 font-mono">
+              </div>
+            </div>
+
+            <!-- Action buttons -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-2">
+              <button type="button" onclick="triggerSendNow()" class="w-full bg-gradient-to-r from-emerald-600 to-teal-500 hover:opacity-90 text-white font-bold py-3 rounded-xl shadow-lg transition flex items-center justify-center gap-2">
+                ⚡ Enviar Agora
+              </button>
+              <button type="button" onclick="handleDispatchSubmitDirect()" class="w-full bg-gradient-to-r from-purple-600 to-cyan-500 hover:opacity-90 text-white font-bold py-3 rounded-xl shadow-lg transition flex items-center justify-center gap-2">
+                ⏳ Agendar Disparo
+              </button>
+            </div>
+
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Section 3: Visual History Table of Sent and Scheduled Dispatches -->
+      <div class="bg-[var(--card)] border border-[var(--border)] rounded-2xl p-6 space-y-4 shadow-xl">
+        <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3 border-b border-[var(--border)] pb-4">
+          <div>
+            <h3 class="font-bold text-base text-white flex items-center gap-2">
+              <span>📋</span> Histórico Visual de Disparos & Agendamentos
+            </h3>
+            <p class="text-xs text-[var(--muted-foreground)]">Acompanhamento em tempo real de mensagens enviadas e programadas</p>
+          </div>
+          <div class="flex items-center gap-2">
+            <span class="inline-flex items-center gap-1.5 text-xs text-emerald-400 font-semibold bg-emerald-500/10 border border-emerald-500/30 px-3 py-1 rounded-full">
+              <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+              Ao Vivo (4s)
+            </span>
+            <button type="button" onclick="syncLiveHistoryFromBackend()" class="text-xs bg-slate-800 hover:bg-slate-700 text-slate-200 border border-[var(--border)] px-3 py-1 rounded-xl transition font-bold cursor-pointer">
+              🔄 Atualizar
+            </button>
+            <button type="button" onclick="clearAllHistory()" class="text-xs bg-red-950/40 hover:bg-red-900/60 text-red-400 border border-red-500/40 px-3 py-1 rounded-xl transition font-bold cursor-pointer">
+              🗑️ Limpar Histórico
+            </button>
+          </div>
+        </div>
+
+        <div class="border border-[var(--border)] rounded-xl overflow-hidden bg-[var(--background)]">
+          <div class="overflow-x-auto custom-scrollbar">
+            <table class="w-full text-left text-xs">
+              <thead class="bg-slate-900/80 text-[var(--muted-foreground)] uppercase text-[10px] tracking-wider font-bold border-b border-[var(--border)]">
+                <tr>
+                  <th class="p-3">Data / Horário</th>
+                  <th class="p-3">Destinatário(s)</th>
+                  <th class="p-3">Mensagem / Mídia</th>
+                  <th class="p-3">Tipo / Status</th>
+                  <th class="p-3">Auditoria</th>
+                  <th class="p-3 text-right">Ação</th>
+                </tr>
+              </thead>
+              <tbody id="liveDispatchesDashboardBody" class="divide-y divide-[var(--border)] text-slate-200">
+                <tr>
+                  <td colspan="5" class="p-6 text-center text-slate-400 font-medium">Carregando histórico de disparos...</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- TAB CONTENT 2: CONTATOS (GESTÃO DE BASE & GRUPOS) -->
+    <section id="tabContentContacts" class="tab-page hidden space-y-6">
+      <div class="flex justify-between items-center bg-[var(--card)] p-3.5 rounded-2xl border border-[var(--border)] shadow-md">
+        <button onclick="switchTab('dashboard')" class="bg-purple-600/20 hover:bg-purple-600/30 text-purple-300 border border-purple-500/40 px-3.5 py-2 rounded-xl text-xs font-bold transition flex items-center gap-1.5 shadow-sm">
+          ← Voltar ao Dashboard Central
+        </button>
+        <span class="text-xs font-semibold text-[var(--muted-foreground)]">Gestão & Auditoria de Base Nominal</span>
+      </div>
+
+      <div class="bg-[var(--card)] border border-[var(--border)] rounded-2xl p-6 space-y-5 shadow-xl">
+        <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3 border-b border-[var(--border)] pb-4">
+          <div>
+            <h3 class="font-bold text-base text-white flex items-center gap-2">
+              <span>👥</span> Gestão Completa de Contatos & Grupos
+            </h3>
+            <p class="text-xs text-[var(--muted-foreground)]">Adicione, edite, audite, organize em grupos ou exclua contatos da sua base isolada</p>
+          </div>
+
+          <div class="flex flex-wrap items-center gap-2 w-full sm:w-auto">
+            <button onclick="triggerCsvImport()" class="bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs px-3.5 py-2.5 rounded-xl transition shadow-md flex items-center justify-center gap-1.5">
+              📁 Importar CSV / Excel
+            </button>
+            <input type="file" id="csvFileInput" onchange="handleCsvUpload(this)" accept=".csv,.txt,.xlsx" class="hidden">
+
+            <button onclick="openAddContactModalDialog()" class="bg-purple-600 hover:bg-purple-500 text-white font-bold text-xs px-3.5 py-2.5 rounded-xl transition shadow-md flex items-center justify-center gap-1.5">
+              + Novo Contato
+            </button>
+
+            <button onclick="openManageGroupsModal()" class="bg-cyan-600/20 hover:bg-cyan-600/30 text-cyan-300 border border-cyan-500/40 font-bold text-xs px-3.5 py-2.5 rounded-xl transition flex items-center justify-center gap-1.5">
+              🏷️ Gerenciar Grupos
+            </button>
+          </div>
+        </div>
+
+        <!-- Search, Filter & Bulk Actions Bar -->
+        <div class="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3 text-xs">
+          <div class="flex flex-1 flex-col sm:flex-row gap-2">
+            <input type="text" id="contactsMgmtSearch" oninput="renderContactsManagementTable()" placeholder="🔍 Buscar por Nome ou Telefone..." class="flex-1 bg-[var(--background)] border border-[var(--border)] rounded-xl px-3 py-2 text-white outline-none focus:border-purple-500">
+            
+            <select id="contactsMgmtCatFilter" onchange="renderContactsManagementTable()" class="bg-[var(--background)] border border-[var(--border)] rounded-xl px-3 py-2 text-white outline-none focus:border-purple-500 font-medium">
+              <option value="all">Todas as Categorias / Grupos</option>
+              <option value="CTH">🏋️ CTH</option>
+              <option value="LEAD">🚀 LEAD</option>
+              <option value="PT">👤 PT</option>
+              <option value="GERAL">📋 GERAL</option>
+            </select>
+          </div>
+
+          <!-- Bulk Selection Tools -->
+          <div class="flex items-center gap-2">
+            <span id="mgmtSelectedCount" class="text-[11px] text-purple-300 font-bold">0 selecionados</span>
+            <button onclick="bulkDeleteContacts()" class="bg-red-950/40 hover:bg-red-900/60 text-red-400 border border-red-500/40 px-2.5 py-1.5 rounded-lg text-[11px] font-bold transition">
+              🗑️ Excluir Selecionados
+            </button>
+          </div>
+        </div>
+
+        <!-- Full Management Contacts Table -->
+        <div class="border border-[var(--border)] rounded-xl overflow-hidden bg-[var(--background)]">
+          <div class="overflow-x-auto custom-scrollbar">
+            <table class="w-full text-left text-xs">
+              <thead class="bg-slate-900/80 text-[var(--muted-foreground)] uppercase text-[10px] tracking-wider font-bold border-b border-[var(--border)]">
+                <tr>
+                  <th class="p-3 w-10 text-center">
+                    <input type="checkbox" onchange="toggleSelectAllMgmt(this)" class="rounded border-slate-700 text-purple-600 focus:ring-purple-500 cursor-pointer">
+                  </th>
+                  <th class="p-3">Nome & Telefone</th>
+                  <th class="p-3">Grupo / Categoria</th>
+                  <th class="p-3">Auditoria (Cadastro)</th>
+                  <th class="p-3 text-right">Ações</th>
+                </tr>
+              </thead>
+              <tbody id="contactsManagementTableBody" class="divide-y divide-[var(--border)] text-slate-200">
+                <tr>
+                  <td colspan="5" class="p-6 text-center text-slate-400 font-medium">Carregando contatos...</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- TAB CONTENT 3: REDIRECT / ALIAS TO UNIFIED DASHBOARD -->
+    <section id="tabContentDispatch" class="tab-page hidden space-y-6">
+      <div class="bg-[var(--card)] border border-[var(--border)] rounded-2xl p-8 text-center space-y-4 max-w-xl mx-auto my-12 shadow-2xl">
+        <div class="w-16 h-16 rounded-2xl bg-purple-600/20 border border-purple-500/30 flex items-center justify-center text-2xl text-purple-400 mx-auto">
+          📊
+        </div>
+        <h3 class="text-xl font-extrabold text-white">Dashboard Central de Disparos</h3>
+        <p class="text-xs text-[var(--muted-foreground)] leading-relaxed">
+          As abas <strong>Disparar</strong> e <strong>Dashboard</strong> foram unificadas em um único ambiente completo de produção, seleção nominal e agendamento ao vivo.
+        </p>
+        <button onclick="switchTab('dashboard')" class="bg-gradient-to-r from-purple-600 to-cyan-500 text-white font-bold text-xs px-6 py-3 rounded-xl shadow-lg hover:opacity-90 transition">
+          🚀 Ir para o Dashboard Central
+        </button>
+      </div>
+    </section>
+
+    <!-- TAB CONTENT 4: CONEXÃO QR CODE -->
+    <section id="tabContentQrcode" class="tab-page hidden space-y-6">
+      <div class="flex justify-between items-center bg-[var(--card)] p-3.5 rounded-2xl border border-[var(--border)] shadow-md max-w-xl mx-auto">
+        <button onclick="switchTab('dashboard')" class="bg-purple-600/20 hover:bg-purple-600/30 text-purple-300 border border-purple-500/40 px-3.5 py-2 rounded-xl text-xs font-bold transition flex items-center gap-1.5 shadow-sm">
+          ← Voltar ao Início
+        </button>
+        <span class="text-xs font-semibold text-[var(--muted-foreground)]">Emparelhamento de Sessão</span>
+      </div>
+      <div class="bg-[var(--card)] border border-[var(--border)] rounded-2xl p-6 max-w-xl mx-auto space-y-6">
+        <div class="text-center space-y-1">
+          <h3 class="font-bold text-lg text-white">Conexão da Conta WhatsApp</h3>
+          <p class="text-xs text-[var(--muted-foreground)]">Escolha conectar via QR Code ou Número de Telefone (Código de 8 Dígitos)</p>
+        </div>
+
+        <!-- Connection Mode Switcher -->
+        <div class="flex rounded-xl bg-[var(--background)] p-1 border border-[var(--border)] text-xs">
+          <button type="button" id="tabConnectQr" onclick="switchPairingMode('qr')" class="flex-1 py-2 font-bold rounded-lg bg-purple-600 text-white transition">
+            📷 QR Code
+          </button>
+          <button type="button" id="tabConnectPhone" onclick="switchPairingMode('phone')" class="flex-1 py-2 font-bold rounded-lg text-[var(--muted-foreground)] hover:text-white transition">
+            🔢 Número de Telefone
+          </button>
+        </div>
+
+        <!-- MODE 1: QR CODE REAL BAILEYS -->
+        <div id="pairingModeQr" class="text-center space-y-4">
+          <p class="text-xs text-[var(--muted-foreground)]">Abra o WhatsApp no celular > <b>Aparelhos Conectados</b> > <b>Conectar um Aparelho</b></p>
+          <div class="bg-white p-4 rounded-2xl inline-block shadow-2xl border-4 border-purple-500/30">
+            <img id="qrCodeImage" src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='250' height='250' viewBox='0 0 250 250'><rect width='250' height='250' fill='%231e293b'/><text x='50%' y='50%' font-size='14' fill='%2394a3b8' text-anchor='middle' dy='.3em'>Carregando QR Code Real...</text></svg>" alt="QR Code WhatsApp Real" class="w-56 h-56 mx-auto rounded-lg">
+          </div>
+          <div class="flex items-center justify-center gap-2 text-xs text-purple-300 font-bold bg-purple-500/10 p-2.5 rounded-xl border border-purple-500/30">
+            <span class="w-2.5 h-2.5 rounded-full bg-purple-400 animate-pulse"></span>
+            <span id="qrStatusText">Obtendo novo QR Code do Servidor...</span>
+          </div>
+          <div>
+            <button type="button" onclick="triggerResetSession()" class="text-[11px] text-slate-400 hover:text-red-400 underline transition font-medium">
+              🧹 Limpar sessão antiga e gerar novo QR Code do zero
+            </button>
+          </div>
+        </div>
+
+        <!-- MODE 2: PHONE NUMBER PAIRING CODE -->
+        <div id="pairingModePhone" class="hidden space-y-4 text-xs text-left">
+          <div class="space-y-2">
+            <label class="block font-semibold text-slate-300">Digite seu Número do WhatsApp (com DDD)</label>
+            <div class="flex gap-2">
+              <input type="text" id="pairingPhoneNumber" placeholder="ex: 558399259385" value="558399259385" class="flex-1 bg-[var(--background)] border border-[var(--border)] rounded-xl p-3 text-white outline-none focus:border-purple-500 font-mono text-sm">
+              <button type="button" onclick="requestPhonePairingCode()" class="bg-gradient-to-r from-purple-600 to-cyan-500 hover:opacity-90 text-white font-bold px-4 py-3 rounded-xl shadow-lg transition whitespace-nowrap">
+                ⚡ Gerar Código
+              </button>
+            </div>
+          </div>
+
+          <!-- Pairing Code Result Display -->
+          <div id="pairingCodeDisplayContainer" class="hidden p-5 bg-[var(--background)] rounded-2xl border-2 border-cyan-500/40 text-center space-y-3">
+            <span class="block text-[11px] text-[var(--muted-foreground)] font-semibold uppercase tracking-wider">Seu Código de Pareamento de 8 Dígitos:</span>
+            <div class="flex items-center justify-center gap-3">
+              <span id="generatedPairingCode" class="text-3xl font-black text-cyan-300 font-mono tracking-widest bg-slate-800/80 px-4 py-2 rounded-xl border border-cyan-500/50">
+                ABCD-1234
+              </span>
+              <button type="button" onclick="copyPairingCode()" class="bg-cyan-500/20 hover:bg-cyan-500/30 text-cyan-300 border border-cyan-500/40 p-2.5 rounded-xl transition font-bold" title="Copiar Código">
+                📋
+              </button>
+            </div>
+            <div class="text-[11px] text-slate-300 text-left bg-slate-800/40 p-3 rounded-xl border border-slate-700/50 space-y-1">
+              <span class="font-bold text-cyan-300 block mb-1">Como usar no Celular:</span>
+              <ol class="list-decimal list-inside space-y-0.5 text-[var(--muted-foreground)]">
+                <li>Abra o <b>WhatsApp</b> no seu smartphone.</li>
+                <li>Vá em <b>Aparelhos Conectados</b> > <b>Conectar um Aparelho</b>.</li>
+                <li>Na parte inferior, toque em <b>Conectar com número de telefone</b>.</li>
+                <li>Digite o código exibido acima: <b id="codeHintText" class="text-cyan-300">ABCD-1234</b>.</li>
+              </ol>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- TAB CONTENT 5: PERFIL & CONFIGURAÇÕES -->
+    <section id="tabContentProfile" class="tab-page hidden space-y-6">
+      <div class="flex justify-between items-center bg-[var(--card)] p-3.5 rounded-2xl border border-[var(--border)] shadow-md max-w-2xl mx-auto">
+        <button onclick="switchTab('dashboard')" class="bg-purple-600/20 hover:bg-purple-600/30 text-purple-300 border border-purple-500/40 px-3.5 py-2 rounded-xl text-xs font-bold transition flex items-center gap-1.5 shadow-sm">
+          ← Voltar ao Início
+        </button>
+        <span class="text-xs font-semibold text-[var(--muted-foreground)]">Configurações do Usuário</span>
+      </div>
+      <div class="bg-[var(--card)] border border-[var(--border)] rounded-2xl p-6 max-w-2xl mx-auto space-y-6">
+        <h3 class="font-bold text-lg text-white border-b border-[var(--border)] pb-3">Sua Conta & Configurações SaaS</h3>
+
+        <div class="space-y-3 text-xs">
+          <div class="flex justify-between p-3 bg-[var(--background)] rounded-xl border border-[var(--border)]">
+            <span class="text-[var(--muted-foreground)]">Email do Usuário:</span>
+            <span id="profileEmail" class="font-bold text-white">demo@eduflow.app</span>
+          </div>
+
+          <div class="flex justify-between p-3 bg-[var(--background)] rounded-xl border border-[var(--border)]">
+            <span class="text-[var(--muted-foreground)]">Plano Atual:</span>
+            <span class="font-bold text-purple-400">Pro Unlimited SaaS</span>
+          </div>
+
+          <div class="flex justify-between p-3 bg-[var(--background)] rounded-xl border border-[var(--border)]">
+            <span class="text-[var(--muted-foreground)]">Modo de Compilação APK:</span>
+            <span class="font-bold text-cyan-400">Capacitor JS Android Ready</span>
+          </div>
+        </div>
+
+        <div class="pt-4 border-t border-[var(--border)]">
+          <button onclick="handleLogout()" class="w-full bg-red-600 hover:bg-red-500 text-white font-bold py-3 rounded-xl transition text-xs">
+            Sair da Conta (Logout)
+          </button>
+        </div>
+      </div>
+    </section>
+
+  <!-- ==================================================================== -->
+  <!-- MOBILE BOTTOM NAVIGATION BAR -->
+  <!-- ==================================================================== -->
+  <nav id="mobileBottomNav" class="hidden md:hidden fixed bottom-0 left-0 right-0 bg-[#0f172a]/95 backdrop-blur-md border-t border-[var(--border)] p-1.5 z-40">
+    <div class="grid grid-cols-5 gap-1 text-[9px] text-center font-semibold">
+      <button onclick="switchTab('dashboard')" id="navDash" class="p-1.5 rounded-xl text-purple-400 flex flex-col items-center gap-0.5 cursor-pointer">
+        <span class="text-xs">📊</span> Dash
+      </button>
+      <button onclick="switchTab('contacts')" id="navContacts" class="p-1.5 rounded-xl text-[var(--muted-foreground)] flex flex-col items-center gap-0.5 cursor-pointer">
+        <span class="text-xs">👥</span> Contatos
+      </button>
+      <button onclick="switchTab('create')" id="navCreate" class="p-1.5 rounded-xl text-[var(--muted-foreground)] flex flex-col items-center gap-0.5 cursor-pointer">
+        <span class="text-xs">✨</span> Criar IA
+      </button>
+      <button onclick="switchTab('qrcode')" id="navQrcode" class="p-1.5 rounded-xl text-[var(--muted-foreground)] flex flex-col items-center gap-0.5 cursor-pointer">
+        <span class="text-xs">📱</span> QR Code
+      </button>
+      <button onclick="switchTab('profile')" id="navProfile" class="p-1.5 rounded-xl text-[var(--muted-foreground)] flex flex-col items-center gap-0.5 cursor-pointer">
+        <span class="text-xs">👤</span> Perfil
+      </button>
+    </div>
+  </nav>
+
+  <!-- ==================================================================== -->
+  <!-- MODAL EDITAR MODELOS RÁPIDOS -->
+  <!-- ==================================================================== -->
+  <div id="templatesModal" class="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
+    <div class="bg-[var(--card)] border border-[var(--border)] rounded-2xl max-w-lg w-full p-6 shadow-2xl space-y-4">
+      <div class="flex justify-between items-center border-b border-[var(--border)] pb-3">
+        <h3 class="font-bold text-base text-white">⚙️ Gerenciar Modelos Rápidos</h3>
+        <button onclick="closeTemplatesModal()" class="text-slate-400 hover:text-white text-lg font-bold">✕</button>
+      </div>
+
+      <div id="templatesListEditor" class="space-y-3 max-h-52 overflow-y-auto custom-scrollbar pr-1"></div>
+
+      <div class="border-t border-[var(--border)] pt-3 space-y-3 text-xs">
+        <h4 class="font-bold text-purple-300">Criar Novo Modelo</h4>
+        <input type="text" id="newTplTitle" placeholder="Título (ex: 📣 Lembrete de Aula)" class="w-full bg-[var(--background)] border border-[var(--border)] rounded-xl p-2.5 text-white outline-none focus:border-purple-500 font-medium">
+        <textarea id="newTplText" rows="3" placeholder="Texto da mensagem..." class="w-full bg-[var(--background)] border border-[var(--border)] rounded-xl p-2.5 text-white outline-none focus:border-purple-500 resize-none font-sans text-xs leading-relaxed"></textarea>
+
+        <div class="flex justify-end gap-2 pt-1">
+          <button type="button" onclick="closeTemplatesModal()" class="bg-slate-800 hover:bg-slate-700 text-slate-300 font-bold text-xs px-4 py-2.5 rounded-xl transition cursor-pointer">
+            Cancelar
+          </button>
+          <button type="button" onclick="addNewTemplate()" class="bg-gradient-to-r from-purple-600 to-cyan-500 hover:opacity-90 text-white font-bold text-xs px-5 py-2.5 rounded-xl shadow-lg transition cursor-pointer flex items-center gap-1.5">
+            💾 Salvar Modelo
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- ==================================================================== -->
+  <!-- MODAL TERMOS DE USO & SEGURANÇA JURÍDICA (MARCO CIVIL DA INTERNET) -->
+  <!-- ==================================================================== -->
+  <div id="termsModal" class="fixed inset-0 bg-black/90 backdrop-blur-md z-[99999] hidden flex items-center justify-center p-4">
+    <div class="bg-[var(--card)] border border-purple-500/40 rounded-2xl max-w-2xl w-full p-6 md:p-8 shadow-[0_0_60px_rgba(168,85,247,0.25)] space-y-5 text-xs text-slate-200">
+      <div class="flex justify-between items-start border-b border-slate-800 pb-4">
+        <div class="space-y-1">
+          <span class="text-[10px] font-black uppercase tracking-wider bg-purple-500/20 text-purple-300 border border-purple-500/40 px-2.5 py-0.5 rounded-full">
+            ⚖️ SEGURANÇA JURÍDICA &amp; MARCO CIVIL DA INTERNET
+          </span>
+          <h3 class="text-lg md:text-xl font-black text-white">Termos de Uso, Privacidade &amp; Responsabilidade Legal</h3>
+        </div>
+      </div>
+
+      <!-- Legal Text Box -->
+      <div class="bg-slate-950/80 border border-slate-800 rounded-xl p-4 max-h-72 overflow-y-auto custom-scrollbar space-y-3 text-[11px] leading-relaxed font-sans text-slate-300">
+        <p class="font-bold text-amber-300">
+          ⚠️ Por favor, leia atentamente os termos abaixo antes de prosseguir com a utilização da plataforma:
+        </p>
+
+        <div>
+          <h4 class="font-bold text-white uppercase text-[10px] tracking-wider mb-0.5">1. Titularidade e Exclusividade da Conta WhatsApp</h4>
+          <p>Ao conectar qualquer conta ou número de WhatsApp a esta plataforma, o USUÁRIO declara expressamente que é o legítimo proprietário, titular ou operador autorizado da linha telefônica conectada. A plataforma atua estritamente como intermediadora tecnológica para automação sob instrução direta do USUÁRIO.</p>
+        </div>
+
+        <div>
+          <h4 class="font-bold text-white uppercase text-[10px] tracking-wider mb-0.5">2. Proibição de Spam e Uso Ilícito (Lei nº 12.965/2014 &amp; LGPD)</h4>
+          <p>É expressamente vedado o uso do sistema para a prática de SPAM, envio de mensagens não autorizadas, conteúdo ofensivo, phishing, fraudes ou qualquer infração às Políticas de Uso do WhatsApp/Meta e à legislação brasileira vigente (Lei Geral de Proteção de Dados - LGPD e Marco Civil da Internet).</p>
+        </div>
+
+        <div>
+          <h4 class="font-bold text-white uppercase text-[10px] tracking-wider mb-0.5">3. Registro Obrigatório de Logs de Auditoria (Marco Civil da Internet)</h4>
+          <p>Para fins de conformidade legal, auditoria e rastreabilidade irrefutável de autoria (nos termos do Art. 15 do Marco Civil da Internet), esta plataforma registra e armazena automaticamente em banco de dados: <b>(a) O endereço IP do dispositivo solicitante; (b) Data e Hora exatas de cada requisição; (c) E-mail do usuário autenticado; (d) Destinatários da mensagem.</b></p>
+        </div>
+
+        <div>
+          <h4 class="font-bold text-white uppercase text-[10px] tracking-wider mb-0.5">4. Isenção de Responsabilidade do Provedor SaaS</h4>
+          <p>O provedor do software fica totalmente isento de qualquer responsabilidade civil, administrativa ou criminal decorrente do uso indevido, bloqueios de linha ou conteúdos transmitidos por decisão individual do USUÁRIO.</p>
+        </div>
+      </div>
+
+      <!-- Consent Status Footer -->
+      <div class="p-3 rounded-xl bg-purple-500/10 border border-purple-500/30 text-[11px] text-purple-200 flex items-center gap-2">
+        <span class="text-base">📌</span>
+        <span>Ao clicar em <b>"Aceito os Termos"</b>, seu aceite será registrado em banco de dados com seu e-mail, IP e data/hora.</span>
+      </div>
+
+      <!-- Interactive Action Buttons -->
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-2">
+        <button type="button" onclick="refuseTermsOfUse()" class="w-full bg-slate-900 hover:bg-red-500/20 text-red-400 border border-red-500/40 font-bold py-3 rounded-xl transition cursor-pointer text-xs">
+          ❌ Recuso os Termos
+        </button>
+        <button type="button" onclick="acceptTermsOfUse()" class="w-full bg-gradient-to-r from-purple-600 to-cyan-500 hover:opacity-90 text-white font-bold py-3 rounded-xl shadow-lg transition cursor-pointer text-xs flex items-center justify-center gap-1.5">
+          ✅ Aceito os Termos de Uso
+        </button>
+      </div>
+    </div>
+  </div>
+
+    <!-- TAB CONTENT 5: PAINEL MASTER SUPERADMIN -->
+    <section id="tabContentMasteradmin" class="tab-page hidden space-y-6">
+      <div class="bg-[var(--card)] border border-purple-500/40 rounded-2xl p-6 shadow-[0_0_50px_rgba(168,85,247,0.15)] space-y-4">
+        <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 border-b border-slate-800 pb-4">
+          <div>
+            <span className="text-[10px] bg-purple-500/20 text-purple-300 border border-purple-500/40 px-2.5 py-1 rounded-full font-black uppercase">
+              👑 Painel Master SuperAdmin
+            </span>
+            <h2 class="text-xl md:text-2xl font-black text-white mt-1">Gestão Centralizada de Licenças (5 Apps)</h2>
+            <p class="text-xs text-slate-400">Controle unificado de expiração de acessos, status financeiro (PAGO, PENDENTE, INADIMPLENTE), chave por app e trava anti-abuso.</p>
+          </div>
+          <button onclick="renderMasterAdminSubscriptions()" class="bg-purple-600 hover:bg-purple-500 text-white font-bold text-xs px-4 py-2.5 rounded-xl shadow-lg transition flex items-center gap-1.5 cursor-pointer">
+            🔄 Atualizar
+          </button>
+        </div>
+
+        <!-- 🎟️ Gerador de Convites & Acesso Temporário -->
+        <div class="bg-slate-950/80 border border-purple-500/30 rounded-2xl p-6 shadow-xl backdrop-blur-xl space-y-4">
+          <div class="flex items-center justify-between border-b border-slate-800 pb-3">
+            <div>
+              <span class="text-[10px] font-black uppercase tracking-wider bg-purple-500/20 text-purple-300 border border-purple-500/40 px-2.5 py-0.5 rounded-full">
+                🎟️ GERADOR DE CONVITES WHATSAPP
+              </span>
+              <h3 class="text-lg font-black text-white mt-1">Gerador de Convites &amp; Acesso Temporário</h3>
+              <p class="text-xs text-slate-400">Gere senhas temporárias no formato MTN-XXXX e envie convites diretos via WhatsApp.</p>
+            </div>
+          </div>
+
+          <form onsubmit="handleWaMasterInviteSubmit(event)" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 text-xs">
+            <div>
+              <label class="block font-bold text-slate-300 mb-1 uppercase tracking-wider text-[10px]">Nome do Cliente</label>
+              <input type="text" id="waInviteClientName" required placeholder="Ex: João Silva" class="w-full bg-slate-900 border border-slate-800 rounded-xl p-2.5 text-white outline-none focus:border-purple-500">
+            </div>
+
+            <div>
+              <label class="block font-bold text-slate-300 mb-1 uppercase tracking-wider text-[10px]">E-mail</label>
+              <input type="email" id="waInviteEmail" required placeholder="cliente@exemplo.com" class="w-full bg-slate-900 border border-slate-800 rounded-xl p-2.5 text-white outline-none focus:border-purple-500">
+            </div>
+
+            <div>
+              <label class="block font-bold text-slate-300 mb-1 uppercase tracking-wider text-[10px]">Telefone WhatsApp</label>
+              <input type="text" id="waInvitePhone" required placeholder="Ex: 5511999999999" class="w-full bg-slate-900 border border-slate-800 rounded-xl p-2.5 text-white outline-none focus:border-purple-500 font-mono">
+            </div>
+
+            <div>
+              <label class="block font-bold text-slate-300 mb-1 uppercase tracking-wider text-[10px]">Aplicativo Liberado</label>
+              <select id="waInviteProjectId" class="w-full bg-slate-900 border border-slate-800 rounded-xl p-2.5 text-white outline-none focus:border-purple-500 font-bold">
+                <option value="all">🌐 Todos os 5 Apps do Ecossistema</option>
+                <option value="smart-language">Smart Language</option>
+                <option value="eduflow-finance">EduFlow Finance</option>
+                <option value="construtor-pdf">Construtor de PDFs</option>
+                <option value="sistema-hibrido">Sistema Híbrido</option>
+                <option value="whatsapp-lovable">WhatsApp Automation</option>
+              </select>
+            </div>
+
+            <div class="sm:col-span-2 lg:col-span-2">
+              <label class="block font-bold text-slate-300 mb-1 uppercase tracking-wider text-[10px]">Validade do Acesso</label>
+              <select id="waInviteDuration" class="w-full bg-slate-900 border border-slate-800 rounded-xl p-2.5 text-white outline-none focus:border-purple-500 font-bold">
+                <option value="7">7 dias (Trial / Degustação)</option>
+                <option value="30">30 dias (Mensal)</option>
+                <option value="365">365 dias (Anual)</option>
+                <option value="vitalicio">Vitalício (Sem limite)</option>
+              </select>
+            </div>
+
+            <div class="sm:col-span-2 lg:col-span-2 flex items-end">
+              <button type="submit" class="w-full bg-gradient-to-r from-purple-600 to-cyan-500 hover:opacity-90 text-white font-bold h-10 rounded-xl shadow-lg transition flex items-center justify-center gap-2 cursor-pointer">
+                🎟️ Gerar Convite &amp; Senha Temporária
+              </button>
+            </div>
+          </form>
+
+          <div id="waInviteResultBox" class="hidden p-4 rounded-xl bg-purple-500/10 border border-purple-500/30 space-y-3 text-xs">
+            <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-2 border-b border-purple-500/20 pb-2">
+              <div>
+                <span class="text-[10px] text-purple-300 font-bold uppercase tracking-wider">Senha Temporária Gerada:</span>
+                <div id="waTempPassDisplay" class="text-2xl font-black font-mono text-cyan-300 tracking-widest">MTN-XXXX</div>
+              </div>
+              <button type="button" id="waSendBtn" class="bg-emerald-600 hover:bg-emerald-500 text-white font-bold px-4 py-2.5 rounded-xl shadow-lg transition flex items-center gap-2 cursor-pointer">
+                📱 Enviar Convite pelo WhatsApp
+              </button>
+            </div>
+
+            <div>
+              <span class="text-[10px] text-slate-400 font-bold uppercase tracking-wider block mb-1">Prévia da Mensagem Formatada:</span>
+              <pre id="waInviteMessagePreview" class="bg-slate-950 p-3 rounded-xl border border-slate-800 text-slate-200 text-xs whitespace-pre-wrap font-sans leading-relaxed"></pre>
+            </div>
+          </div>
+        </div>
+
+        <script>
+          let lastGeneratedWaUrl = '';
+          async function handleWaMasterInviteSubmit(e) {
+            e.preventDefault();
+            const name = document.getElementById('waInviteClientName').value;
+            const email = document.getElementById('waInviteEmail').value;
+            const phone = document.getElementById('waInvitePhone').value;
+            const projectId = document.getElementById('waInviteProjectId').value;
+            const durationDays = document.getElementById('waInviteDuration').value;
+
+            if (window.EcosystemAuthService && window.EcosystemAuthService.generateTempAccessInvite) {
+              const res = await window.EcosystemAuthService.generateTempAccessInvite(name, email, phone, projectId, durationDays === 'vitalicio' ? 'vitalicio' : Number(durationDays));
+              if (res.success) {
+                lastGeneratedWaUrl = res.whatsappUrl;
+                document.getElementById('waTempPassDisplay').innerText = res.tempPassword;
+                document.getElementById('waInviteMessagePreview').innerText = res.inviteText;
+                document.getElementById('waInviteResultBox').classList.remove('hidden');
+
+                document.getElementById('waSendBtn').onclick = function() {
+                  window.open(lastGeneratedWaUrl, '_blank');
+                };
+
+                if (typeof renderMasterAdminSubscriptions === 'function') {
+                  renderMasterAdminSubscriptions();
+                }
+              }
+            }
+          }
+
+          function showPasswordResetPrompt() {
+            const email = prompt('Digite seu e-mail cadastrado para receber as instruções de redefinição de senha:');
+            if (email) {
+              alert('Instruções para redefinição de senha foram enviadas para: ' + email);
+            }
+          }
+        </script>
+
+        <!-- Filter Bar -->
+        <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3">
+          <select id="masterAppFilter" onchange="renderMasterAdminSubscriptions()" class="bg-slate-900 border border-slate-800 rounded-xl px-3 py-2 text-xs text-white font-bold outline-none">
+            <option value="all">🌐 Todos os Apps do Ecossistema</option>
+            <option value="smart-language">Smart Language</option>
+            <option value="eduflow-finance">EduFlow Finance</option>
+            <option value="construtor-pdf">Construtor de PDFs</option>
+            <option value="sistema-hibrido">Sistema Híbrido</option>
+            <option value="whatsapp-lovable">WhatsApp Automation</option>
+          </select>
+          <input type="text" id="masterSearchEmail" oninput="renderMasterAdminSubscriptions()" placeholder="Buscar por e-mail..." class="bg-slate-900 border border-slate-800 rounded-xl px-3 py-2 text-xs text-white outline-none w-full sm:w-64">
+        </div>
+
+        <!-- Table -->
+        <div class="border border-slate-800 rounded-xl overflow-hidden bg-slate-950/60">
+          <table class="w-full text-left text-xs text-white">
+            <thead class="bg-slate-900 text-slate-400 uppercase font-extrabold text-[10px] tracking-wider border-b border-slate-800">
+              <tr>
+                <th class="p-3.5">Cliente (E-mail)</th>
+                <th class="p-3.5">Aplicativo</th>
+                <th class="p-3.5">Status de Pagamento</th>
+                <th class="p-3.5">Validade (Expiração)</th>
+                <th class="p-3.5 text-center">Ativação</th>
+              </tr>
+            </thead>
+            <tbody id="masterAdminTableBody" class="divide-y divide-slate-800/60 font-medium">
+              <!-- Rendered via JS -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- TAB CONTENT 7: ECOSYSTEM HUB (/eco) -->
+    <section id="tabContentEco" class="tab-page hidden space-y-6">
+      <div class="relative overflow-hidden rounded-3xl border border-purple-500/30 bg-gradient-to-br from-slate-950 via-slate-900 to-purple-950/40 p-6 md:p-8 shadow-2xl backdrop-blur-xl space-y-3">
+        <div class="flex flex-wrap items-center gap-2">
+          <span class="inline-flex items-center rounded-full border border-purple-500/50 bg-purple-500/10 text-purple-300 text-xs font-bold uppercase tracking-wider px-3 py-1">
+            ✨ Ecossistema Montanha Hub
+          </span>
+          <span class="inline-flex items-center rounded-full border border-cyan-500/50 bg-cyan-500/10 text-cyan-300 text-xs font-bold uppercase tracking-wider px-3 py-1">
+            ⚡ Ruflo Eco Engine v2.5
+          </span>
+        </div>
+        <h2 class="text-2xl md:text-4xl font-black tracking-tight text-white">
+          Hub do Ecossistema <span class="text-purple-400">Montanha</span>
+        </h2>
+        <p class="text-xs md:text-sm text-slate-300 max-w-3xl leading-relaxed">
+          Central unificada dos 5 aplicativos. Alterne instantaneamente entre os módulos, monitore a economia de tokens do motor Ruflo e gerencie disparos e automações de alta escala.
+        </p>
+        <div class="flex flex-wrap gap-2.5 pt-2">
+          <button onclick="switchTab('create')" class="bg-gradient-to-r from-purple-600 to-cyan-500 hover:opacity-90 text-white text-xs font-bold px-4 py-2 rounded-xl shadow-lg transition cursor-pointer">
+            ✨ Criar Mensagens IA
+          </button>
+          <button onclick="switchTab('boost')" class="bg-slate-900 border border-purple-500/40 hover:bg-purple-500/10 text-purple-300 text-xs font-bold px-4 py-2 rounded-xl transition cursor-pointer">
+            ⚡ Acelerador Booster
+          </button>
+          <button onclick="switchTab('masteradmin')" class="bg-slate-900 border border-slate-700 hover:border-purple-500/50 text-white text-xs font-bold px-4 py-2 rounded-xl transition cursor-pointer">
+            👑 Painel Master SuperAdmin
+          </button>
+        </div>
+      </div>
+
+      <!-- Ruflo Eco Engine KPIs -->
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+        <div class="bg-[var(--card)] border border-[var(--border)] rounded-xl p-5 shadow-sm space-y-2">
+          <div class="flex justify-between items-center text-[var(--muted-foreground)]">
+            <span class="text-xs font-bold uppercase tracking-wider">Economia de Tokens</span>
+            <span class="text-purple-400">⚡</span>
+          </div>
+          <div class="text-3xl font-extrabold text-purple-400">84.7%</div>
+          <span class="text-xs text-[var(--muted-foreground)]">Redução com Ruflo /eco</span>
+        </div>
+        <div class="bg-[var(--card)] border border-[var(--border)] rounded-xl p-5 shadow-sm space-y-2">
+          <div class="flex justify-between items-center text-[var(--muted-foreground)]">
+            <span class="text-xs font-bold uppercase tracking-wider">Cache de 0 Tokens</span>
+            <span class="text-cyan-400">💾</span>
+          </div>
+          <div class="text-3xl font-extrabold text-cyan-400">Ativo</div>
+          <span class="text-xs text-[var(--muted-foreground)]">Respostas prontas em cache local</span>
+        </div>
+        <div class="bg-[var(--card)] border border-[var(--border)] rounded-xl p-5 shadow-sm space-y-2">
+          <div class="flex justify-between items-center text-[var(--muted-foreground)]">
+            <span class="text-xs font-bold uppercase tracking-wider">Context Pruning</span>
+            <span class="text-emerald-400">✂️</span>
+          </div>
+          <div class="text-3xl font-extrabold text-emerald-400">4 Itens</div>
+          <span class="text-xs text-[var(--muted-foreground)]">Janela compactada por contato</span>
+        </div>
+        <div class="bg-[var(--card)] border border-[var(--border)] rounded-xl p-5 shadow-sm space-y-2">
+          <div class="flex justify-between items-center text-[var(--muted-foreground)]">
+            <span class="text-xs font-bold uppercase tracking-wider">Model Tiering</span>
+            <span class="text-amber-400">🤖</span>
+          </div>
+          <div class="text-3xl font-extrabold text-amber-400">Flash 2.5</div>
+          <span class="text-xs text-[var(--muted-foreground)]">Lite para texto, Flash para CRM</span>
+        </div>
+      </div>
+
+      <!-- 5 Apps Grid -->
+      <div class="space-y-3">
+        <h3 class="text-lg font-bold text-white flex items-center gap-2">
+          <span>🌐</span> Aplicativos do Ecossistema Montanha
+        </h3>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+          <div class="bg-[var(--card)] border-2 border-purple-500/50 rounded-2xl p-5 space-y-3 flex flex-col justify-between">
+            <div class="space-y-2">
+              <div class="flex justify-between items-start">
+                <span class="text-2xl">📱</span>
+                <span class="text-[10px] font-extrabold uppercase px-2 py-0.5 rounded-full border border-purple-500/40 bg-purple-500/20 text-purple-300">App Atual</span>
+              </div>
+              <h4 class="font-extrabold text-white text-sm">Montanha WhatsApp Automation</h4>
+              <p class="text-xs text-slate-300 leading-relaxed">Automação SaaS multi-tenant, CRM e disparos inteligentes via WhatsApp.</p>
+            </div>
+          <div class="border-t border-[var(--border)] pt-3 flex justify-between items-center">
+        <button onclick="closeTemplatesModal()" class="bg-slate-800 hover:bg-slate-700 text-white text-xs font-bold px-4 py-2 rounded-xl transition">Fechar</button>
+        <button onclick="addNewTemplate()" class="bg-purple-600 hover:bg-purple-500 text-white text-xs font-bold px-4 py-2 rounded-xl transition shadow">Salvar Modelo</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================================================================== -->
+  <!-- MODAL CRIAR / EDITAR CONTATO -->
+  <!-- ==================================================================== -->
+  <div id="contactFormModal" class="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
+    <div class="bg-[var(--card)] border border-[var(--border)] rounded-2xl max-w-md w-full p-6 shadow-2xl space-y-4">
+      <div class="flex justify-between items-center border-b border-[var(--border)] pb-3">
+        <h3 id="contactModalTitle" class="font-bold text-base text-white">👤 Novo Contato</h3>
+        <button onclick="closeContactFormModal()" class="text-slate-400 hover:text-white text-lg font-bold">✕</button>
+      </div>
+
+      <form onsubmit="handleSaveContactForm(event)" class="space-y-4 text-xs">
+        <input type="hidden" id="editContactId" value="">
+
+        <div>
+          <label class="block font-semibold text-slate-300 mb-1">Nome Completo do Contato:</label>
+          <input type="text" id="contactFormName" required placeholder="Ex: Maria Silva" class="w-full bg-[var(--background)] border border-[var(--border)] rounded-xl p-2.5 text-white outline-none focus:border-purple-500 font-medium">
+        </div>
+
+        <div>
+          <label class="block font-semibold text-slate-300 mb-1">Telefone / WhatsApp (com DDD):</label>
+          <input type="text" id="contactFormPhone" required placeholder="Ex: 558399259385" class="w-full bg-[var(--background)] border border-[var(--border)] rounded-xl p-2.5 text-white outline-none focus:border-purple-500 font-mono">
+        </div>
+
+        <div>
+          <label class="block font-semibold text-slate-300 mb-1">Grupo / Categoria:</label>
+          <div class="flex gap-2">
+            <select id="contactFormCategory" class="flex-1 bg-[var(--background)] border border-[var(--border)] rounded-xl p-2.5 text-white outline-none focus:border-purple-500 font-medium">
+              <option value="GERAL">📋 GERAL</option>
+              <option value="CTH">🏋️ CTH</option>
+              <option value="LEAD">🚀 LEAD</option>
+              <option value="PT">👤 PT</option>
+            </select>
+            <button type="button" onclick="promptNewCategory()" class="bg-cyan-600/20 hover:bg-cyan-600/30 text-cyan-300 border border-cyan-500/40 px-3 rounded-xl font-bold text-xs">+ Novo Grupo</button>
+          </div>
+        </div>
+
+        <div class="flex gap-3 pt-2">
+          <button type="button" onclick="closeContactFormModal()" class="flex-1 bg-slate-800 hover:bg-slate-700 text-slate-300 font-bold py-2.5 rounded-xl transition">
+            Cancelar
+          </button>
+          <button type="submit" class="flex-1 bg-gradient-to-r from-purple-600 to-cyan-500 hover:opacity-90 text-white font-bold py-2.5 rounded-xl shadow-lg transition">
+            Salvar Contato
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- ==================================================================== -->
+  <!-- MODAL GERENCIAR GRUPOS DE CONTATOS -->
+  <!-- ==================================================================== -->
+  <div id="groupsModal" class="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
+    <div class="bg-[var(--card)] border border-[var(--border)] rounded-2xl max-w-md w-full p-6 shadow-2xl space-y-4">
+      <div class="flex justify-between items-center border-b border-[var(--border)] pb-3">
+        <h3 class="font-bold text-base text-white">🏷️ Criar e Organizar Grupos</h3>
+        <button onclick="closeGroupsModal()" class="text-slate-400 hover:text-white text-lg font-bold">✕</button>
+      </div>
+
+      <div class="space-y-3 text-xs">
+        <div>
+          <label class="block font-semibold text-slate-300 mb-1">Nome do Novo Grupo:</label>
+          <div class="flex gap-2">
+            <input type="text" id="newGroupNameInput" placeholder="Ex: Alunos VIP 2026" class="flex-1 bg-[var(--background)] border border-[var(--border)] rounded-xl p-2.5 text-white outline-none focus:border-purple-500">
+            <button type="button" onclick="addCustomGroupFromInput()" class="bg-purple-600 hover:bg-purple-500 text-white font-bold px-4 py-2.5 rounded-xl transition shadow">
+              Criar
+            </button>
+          </div>
+        </div>
+
+        <div class="border-t border-[var(--border)] pt-3 space-y-2">
+          <h4 class="font-bold text-slate-300">Grupos Existentes:</h4>
+          <div id="groupsListContainer" class="space-y-1.5 max-h-48 overflow-y-auto custom-scrollbar">
+            <!-- Rendered dynamically -->
+          </div>
+        </div>
+      </div>
+
+      <div class="border-t border-[var(--border)] pt-3 text-right">
+        <button onclick="closeGroupsModal()" class="bg-slate-800 hover:bg-slate-700 text-white font-bold text-xs px-4 py-2.5 rounded-xl transition">
+          Fechar
+        </button>
+      </div>
+    </div>
+  </div><button onclick="switchTab('dashboard')" class="w-full bg-purple-600 hover:bg-purple-500 text-white text-xs font-bold py-2 rounded-xl transition cursor-pointer">
+              Acessar Painel
+            </button>
+          </div>
+
+          <div class="bg-[var(--card)] border border-[var(--border)] rounded-2xl p-5 space-y-3 flex flex-col justify-between">
+            <div class="space-y-2">
+              <div class="flex justify-between items-start">
+                <span class="text-2xl">🏋️</span>
+                <span class="text-[10px] font-extrabold uppercase px-2 py-0.5 rounded-full border border-cyan-500/40 bg-cyan-500/20 text-cyan-300">Treinamento</span>
+              </div>
+              <h4 class="font-extrabold text-white text-sm">Montanha Hybrid Training</h4>
+              <p class="text-xs text-slate-300 leading-relaxed">Alta performance para atletas híbridos, endurance, musculação, LPO e periodização com IA.</p>
+            </div>
+            <a href="http://localhost:5176/eco" target="_blank" class="w-full block text-center bg-slate-900 border border-slate-700 hover:border-cyan-500/50 text-white text-xs font-bold py-2 rounded-xl transition">
+              Abrir Módulo ↗
+            </a>
+          </div>
+
+          <div class="bg-[var(--card)] border border-[var(--border)] rounded-2xl p-5 space-y-3 flex flex-col justify-between">
+            <div class="space-y-2">
+              <div class="flex justify-between items-start">
+                <span class="text-2xl">💰</span>
+                <span class="text-[10px] font-extrabold uppercase px-2 py-0.5 rounded-full border border-emerald-500/40 bg-emerald-500/20 text-emerald-300">Finanças</span>
+              </div>
+              <h4 class="font-extrabold text-white text-sm">Montanha Personal Studio</h4>
+              <p class="text-xs text-slate-300 leading-relaxed">Gestão financeira para personais, controle de alunos, cobranças recorrentes e contratos.</p>
+            </div>
+            <a href="http://localhost:5173/eco" target="_blank" class="w-full block text-center bg-slate-900 border border-slate-700 hover:border-emerald-500/50 text-white text-xs font-bold py-2 rounded-xl transition">
+              Abrir Módulo ↗
+            </a>
+          </div>
+
+          <div class="bg-[var(--card)] border border-[var(--border)] rounded-2xl p-5 space-y-3 flex flex-col justify-between">
+            <div class="space-y-2">
+              <div class="flex justify-between items-start">
+                <span class="text-2xl">🗣️</span>
+                <span class="text-[10px] font-extrabold uppercase px-2 py-0.5 rounded-full border border-indigo-500/40 bg-indigo-500/20 text-indigo-300">Idiomas</span>
+              </div>
+              <h4 class="font-extrabold text-white text-sm">Montanha Language AI</h4>
+              <p class="text-xs text-slate-300 leading-relaxed">Tutor inteligente de idiomas com IA, microtreinos de 5 minutos e fluência acelerada.</p>
+            </div>
+            <a href="http://localhost:5174/eco" target="_blank" class="w-full block text-center bg-slate-900 border border-slate-700 hover:border-indigo-500/50 text-white text-xs font-bold py-2 rounded-xl transition">
+              Abrir Módulo ↗
+            </a>
+          </div>
+
+          <div class="bg-[var(--card)] border border-[var(--border)] rounded-2xl p-5 space-y-3 flex flex-col justify-between">
+            <div class="space-y-2">
+              <div class="flex justify-between items-start">
+                <span class="text-2xl">📄</span>
+                <span class="text-[10px] font-extrabold uppercase px-2 py-0.5 rounded-full border border-amber-500/40 bg-amber-500/20 text-amber-300">Editorial</span>
+              </div>
+              <h4 class="font-extrabold text-white text-sm">Montanha PDF Studio</h4>
+              <p class="text-xs text-slate-300 leading-relaxed">Diagramação de fichas de treino, relatórios e e-books no padrão editorial suíço.</p>
+            </div>
+            <a href="http://localhost:5175/eco" target="_blank" class="w-full block text-center bg-slate-900 border border-slate-700 hover:border-amber-500/50 text-white text-xs font-bold py-2 rounded-xl transition">
+              Abrir Módulo ↗
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- TAB CONTENT 8: CREATE MESSAGES & CAMPAIGNS (/create) -->
+    <section id="tabContentCreate" class="tab-page hidden space-y-4">
+      <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3 bg-[var(--card)] p-4 rounded-2xl border border-[var(--border)] shadow-md">
+        <div class="flex items-center gap-3">
+          <button onclick="switchTab('dashboard')" class="bg-purple-600/20 hover:bg-purple-600/30 text-purple-300 border border-purple-500/40 px-3.5 py-2 rounded-xl text-xs font-bold transition flex items-center gap-1.5 shadow-sm cursor-pointer shrink-0">
+            ← Voltar ao Início
+          </button>
+          <div>
+            <h2 class="text-base font-extrabold text-white flex items-center gap-2">
+              ✨ Estúdio de Criação de Mensagens IA <span class="text-[10px] bg-purple-500/20 text-purple-300 border border-purple-500/30 px-2 py-0.5 rounded-full font-mono">Google Gemini 2.5 Flash</span>
+            </h2>
+            <p class="text-[11px] text-[var(--muted-foreground)]">Gere mensagens personalizadas para alunos e leads com IA (incluso sem cobrança de tokens).</p>
+          </div>
+        </div>
+
+        <div class="flex items-center gap-2 text-xs bg-emerald-500/10 border border-emerald-500/30 text-emerald-300 px-3 py-1.5 rounded-xl font-semibold shrink-0">
+          <span>🤖 Gemini AI Ativo (Gratuito)</span>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+        <div class="lg:col-span-7 bg-[var(--card)] border border-[var(--border)] rounded-2xl p-6 space-y-4 shadow-xl">
+          <div class="flex items-center justify-between border-b border-[var(--border)] pb-3">
+            <h3 class="font-bold text-base text-white flex items-center gap-2">
+              <span>✨</span> Gerador com IA de Notificações WhatsApp
+            </h3>
+            <span class="text-[10px] bg-purple-500/20 text-purple-300 border border-purple-500/30 px-2 py-0.5 rounded-full font-mono">PROMPT LIVRE</span>
+          </div>
+
+          <div class="space-y-4 text-xs">
+            <div>
+              <div class="flex justify-between items-center mb-1.5">
+                <label class="font-bold text-slate-200">Objetivo / Prompt da Mensagem:</label>
+                <span class="text-[11px] text-slate-400">Totalmente editável</span>
+              </div>
+              <textarea id="createCampaignPrompt" rows="3" class="w-full bg-[var(--background)] border border-[var(--border)] rounded-xl p-3 text-xs text-white outline-none focus:border-purple-500 font-sans leading-relaxed transition-all placeholder:text-slate-500" placeholder="Digite exatamente o que você deseja comunicar (ex: Avisar sobre o treino de hipertrofia de hoje, enviar chave pix para renovação, convite para aula experimental, dar os parabéns pela meta semanal batida, etc.)..."></textarea>
+
+              <!-- Sugestões Rápidas de Prompts (Chips) -->
+              <div class="mt-2 space-y-1.5">
+                <span class="text-[10px] font-bold text-slate-400 uppercase tracking-wider block">Atalhos rápidos para o Prompt:</span>
+                <div class="flex flex-wrap gap-1.5">
+                  <button type="button" onclick="setCampaignPrompt('Avisar a turma sobre o treino de força e controle de carga do dia no app Montanha Hybrid Training')" class="px-2.5 py-1 rounded-lg bg-slate-800/80 hover:bg-purple-600/30 border border-slate-700/60 hover:border-purple-500/50 text-slate-300 hover:text-white transition text-[11px] cursor-pointer">
+                    🏋️ Treino do Dia
+                  </button>
+                  <button type="button" onclick="setCampaignPrompt('Lembrar com gentileza sobre a renovação da mensalidade do Studio via Pix para não interromper os treinos')" class="px-2.5 py-1 rounded-lg bg-slate-800/80 hover:bg-purple-600/30 border border-slate-700/60 hover:border-purple-500/50 text-slate-300 hover:text-white transition text-[11px] cursor-pointer">
+                    💰 Lembrete Pix
+                  </button>
+                  <button type="button" onclick="setCampaignPrompt('Convidar lead para degustação gratuita de 7 dias na metodologia híbrida com ativação imediata')" class="px-2.5 py-1 rounded-lg bg-slate-800/80 hover:bg-purple-600/30 border border-slate-700/60 hover:border-purple-500/50 text-slate-300 hover:text-white transition text-[11px] cursor-pointer">
+                    🚀 Convite Leads
+                  </button>
+                  <button type="button" onclick="setCampaignPrompt('Parabenizar aluno por completar 100% da meta semanal de treinos com consistência exemplar')" class="px-2.5 py-1 rounded-lg bg-slate-800/80 hover:bg-purple-600/30 border border-slate-700/60 hover:border-purple-500/50 text-slate-300 hover:text-white transition text-[11px] cursor-pointer">
+                    🏆 Parabéns Meta
+                  </button>
+                  <button type="button" onclick="setCampaignPrompt('Sentimos sua falta nos treinos essa semana! Como está sua rotina? Vamos retomar o ritmo juntos!')" class="px-2.5 py-1 rounded-lg bg-slate-800/80 hover:bg-purple-600/30 border border-slate-700/60 hover:border-purple-500/50 text-slate-300 hover:text-white transition text-[11px] cursor-pointer">
+                    ⏰ Aluno Ausente
+                  </button>
+                  <button type="button" onclick="setCampaignPrompt('Condição exclusiva de renovação trimestral com desconto e bônus de consultoria individual')" class="px-2.5 py-1 rounded-lg bg-slate-800/80 hover:bg-purple-600/30 border border-slate-700/60 hover:border-purple-500/50 text-slate-300 hover:text-white transition text-[11px] cursor-pointer">
+                    🎁 Oferta Especial
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+              <div>
+                <label class="block font-bold mb-1 text-slate-200">Tom de Voz:</label>
+                <select id="createCampaignTone" onchange="handleToneChange()" class="w-full bg-[var(--background)] border border-[var(--border)] rounded-xl p-2.5 text-white outline-none focus:border-purple-500 font-medium cursor-pointer">
+                  <option value="motivacional">🔥 Motivacional &amp; Enérgico (Coach Montanha)</option>
+                  <option value="formal">📋 Profissional &amp; Direto (Corporativo)</option>
+                  <option value="amigavel">🤝 Amigável &amp; Acolhedor (Empático)</option>
+                  <option value="urgencia">⚡ Urgência &amp; Escassez (Últimas Vagas/Horas)</option>
+                  <option value="conciso">🎯 Conciso &amp; Direto ao Ponto (Ultra Rápido)</option>
+                  <option value="educativo">🧘 Educativo &amp; Orientador (Técnico / Saúde)</option>
+                  <option value="desafiador">🏆 Desafiador &amp; Foco em Metas (Mente Blindada)</option>
+                  <option value="personalizado">✍️ Personalizado (Digitar tom específico...)</option>
+                </select>
+              </div>
+
+              <div id="customToneContainer" class="hidden">
+                <label class="block font-bold mb-1 text-slate-200">Especifique o Tom Desejado:</label>
+                <input type="text" id="customToneInput" placeholder="Ex: descontraído com gírias, solene, poético..." class="w-full bg-[var(--background)] border border-[var(--border)] rounded-xl p-2.5 text-white outline-none focus:border-purple-500">
+              </div>
+            </div>
+
+            <!-- Variáveis Dinâmicas Úteis -->
+            <div class="p-2.5 rounded-xl bg-purple-500/5 border border-purple-500/20 flex flex-wrap items-center gap-2 text-[11px]">
+              <span class="text-purple-300 font-semibold">Inserir tags no prompt:</span>
+              <button type="button" onclick="insertTagIntoPrompt('{nome}')" class="px-2 py-0.5 rounded bg-zinc-900 border border-zinc-700 text-amber-300 font-mono font-bold hover:bg-zinc-800 transition cursor-pointer">{nome}</button>
+              <button type="button" onclick="insertTagIntoPrompt('{turma}')" class="px-2 py-0.5 rounded bg-zinc-900 border border-zinc-700 text-cyan-300 font-mono font-bold hover:bg-zinc-800 transition cursor-pointer">{turma}</button>
+              <button type="button" onclick="insertTagIntoPrompt('{vencimento}')" class="px-2 py-0.5 rounded bg-zinc-900 border border-zinc-700 text-emerald-300 font-mono font-bold hover:bg-zinc-800 transition cursor-pointer">{vencimento}</button>
+              <button type="button" onclick="insertTagIntoPrompt('{chave_pix}')" class="px-2 py-0.5 rounded bg-zinc-900 border border-zinc-700 text-indigo-300 font-mono font-bold hover:bg-zinc-800 transition cursor-pointer">{chave_pix}</button>
+            </div>
+
+            <button type="button" onclick="generateAiCampaignText()" class="w-full bg-gradient-to-r from-purple-600 to-cyan-500 hover:opacity-90 text-white font-bold py-3 rounded-xl shadow-lg transition flex items-center justify-center gap-2 cursor-pointer text-sm">
+              <span>✨</span> Gerar Mensagem com IA
+            </button>
+          </div>
+        </div>
+
+        <div class="lg:col-span-5 bg-[var(--card)] border border-[var(--border)] rounded-2xl p-6 space-y-4 shadow-xl flex flex-col justify-between">
+          <div class="space-y-3">
+            <h3 class="font-bold text-base text-white border-b border-[var(--border)] pb-3">
+              Prévia da Mensagem Gerada
+            </h3>
+            <textarea id="createMessagePreview" rows="7" class="w-full bg-[var(--background)] border border-[var(--border)] rounded-xl p-3 text-xs text-white outline-none focus:border-purple-500 font-mono leading-relaxed" placeholder="A mensagem gerada pela IA aparecerá aqui..."></textarea>
+          </div>
+          <button type="button" onclick="applyGeneratedMessageToDispatch()" class="w-full bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-bold py-2.5 rounded-xl transition cursor-pointer">
+            ✉️ Usar no Disparador WhatsApp
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- TAB CONTENT 9: BOOST ACCELERATOR (/boost) -->
+    <section id="tabContentBoost" class="tab-page hidden space-y-6">
+      <div class="relative overflow-hidden rounded-3xl border border-purple-500/30 bg-gradient-to-br from-slate-950 via-slate-900 to-purple-950/40 p-6 md:p-8 shadow-2xl backdrop-blur-xl space-y-3">
+        <div class="flex flex-wrap items-center gap-2">
+          <span class="inline-flex items-center rounded-full border border-purple-500/50 bg-purple-500/10 text-purple-300 text-xs font-bold uppercase tracking-wider px-3 py-1">
+            ⚡ Acelerador Booster WhatsApp
+          </span>
+          <span class="inline-flex items-center rounded-full border border-emerald-500/50 bg-emerald-500/10 text-emerald-300 text-xs font-bold uppercase tracking-wider px-3 py-1">
+            🛡️ Proteção Anti-Ban &amp; Warmup
+          </span>
+        </div>
+        <h2 class="text-2xl md:text-4xl font-black tracking-tight text-white">
+          Performance <span class="text-purple-400">Booster</span>
+        </h2>
+        <p class="text-xs md:text-sm text-slate-300 max-w-3xl leading-relaxed">
+          Acelere sua cadência de disparos com segurança: aquecimento de chip inteligente, delays randômicos e balanceamento de conexões Baileys.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+        <div class="bg-[var(--card)] border border-[var(--border)] rounded-xl p-5 space-y-2">
+          <span class="text-[10px] font-bold uppercase text-[var(--muted-foreground)]">Taxa de Entrega Média</span>
+          <div class="text-3xl font-extrabold text-emerald-400">98.4%</div>
+          <span class="text-xs text-emerald-300 font-medium">✓ Sem bloqueios ou rejeição</span>
+        </div>
+        <div class="bg-[var(--card)] border border-[var(--border)] rounded-xl p-5 space-y-2">
+          <span class="text-[10px] font-bold uppercase text-[var(--muted-foreground)]">Aquecimento de Chip (Warmup)</span>
+          <div class="text-3xl font-extrabold text-cyan-400">Ativo</div>
+          <span class="text-xs text-cyan-300 font-medium">Intervalos randômicos de 15 a 45s</span>
+        </div>
+        <div class="bg-[var(--card)] border border-[var(--border)] rounded-xl p-5 space-y-2">
+          <span class="text-[10px] font-bold uppercase text-[var(--muted-foreground)]">Multi-Tenant Routing</span>
+          <div class="text-3xl font-extrabold text-purple-400">5 Apps</div>
+          <span class="text-xs text-purple-300 font-medium">Sessões isoladas por aplicativo</span>
+        </div>
+      </div>
+
+      <div class="bg-[var(--card)] border border-[var(--border)] rounded-2xl p-6 space-y-4">
+        <h3 class="font-bold text-base text-white border-b border-[var(--border)] pb-3">
+          Configurações de Proteção &amp; Aceleração
+        </h3>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs">
+          <div class="p-4 rounded-xl bg-[var(--background)] border border-[var(--border)] space-y-2">
+            <span class="font-bold text-white block">Intervalo Randômico entre Envios</span>
+            <p class="text-slate-400 text-[11px]">Varia automaticamente entre 15s e 40s para simular digitação humana natural e evitar bloqueios da Meta.</p>
+            <span class="text-emerald-400 font-bold block text-[10px]">STATUS: ATIVO</span>
+          </div>
+          <div class="p-4 rounded-xl bg-[var(--background)] border border-[var(--border)] space-y-2">
+            <span class="font-bold text-white block">Compressão Automática de Vídeos &amp; Imagens</span>
+            <p class="text-slate-400 text-[11px]">Garante que anexos (brag.mp4, contact-sheet.jpg) sejam transmitidos em alta velocidade.</p>
+            <span class="text-cyan-400 font-bold block text-[10px]">STATUS: ATIVO</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+      </main>
+    </div>
+  </div>
+
+  <!-- ==================================================================== -->
+  <!-- JAVASCRIPT APP ENGINE -->
+  <!-- ==================================================================== -->
+  <script>
+    let currentUser = null;
+    let userContacts = [];
+    let selectedContactIds = new Set();
+    let uploadedCustomFileName = null;
+
+    const MOCK_MASTER_SUBSCRIPTIONS = [
+      { id: 'sub_henrique', email: 'Henriqueecoutinhoo@gmail.com', project_id: 'whatsapp-lovable', payment_status: 'AVALIAÇÃO', access_expires_at: '2026-09-30T23:59:59Z', is_active: true },
+      { id: 'sub_1', email: 'cliente.pro@montanha.app', project_id: 'smart-language', payment_status: 'PAGO', access_expires_at: new Date(Date.now() + 365*86400000).toISOString(), is_active: true },
+      { id: 'sub_2', email: 'studio.fit@eduflow.com', project_id: 'eduflow-finance', payment_status: 'PAGO', access_expires_at: new Date(Date.now() + 90*86400000).toISOString(), is_active: true },
+      { id: 'sub_3', email: 'editor.pdf@montanha.com', project_id: 'construtor-pdf', payment_status: 'PENDENTE', access_expires_at: new Date(Date.now() + 7*86400000).toISOString(), is_active: true },
+      { id: 'sub_4', email: 'coach.treino@hibrido.com', project_id: 'sistema-hibrido', payment_status: 'INADIMPLENTE', access_expires_at: new Date(Date.now() - 5*86400000).toISOString(), is_active: false },
+      { id: 'sub_5', email: 'marketing.wa@lovable.app', project_id: 'whatsapp-lovable', payment_status: 'PAGO', access_expires_at: new Date(Date.now() + 180*86400000).toISOString(), is_active: true }
+    ];
+
+    function renderMasterAdminSubscriptions() {
+      const tbody = document.getElementById('masterAdminTableBody');
+      if (!tbody) return;
+
+      const appFilter = document.getElementById('masterAppFilter') ? document.getElementById('masterAppFilter').value : 'all';
+      const searchEmail = document.getElementById('masterSearchEmail') ? document.getElementById('masterSearchEmail').value.toLowerCase() : '';
+
+      let subs = MOCK_MASTER_SUBSCRIPTIONS;
+      const saved = localStorage.getItem('master_admin_subscriptions');
+      if (saved) {
+        try {
+          const parsed = JSON.parse(saved);
+          if (Array.isArray(parsed)) {
+            const hasHenrique = parsed.some(s => s.email.toLowerCase() === 'henriqueecoutinhoo@gmail.com');
+            subs = hasHenrique ? parsed : [MOCK_MASTER_SUBSCRIPTIONS[0], ...parsed];
+          }
+        } catch(e) {}
+      }
+
+      const filtered = subs.filter(s => {
+        const matchesApp = appFilter === 'all' || s.project_id === appFilter;
+        const matchesEmail = !searchEmail || s.email.toLowerCase().includes(searchEmail);
+        return matchesApp && matchesEmail;
+      });
+
+      if (filtered.length === 0) {
+        tbody.innerHTML = '<tr><td colspan="5" class="p-6 text-center text-slate-400">Nenhuma assinatura encontrada.</td></tr>';
+        return;
+      }
+
+      tbody.innerHTML = filtered.map(s => {
+        const isExpired = s.access_expires_at ? new Date(s.access_expires_at) <= new Date() : false;
+        const expiresFormatted = s.access_expires_at ? s.access_expires_at.split('T')[0] : 'Indefinido';
+        return `
+          <tr class="hover:bg-slate-900/40 transition">
+            <td class="p-3.5"><div class="font-bold text-white text-xs">${s.email}</div><div class="text-[10px] text-slate-400">ID: ${s.id}</div></td>
+            <td class="p-3.5"><span class="px-2 py-0.5 rounded-lg border text-[10px] font-bold bg-purple-500/20 text-purple-300 border-purple-500/40">${s.project_id}</span></td>
+            <td class="p-3.5"><span class="font-bold text-xs ${s.payment_status === 'PAGO' ? 'text-emerald-400' : s.payment_status === 'PENDENTE' ? 'text-amber-400' : 'text-red-400'}">${s.payment_status}</span></td>
+            <td class="p-3.5"><span class="font-mono ${isExpired ? 'text-red-400 font-bold' : 'text-slate-300'}">${expiresFormatted}</span></td>
+            <td class="p-3.5 text-center"><span class="px-2 py-1 rounded-lg border text-[10px] font-bold ${s.is_active ? 'bg-emerald-500/20 text-emerald-300 border-emerald-500/40' : 'bg-red-500/20 text-red-300 border-red-500/40'}">${s.is_active ? 'ATIVO' : 'REVOGADO'}</span></td>
+          </tr>
+        `;
+      }).join('');
+    }
+
+    const DEFAULT_TEMPLATES = [
+      { id: 'tpl_1', title: '🎬 Vídeo EduFlow 2.0', text: 'Confira o novo vídeo de apresentação da Plataforma EduFlow 2.0! Tutoria 24h por IA e automação completa para turmas. 🚀' },
+      { id: 'tpl_2', title: '🏋️ Treinamento Híbrido', text: 'Quem está gostando das aulas de Treinamento Híbrido Endurance, dá um joinha aqui! 👍🏻' },
+      { id: 'tpl_3', title: '🚀 Boas-vindas', text: 'Olá! Seja muito bem-vindo à plataforma EduFlow! Qualquer dúvida, nosso Tutor IA 24h está à disposição. 🚀' }
+    ];
+
+    // ====================================================================
+    // RUFLO + /ECO TOKEN ECONOMY ENGINE
+    // ====================================================================
+    const RufloEcoWhatsAppEngine = {
+      cache: new Map(),
+      stats: {
+        queriesProcessed: 0,
+        tokensSaved: 0,
+        cacheHits: 0
+      },
+      
+      // 1. Compressão de Contexto (/eco Context Pruning)
+      optimizePromptContext: function(contactName, category, historyMessages, maxItems = 4) {
+        const recent = historyMessages ? historyMessages.slice(-maxItems) : [];
+        return `[Contato: ${contactName} | Cat: ${category}]\nHistórico: ${recent.join(' | ')}`;
+      },
+      
+      // 2. Cache Semântico de 0 Tokens
+      getCachedResponse: function(promptKey) {
+        const key = promptKey.trim().toLowerCase();
+        if (this.cache.has(key)) {
+          this.stats.cacheHits++;
+          this.stats.tokensSaved += 280;
+          return { text: this.cache.get(key), cached: true };
+        }
+        return null;
+      },
+
+      setCachedResponse: function(promptKey, responseText) {
+        const key = promptKey.trim().toLowerCase();
+        if (this.cache.size > 150) {
+          const firstKey = this.cache.keys().next().value;
+          this.cache.delete(firstKey);
+        }
+        this.cache.set(key, responseText);
+      },
+
+      // 3. Seleção de Modelo (Model Tiering)
+      selectModelTier: function(dispatchType) {
+        if (dispatchType === 'TEXT_ONLY') return 'gemini-2.5-flash-lite';
+        if (dispatchType === 'AUTOMATED_REPLY') return 'gemini-2.5-flash';
+        return 'gemini-2.5-pro';
+      }
+    };
+
+    
+    function getApiBaseUrl() {
+      const saved = localStorage.getItem('eduflow_api_url');
+      if (saved && saved.trim()) return saved.trim().replace(/\/+$/, '');
+      if (window.location.origin.includes('localhost') || window.location.origin.includes('127.0.0.1')) {
+        return 'http://localhost:3001';
+      }
+      return 'https://freeware-dsc-lock-pasta.trycloudflare.com';
+    }
+
+    let waPollInterval = null;
+
+    async function pollWaConnectionStatus() {
+      try {
+        const baseUrl = getApiBaseUrl();
+        const response = await fetch(baseUrl + '/api/qr');
+        const data = await response.json();
+
+        const statusBadge = document.getElementById('headerConnectionStatus');
+        const qrImg = document.getElementById('qrCodeImage');
+        const qrStatusText = document.getElementById('qrStatusText');
+
+        if (data.connected) {
+          if (statusBadge) {
+            statusBadge.innerText = 'WhatsApp Conectado';
+            statusBadge.parentElement.className = 'hidden sm:flex items-center gap-2 bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 text-xs px-3 py-1.5 rounded-xl font-semibold';
+          }
+          if (qrStatusText) {
+            qrStatusText.innerText = '✅ Dispositivo WhatsApp emparelhado e conectado!';
+            qrStatusText.parentElement.className = 'flex items-center justify-center gap-2 text-xs text-emerald-400 font-bold bg-emerald-500/10 p-2.5 rounded-xl border border-emerald-500/30';
+          }
+        } else {
+          if (statusBadge) {
+            statusBadge.innerText = 'WhatsApp Desconectado';
+            statusBadge.parentElement.className = 'hidden sm:flex items-center gap-2 bg-amber-500/10 border border-amber-500/30 text-amber-400 text-xs px-3 py-1.5 rounded-xl font-semibold';
+          }
+
+          if (data.qrDataUrl && qrImg) {
+            qrImg.src = data.qrDataUrl;
+            if (qrStatusText) {
+              qrStatusText.innerText = '⚡ Escaneie o QR Code acima no seu WhatsApp';
+              qrStatusText.parentElement.className = 'flex items-center justify-center gap-2 text-xs text-purple-300 font-bold bg-purple-500/10 p-2.5 rounded-xl border border-purple-500/30';
+            }
+          }
+        }
+      } catch (err) {}
+    }
+
+    let liveHistoryInterval = null;
+
+    // ====================================================================
+    // PERMANENT OFFLINE-FIRST HISTORY STORAGE (LOCALSTORAGE + BACKEND SYNC)
+    // ====================================================================
+    const PERMANENT_DISPATCHES_KEY = 'montanha_permanent_dispatches_history_v2';
+
+    function getStoredPermanentHistory() {
+      try {
+        const raw = localStorage.getItem(PERMANENT_DISPATCHES_KEY);
+        return raw ? JSON.parse(raw) : [];
+      } catch (e) {
+        return [];
+      }
+    }
+
+    function saveStoredPermanentHistory(items) {
+      try {
+        localStorage.setItem(PERMANENT_DISPATCHES_KEY, JSON.stringify(items));
+      } catch (e) {}
+    }
+
+    function renderHistoryRows(items, isOffline = false) {
+      const tbody = document.getElementById('liveDispatchesDashboardBody');
+      if (!tbody) return;
+
+      if (!items || items.length === 0) {
+        tbody.innerHTML = `
+          <tr>
+            <td colspan="6" class="p-6 text-center text-slate-400">
+              <span class="block text-lg mb-1">📭</span>
+              Nenhum disparo ou agendamento registrado até o momento.
+            </td>
+          </tr>
+        `;
+        return;
+      }
+
+      tbody.innerHTML = items.map(item => `
+        <tr class="hover:bg-slate-800/40 transition">
+          <td class="p-3 font-mono font-medium text-slate-300 text-[11px] whitespace-nowrap">${item.date}</td>
+          <td class="p-3 font-bold text-white max-w-[160px] truncate" title="${item.targets}">${item.targets}</td>
+          <td class="p-3">
+            <div class="text-slate-200 line-clamp-1 max-w-[240px] text-[11px]">${item.message}</div>
+            <div class="text-[10px] text-purple-400 font-medium">${item.media}</div>
+          </td>
+          <td class="p-3 whitespace-nowrap">
+            <div class="mb-0.5 text-[10px] font-semibold text-slate-400">${item.type}</div>
+            ${item.statusBadge}
+          </td>
+          <td class="p-3 whitespace-nowrap">
+            <span class="block font-mono text-[10px] text-slate-400">${item.auditUser || 'albertosarly@gmail.com'}</span>
+            <span class="block font-mono text-[9px] text-slate-500">${isOffline ? '📱 Salvo Localmente' : 'IP: ' + (item.clientIp || '127.0.0.1')}</span>
+          </td>
+          <td class="p-3 text-right whitespace-nowrap">
+            <button type="button" onclick="deleteSingleHistoryItem('${item.id}')" title="Excluir este registro permanentemente" class="bg-red-950/40 hover:bg-red-900/60 text-red-400 border border-red-500/30 px-2.5 py-1 rounded-lg text-xs font-bold transition cursor-pointer">
+              🗑️ Excluir
+            </button>
+          </td>
+        </tr>
+      `).join('');
+
+      const statDispatchesCount = document.getElementById('statDispatchesCount');
+      if (statDispatchesCount) {
+        const executedCount = items.filter(i => (i.type && i.type.includes('Enviado')) || (i.statusBadge && (i.statusBadge.includes('Concluído') || i.statusBadge.includes('Executado')))).length;
+        statDispatchesCount.textContent = executedCount || items.length;
+      }
+    }
+
+    async function syncLiveHistoryFromBackend() {
+      const tbody = document.getElementById('liveDispatchesDashboardBody');
+      if (!tbody) return;
+
+      // 1. Immediately render cached items from LocalStorage if table is in loading state
+      const currentCache = getStoredPermanentHistory();
+      if (tbody.innerHTML.includes('Carregando histórico') && currentCache.length > 0) {
+        renderHistoryRows(currentCache, false);
+      }
+
+      try {
+        const baseUrl = getApiBaseUrl();
+        const res = await fetch(baseUrl + '/api/dispatches-history', { cache: 'no-store' });
+        if (!res.ok) throw new Error('HTTP ' + res.status);
+        const data = await res.json();
+        
+        const auditLogs = data.auditLogs || [];
+        const schedules = data.schedules || [];
+
+        const remoteItems = [];
+
+        auditLogs.forEach(log => {
+          const targets = Array.isArray(log.target_contacts) ? log.target_contacts.join(', ') : (log.target_contacts || 'N/A');
+          remoteItems.push({
+            id: log.id || ('audit_' + log.timestamp),
+            date: new Date(log.timestamp).toLocaleString('pt-BR'),
+            rawDate: new Date(log.timestamp).getTime(),
+            targets: targets,
+            message: log.message_preview || '(Mensagem em texto)',
+            media: log.media_path ? '📎 ' + log.media_path : '🚫 Texto',
+            type: log.action === 'DISPARO_IMEDIATO' ? '⚡ Envio Imediato' : '⏳ Agendado',
+            statusBadge: '<span class="inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-bold bg-emerald-500/20 text-emerald-400 border border-emerald-500/30">✓ Concluído</span>',
+            auditUser: log.user_email || 'albertosarly@gmail.com',
+            clientIp: log.client_ip || '127.0.0.1'
+          });
+        });
+
+        schedules.forEach(s => {
+          let badge = '';
+          let typeLabel = '⏳ Programado';
+
+          if (s.status === 'executed') {
+            typeLabel = '✓ Enviado';
+            badge = '<span class="inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-bold bg-emerald-500/20 text-emerald-400 border border-emerald-500/30">✓ Concluído</span>';
+          } else if (s.status === 'failed') {
+            typeLabel = '⚠️ Falha';
+            badge = '<span class="inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-bold bg-red-500/20 text-red-400 border border-red-500/30">❌ Falha ao Enviar</span>';
+          } else {
+            typeLabel = '⏳ Programado';
+            badge = '<span class="inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-bold bg-amber-500/20 text-amber-400 border border-amber-500/30 animate-pulse">⏳ Aguardando Horário</span>';
+          }
+
+          remoteItems.push({
+            id: s.id || ('sched_' + s.createdAt),
+            date: s.datetime || 'Data programada',
+            rawDate: new Date(s.datetime ? s.datetime.replace(' às ', 'T').replace(' ', 'T') : s.createdAt).getTime() || Date.now(),
+            targets: s.contact || 'Destinatário',
+            message: s.message ? s.message.substring(0, 100) : '',
+            media: s.imagePath ? '📎 Anexo' : '🚫 Texto',
+            type: typeLabel,
+            statusBadge: badge,
+            auditUser: currentUser ? currentUser.email : 'albertosarly@gmail.com',
+            clientIp: '127.0.0.1'
+          });
+        });
+
+        // Merge remote items with local cache by ID (remote updates status, preserves all records)
+        const mergedMap = new Map();
+        currentCache.forEach(item => mergedMap.set(item.id, item));
+        remoteItems.forEach(item => mergedMap.set(item.id, item));
+
+        const finalItems = Array.from(mergedMap.values());
+        finalItems.sort((a, b) => b.rawDate - a.rawDate);
+
+        saveStoredPermanentHistory(finalItems);
+        renderHistoryRows(finalItems, false);
+      } catch (err) {
+        console.warn('Backend indisponível, mantendo histórico permanente local ativo:', err.message);
+        const cached = getStoredPermanentHistory();
+        renderHistoryRows(cached, true);
+      }
+    }
+
+    async function deleteSingleHistoryItem(id) {
+      if (!confirm('Deseja excluir este item do histórico permanentemente?')) return;
+      
+      let cached = getStoredPermanentHistory();
+      cached = cached.filter(item => item.id !== id);
+      saveStoredPermanentHistory(cached);
+      renderHistoryRows(cached, false);
+
+      try {
+        const baseUrl = getApiBaseUrl();
+        await fetch(baseUrl + '/api/delete-history-item', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ id })
+        });
+      } catch (e) {
+        console.warn('Erro ao notificar exclusão no backend:', e.message);
+      }
+    }
+
+    async function clearAllHistory() {
+      if (!confirm('Atenção: Tem certeza de que deseja apagar TODO o histórico de mensagens permanentemente?')) return;
+
+      saveStoredPermanentHistory([]);
+      renderHistoryRows([], false);
+
+      try {
+        const baseUrl = getApiBaseUrl();
+        await fetch(baseUrl + '/api/clear-history', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' }
+        });
+      } catch (e) {
+        console.warn('Erro ao limpar histórico no backend:', e.message);
+      }
+    }
+
+    function startWaPolling() {
+      pollWaConnectionStatus();
+      syncLiveHistoryFromBackend();
+      if (!waPollInterval) {
+        waPollInterval = setInterval(pollWaConnectionStatus, 3500);
+      }
+      if (!liveHistoryInterval) {
+        liveHistoryInterval = setInterval(syncLiveHistoryFromBackend, 4000);
+      }
+    }
+
+    async function triggerResetSession() {
+      if (confirm('Deseja limpar as credenciais antigas do WhatsApp e gerar um novo QR Code do zero?')) {
+        try {
+          const baseUrl = getApiBaseUrl();
+          await fetch(baseUrl + '/api/reset-session', { method: 'POST' });
+          alert('Sessão resetada com sucesso! Gerando novo QR Code...');
+          pollWaConnectionStatus();
+        } catch (err) {
+          alert('Erro ao resetar sessão: ' + err.message);
+        }
+      }
+    }
+
+    function configureApiUrl() {
+      const current = getApiBaseUrl();
+      const input = prompt('Informe a URL do Servidor Backend Baileys / Tunnel:', current);
+      if (input !== null && input.trim()) {
+        localStorage.setItem('eduflow_api_url', input.trim());
+        alert('URL da API atualizada para: ' + input.trim());
+        pollWaConnectionStatus();
+      }
+    }
+
+    function switchPairingMode(mode) {
+      if (mode === 'qr') {
+        document.getElementById('tabConnectQr').className = 'flex-1 py-2 font-bold rounded-lg bg-purple-600 text-white transition';
+        document.getElementById('tabConnectPhone').className = 'flex-1 py-2 font-bold rounded-lg text-[var(--muted-foreground)] hover:text-white transition';
+        document.getElementById('pairingModeQr').classList.remove('hidden');
+        document.getElementById('pairingModePhone').classList.add('hidden');
+      } else {
+        document.getElementById('tabConnectPhone').className = 'flex-1 py-2 font-bold rounded-lg bg-purple-600 text-white transition';
+        document.getElementById('tabConnectQr').className = 'flex-1 py-2 font-bold rounded-lg text-[var(--muted-foreground)] hover:text-white transition';
+        document.getElementById('pairingModePhone').classList.remove('hidden');
+        document.getElementById('pairingModeQr').classList.add('hidden');
+      }
+    }
+
+    async function requestPhonePairingCode() {
+      const phoneInput = document.getElementById('pairingPhoneNumber').value.replace(/[^0-9]/g, '');
+      if (!phoneInput || phoneInput.length < 10) {
+        alert('Por favor, informe um número de WhatsApp válido com DDD (ex: 558399259385).');
+        return;
+      }
+
+      const btn = document.querySelector("#pairingModePhone button[onclick='requestPhonePairingCode()']");
+      if (btn) btn.innerText = '⏳ Gerando Código Real...';
+
+      try {
+        const baseUrl = getApiBaseUrl();
+        const response = await fetch(baseUrl + '/api/request-pairing-code', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ phoneNumber: phoneInput })
+        });
+        const res = await response.json();
+        
+        if (res && res.success && res.pairingCode) {
+          const code = res.pairingCode;
+          document.getElementById('generatedPairingCode').innerText = code;
+          document.getElementById('codeHintText').innerText = code;
+          document.getElementById('pairingCodeDisplayContainer').classList.remove('hidden');
+        } else {
+          alert('Erro no WhatsApp: ' + (res.error || 'Erro ao obter código real do servidor'));
+        }
+      } catch (err) {
+        alert('⚠️ Erro de conexão com o servidor Baileys (' + getApiBaseUrl() + '). Verifique se o servidor backend está rodando.');
+      } finally {
+        if (btn) btn.innerText = '⚡ Gerar Código';
+      }
+    }
+
+    function copyPairingCode() {
+      const code = document.getElementById('generatedPairingCode').innerText;
+      navigator.clipboard.writeText(code);
+      alert('Código ' + code + ' copiado para a área de transferência!');
+    }
+
+    function updatePinCounter(input) {
+      const clean = input.value.replace(/\D/g, '').slice(0, 10);
+      input.value = clean;
+      const counter = document.getElementById('pinProgressCounter');
+      if (counter) {
+        counter.innerText = clean.length + ' / 10 dígitos';
+      }
+    }
+
+    function switchAuthTab(tab) {
+      const tabLogin = document.getElementById('tabLogin');
+      const tabRegister = document.getElementById('tabRegister');
+      const nameContainer = document.getElementById('nameFieldContainer');
+      const submitBtn = document.getElementById('authSubmitBtn');
+      const formTitle = document.getElementById('formPanelTitle');
+      const heroTitle = document.getElementById('heroTitle');
+      const heroSubtitle = document.getElementById('heroSubtitle');
+
+      if (tab === 'login') {
+        tabLogin.className = 'min-h-[44px] min-w-[44px] px-4 py-2 md:py-3 rounded-xl flex flex-col items-center justify-center gap-1 transition-all text-xs font-bold bg-[#10b981] text-slate-950 shadow-lg shadow-[#10b981]/40';
+        tabRegister.className = 'min-h-[44px] min-w-[44px] px-4 py-2 md:py-3 rounded-xl flex flex-col items-center justify-center gap-1 transition-all text-xs font-bold text-slate-400 hover:text-white hover:bg-slate-800/50';
+        if (nameContainer) nameContainer.classList.add('hidden');
+        if (submitBtn) submitBtn.innerText = 'Entrar na Conta';
+        if (formTitle) formTitle.innerText = 'Acessar Plataforma';
+        if (heroTitle) heroTitle.innerText = 'Montanha WhatsApp Automation';
+        if (heroSubtitle) heroSubtitle.innerText = 'Automação SaaS Multi-Tenant, CRM & Disparos Inteligentes via WhatsApp com máxima taxa de entrega.';
+      } else {
+        tabRegister.className = 'min-h-[44px] min-w-[44px] px-4 py-2 md:py-3 rounded-xl flex flex-col items-center justify-center gap-1 transition-all text-xs font-bold bg-[#10b981] text-slate-950 shadow-lg shadow-[#10b981]/40';
+        tabLogin.className = 'min-h-[44px] min-w-[44px] px-4 py-2 md:py-3 rounded-xl flex flex-col items-center justify-center gap-1 transition-all text-xs font-bold text-slate-400 hover:text-white hover:bg-slate-800/50';
+        if (nameContainer) nameContainer.classList.remove('hidden');
+        if (submitBtn) submitBtn.innerText = 'Criar Nova Conta';
+        if (formTitle) formTitle.innerText = 'Criar sua Conta';
+        if (heroTitle) heroTitle.innerText = 'Evolua suas Vendas pelo WhatsApp';
+        if (heroSubtitle) heroSubtitle.innerText = 'Disparos em massa, chatbot multi-atendente e automação em minutos.';
+      }
+    }
+
+    async function handleAuthSubmit(e) {
+      e.preventDefault();
+      const emailInput = document.getElementById('authEmail');
+      const passwordInput = document.getElementById('authPassword');
+      const email = emailInput ? emailInput.value.trim() : '';
+      const password = passwordInput ? passwordInput.value.trim() : '';
+
+      if (!email) {
+        alert('Por favor, informe seu e-mail comercial.');
+        return;
+      }
+
+      const isMin6Digits = /^\d{6,}$/.test(password);
+
+      if (!isMin6Digits) {
+        alert('O PIN de acesso deve conter no mínimo 6 dígitos numéricos.');
+        return;
+      }
+
+      if (window.EcosystemAuthService) {
+        const mx = await window.EcosystemAuthService.validateEmailMx(email);
+        if (!mx.valid) {
+          alert(mx.reason || 'E-mail inválido.');
+          return;
+        }
+        const access = await window.EcosystemAuthService.checkProjectAccess(null, 'whatsapp-lovable', email);
+        if (!access.hasAccess) {
+          alert(access.message || 'Acesso negado para este aplicativo.');
+          return;
+        }
+      }
+      loginUser(email);
+    }
+
+    async function showPasswordResetPrompt() {
+      const currentEmail = document.getElementById('authEmail') ? document.getElementById('authEmail').value : '';
+      const email = prompt('Informe seu e-mail cadastrado para redefinição de senha:', currentEmail);
+      if (!email || !email.trim()) return;
+
+      if (window.EcosystemAuthService) {
+        const mx = await window.EcosystemAuthService.validateEmailMx(email);
+        if (!mx.valid) {
+          alert(mx.reason || 'E-mail inválido.');
+          return;
+        }
+      }
+      alert('Instruções de recuperação de senha enviadas com sucesso para ' + email.trim() + '!');
+    }
+
+    function checkUserTermsAcceptance(email) {
+      if (!email) return false;
+      const key = 'eduflow_terms_accepted_' + email;
+      const saved = localStorage.getItem(key);
+      if (!saved) {
+        document.getElementById('termsModal').classList.remove('hidden');
+        return false;
+      }
+      return true;
+    }
+
+    async function acceptTermsOfUse() {
+      if (!currentUser || !currentUser.email) return;
+      const email = currentUser.email;
+      const key = 'eduflow_terms_accepted_' + email;
+      const timestamp = new Date().toISOString();
+
+      localStorage.setItem(key, JSON.stringify({
+        accepted: true,
+        timestamp: timestamp,
+        version: 'v1.0-2026-marco-civil'
+      }));
+
+      document.getElementById('termsModal').classList.add('hidden');
+
+      try {
+        const baseUrl = getApiBaseUrl();
+        await fetch(baseUrl + '/api/accept-terms', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            userEmail: email,
+            version: 'v1.0-2026-marco-civil',
+            timestamp: timestamp
+          })
+        });
+      } catch (err) {
+        console.warn('Backend terms acceptance record:', err.message);
+      }
+    }
+
+    function refuseTermsOfUse() {
+      alert('⚠️ Você recusou os Termos de Uso.\nPor questões de segurança jurídica e conformidade com o Marco Civil da Internet, a utilização do aplicativo não é permitida sem o aceite dos termos.');
+      document.getElementById('termsModal').classList.add('hidden');
+      handleLogout();
+    }
+
+    function loginUser(email) {
+      currentUser = { email };
+      localStorage.setItem('eduflow_logged_user', email);
+
+      document.getElementById('userEmailBadge').innerText = email;
+      document.getElementById('profileEmail').innerText = email;
+
+      document.getElementById('authScreen').classList.add('hidden');
+      document.getElementById('appShell').classList.remove('hidden');
+      document.getElementById('mobileBottomNav').classList.remove('hidden');
+
+      loadUserData();
+      startWaPolling();
+      switchTab('dashboard');
+      checkUserTermsAcceptance(email);
+    }
+
+    function handleLogout() {
+      localStorage.removeItem('eduflow_logged_user');
+      currentUser = null;
+      document.getElementById('appShell').classList.add('hidden');
+      document.getElementById('mobileBottomNav').classList.add('hidden');
+      document.getElementById('authScreen').classList.remove('hidden');
+    }
+
+    function switchTab(tabId) {
+      if (tabId === 'dispatch') tabId = 'dashboard';
+      document.querySelectorAll('.tab-page').forEach(page => page.classList.add('hidden'));
+      const activePage = document.getElementById('tabContent' + tabId.charAt(0).toUpperCase() + tabId.slice(1));
+      if (activePage) activePage.classList.remove('hidden');
+
+      if (tabId === 'dashboard') {
+        syncLiveHistoryFromBackend();
+      }
+
+      const tabs = ['Dash', 'Contacts', 'Dispatch', 'Qrcode', 'Profile', 'Masteradmin', 'Eco', 'Create', 'Boost'];
+      tabs.forEach(t => {
+        const btn = document.getElementById('nav' + t);
+        if (btn) {
+          if (t.toLowerCase() === tabId.toLowerCase() || (t === 'Dash' && tabId === 'dashboard')) {
+            btn.className = 'p-2 rounded-xl text-purple-400 flex flex-col items-center gap-1 font-bold';
+          } else {
+            btn.className = 'p-2 rounded-xl text-[var(--muted-foreground)] flex flex-col items-center gap-1';
+          }
+        }
+
+        const sideBtn = document.getElementById('sideNav' + t);
+        if (sideBtn) {
+          if (t.toLowerCase() === tabId.toLowerCase() || (t === 'Dash' && tabId === 'dashboard')) {
+            sideBtn.className = 'side-nav-btn flex items-center gap-3 px-3 py-2.5 rounded-xl text-xs font-bold text-white bg-purple-600/20 text-left transition-colors cursor-pointer';
+          } else {
+            sideBtn.className = 'side-nav-btn flex items-center gap-3 px-3 py-2.5 rounded-xl text-xs font-semibold text-[var(--muted-foreground)] hover:text-white hover:bg-slate-800/50 text-left transition-colors cursor-pointer';
+          }
+        }
+      });
+
+      try {
+        window.location.hash = '#/' + tabId.toLowerCase();
+      } catch(e) {}
+
+      updateSpotlightBar(tabId);
+    }
+
+    function updateSpotlightBar(tabId) {
+      const nav = document.getElementById('desktopSpotlightNav');
+      const bar = document.getElementById('desktopSpotlightBar');
+      if (!nav || !bar) return;
+      const tabMap = {
+        dashboard: 'sideNavDash',
+        contacts: 'sideNavContacts',
+        dispatch: 'sideNavDispatch',
+        qrcode: 'sideNavQrcode',
+        profile: 'sideNavProfile',
+        masteradmin: 'sideNavMasteradmin',
+        eco: 'sideNavEco',
+        create: 'sideNavCreate',
+        boost: 'sideNavBoost'
+      };
+      const activeBtn = document.getElementById(tabMap[tabId.toLowerCase()]);
+      if (!activeBtn) return;
+      const navRect = nav.getBoundingClientRect();
+      const btnRect = activeBtn.getBoundingClientRect();
+      bar.style.top = (btnRect.top - navRect.top + 3) + 'px';
+      bar.style.height = (btnRect.height - 6) + 'px';
+    }
+
+    function setCampaignPrompt(text) {
+      const el = document.getElementById('createCampaignPrompt');
+      if (el) {
+        el.value = text;
+        el.focus();
+      }
+    }
+
+    function insertTagIntoPrompt(tag) {
+      const el = document.getElementById('createCampaignPrompt');
+      if (!el) return;
+      const start = el.selectionStart || el.value.length;
+      const end = el.selectionEnd || el.value.length;
+      el.value = el.value.substring(0, start) + ' ' + tag + ' ' + el.value.substring(end);
+      el.focus();
+      el.selectionStart = el.selectionEnd = start + tag.length + 2;
+    }
+
+    function handleToneChange() {
+      const tone = document.getElementById('createCampaignTone').value;
+      const container = document.getElementById('customToneContainer');
+      if (container) {
+        if (tone === 'personalizado') {
+          container.classList.remove('hidden');
+          document.getElementById('customToneInput')?.focus();
+        } else {
+          container.classList.add('hidden');
+        }
+      }
+    }
+
+    function generateAiCampaignText() {
+      const promptInput = document.getElementById('createCampaignPrompt')?.value.trim() || '';
+      const toneSelect = document.getElementById('createCampaignTone')?.value || 'motivacional';
+      const customTone = document.getElementById('customToneInput')?.value.trim() || '';
+
+      const prompt = promptInput || 'Aviso importante sobre treinos e novidades no app Montanha';
+      const pLower = prompt.toLowerCase();
+
+      let header = '';
+      let greeting = '';
+      let body = '';
+      let cta = '';
+      let signoff = '';
+
+      // 1. Configurar Saudação e Assinatura por Tom de Voz
+      if (toneSelect === 'formal') {
+        greeting = 'Prezado(a) {nome},';
+        signoff = 'Atenciosamente,\n*Equipe Montanha Studio*';
+      } else if (toneSelect === 'amigavel') {
+        greeting = 'Oi {nome}, tudo bem com você? 😊';
+        signoff = 'Um abraço e ótimos treinos! 🤝\n*Equipe Montanha*';
+      } else if (toneSelect === 'urgencia') {
+        greeting = '🚨 *ATENÇÃO, {nome}!*';
+        signoff = 'Não deixe para depois! ⚡\n*Coach Montanha*';
+      } else if (toneSelect === 'conciso') {
+        greeting = 'Fala {nome}!';
+        signoff = 'Tmj! 🚀';
+      } else if (toneSelect === 'educativo') {
+        greeting = 'Olá {nome}! Tudo bem?';
+        signoff = 'Foco na sua longevidade e consistência! 🧘\n*Coach Montanha*';
+      } else if (toneSelect === 'desafiador') {
+        greeting = 'Fala guerreiro(a) {nome}! ⚔️';
+        signoff = 'Disciplina supera motivação todos os dias. Vamos pra cima! 🏆\n*Coach Montanha*';
+      } else if (toneSelect === 'personalizado' && customTone) {
+        greeting = `Olá {nome}! (${customTone})`;
+        signoff = `*Coach Montanha* [Tom: ${customTone}]`;
+      } else {
+        // Motivacional (padrão)
+        greeting = 'Fala guerreiro(a) {nome}! 🔥';
+        signoff = 'Foco total na missão e nos vemos no ranking! 🚀\n_Bons treinos, Coach Montanha_';
+      }
+
+      // 2. Análise do Tema do Prompt
+      if (pLower.includes('pix') || pLower.includes('renova') || pLower.includes('cobr') || pLower.includes('mensal')) {
+        header = '💰 *LEMBRETE DE RENOVAÇÃO DO STUDIO* ✨';
+        if (toneSelect === 'formal') {
+          body = 'Gostaríamos de lembrar que o vencimento da sua mensalidade {turma} se aproxima ({vencimento}).\n\nPara a manutenção dos seus acessos ao aplicativo e treinos programados, solicitamos a realização do pagamento via Chave Pix:\n\n🔑 *Chave Pix:* `{chave_pix}`';
+          cta = 'Assim que efetuar, por favor nos envie o comprovante para atualização imediata no sistema.';
+        } else if (toneSelect === 'urgencia') {
+          body = 'Seu ciclo no Studio vence em breve ({vencimento}) e as vagas da turma {turma} são limitadas!\n\nGaranta sua vaga sem interrupção efetuando o Pix agora:\n\n🔑 *Chave Pix:* `{chave_pix}`';
+          cta = '⚡ Envie o comprovante aqui para garantir seu lugar!';
+        } else {
+          body = 'Sua assinatura mensal do Studio {turma} vence em breve ({vencimento}).\n\nPara garantir a continuidade dos seus treinos e evolução contínua no app, faça seu Pix utilizando a chave cadastrada:\n\n🔑 *Chave Pix:* `{chave_pix}`';
+          cta = 'Qualquer dúvida estamos à disposição para te ajudar!';
+        }
+      } else if (pLower.includes('treino') || pLower.includes('cth') || pLower.includes('carga') || pLower.includes('exerc')) {
+        header = '🏋️ *TREINO DO DIA LIBERADO — TURMA {turma}* ⚡';
+        if (toneSelect === 'conciso') {
+          body = `Seu treino já está no app: ${prompt}.`;
+          cta = 'Bora pra cima!';
+        } else if (toneSelect === 'desafiador') {
+          body = `Hoje é dia de superar limites! ${prompt}.\n\nControle de carga rigoroso, cadência sob comando e sem desculpas. O registro no app é obrigatório!`;
+          cta = 'Abra o app, consulte seu treino e execute com intensidade máxima!';
+        } else {
+          body = `O microciclo de hoje já está disponível no seu app *Montanha Hybrid Training*!\n\n📌 *Foco da sessão:* ${prompt}\n\nAcompanhe suas séries, controle as cargas e registre seus tempos.`;
+          cta = 'Nos vemos no treino!';
+        }
+      } else if (pLower.includes('lead') || pLower.includes('convite') || pLower.includes('degusta') || pLower.includes('gratuito') || pLower.includes('trial')) {
+        header = '🚀 *CONVITE EXCLUSIVO — ECOSSISTEMA MONTANHA* 🎯';
+        body = `Liberamos um acesso experimental especial para você conhecer nossa metodologia de Alta Performance!\n\n${prompt}\n\nTenha acesso completo a treinos personalizados, acompanhamento técnico e comunidade ativa.`;
+        cta = 'Responda *SIM* nesta mensagem para receber seu login e senha temporária agora!';
+      } else if (pLower.includes('parabens') || pLower.includes('meta') || pLower.includes('conclu') || pLower.includes('semana')) {
+        header = '🏆 *META CONCLUÍDA COM SUCESSO!* 🌟';
+        body = `Passando para reconhecer a sua dedicação! ${prompt}.\n\nResultados reais nascem da consistência diária. Cada repetição conta!`;
+        cta = 'Continue com essa mesma energia na próxima semana!';
+      } else if (pLower.includes('ausente') || pLower.includes('falta') || pLower.includes('sumid') || pLower.includes('retom')) {
+        header = '⏰ *SENTIMOS SUA FALTA NOS TREINOS!* 💬';
+        body = `Percebemos que você não compareceu às últimas sessões da turma {turma}.\n\n${prompt}\n\nSabemos que a rotina pode ficar corrida, mas estamos aqui para ajustar seu planejamento e te ajudar a retomar o ritmo sem cobranças exageradas.`;
+        cta = 'Como está sua semana? Me responde aqui para planejarmos sua volta!';
+      } else if (pLower.includes('oferta') || pLower.includes('desconto') || pLower.includes('promo') || pLower.includes('condiç')) {
+        header = '🎁 *OPORTUNIDADE ESPECIAL PARA VOCÊ* 💥';
+        body = `${prompt}\n\nCondição exclusiva e por tempo limitado para acelerar sua jornada de treinos e saúde.`;
+        cta = 'Deseja aproveitar essa condição? Responda aqui para garantir!';
+      } else {
+        // Prompt genérico ou personalizado
+        header = '📢 *COMUNICADO OFICIAL — ECOSSISTEMA MONTANHA* 📌';
+        body = `${prompt}\n\nEstamos sempre trabalhando para oferecer a melhor experiência para você na turma {turma}.`;
+        cta = 'Qualquer dúvida, estamos 100% à disposição!';
+      }
+
+      // Montar mensagem final estruturada
+      let fullMsg = `${header}\n\n${greeting}\n\n${body}\n\n${cta}\n\n${signoff}`;
+
+      document.getElementById('createMessagePreview').value = fullMsg;
+    }
+
+    function applyGeneratedMessageToDispatch() {
+      const text = document.getElementById('createMessagePreview').value;
+      if (!text) {
+        alert('Gere ou digite uma mensagem antes de aplicar ao disparador.');
+        return;
+      }
+      document.querySelectorAll('#messageText').forEach(el => {
+        el.value = text;
+      });
+      switchTab('dispatch');
+    }
+
+    function clearImpersonation() {
+      localStorage.removeItem('montanha_impersonate');
+      const url = new URL(window.location.href);
+      url.searchParams.delete('impersonate');
+      let hash = window.location.hash || '';
+      if (hash.includes('impersonate=')) {
+        const [hPath, hQuery] = hash.split('?');
+        const hParams = new URLSearchParams(hQuery);
+        hParams.delete('impersonate');
+        const newHQuery = hParams.toString();
+        hash = hPath + (newHQuery ? '?' + newHQuery : '');
+      }
+      window.location.href = url.pathname + (url.search ? url.search : '') + hash;
+    }
+
+    function checkImpersonation() {
+      const urlParams = new URLSearchParams(window.location.search);
+      let email = urlParams.get('impersonate');
+
+      if (!email && window.location.hash.includes('?')) {
+        const hashQuery = window.location.hash.split('?')[1];
+        const hashParams = new URLSearchParams(hashQuery);
+        email = hashParams.get('impersonate');
+      }
+
+      if (email && email.trim()) {
+        email = email.trim().toLowerCase();
+        localStorage.setItem('montanha_impersonate', email);
+      } else {
+        email = localStorage.getItem('montanha_impersonate');
+      }
+
+      const banner = document.getElementById('impersonationBanner');
+      const emailDisp = document.getElementById('impersonationEmailDisplay');
+      if (email && banner) {
+        if (emailDisp) emailDisp.innerText = email;
+        banner.classList.remove('hidden');
+        if (!currentUser) {
+          loginUser(email);
+        }
+      } else if (banner) {
+        banner.classList.add('hidden');
+      }
+    }
+
+    function handleHashRouting() {
+      checkImpersonation();
+      const rawHash = (window.location.hash || '').toLowerCase().replace(/^[#/]+/, '');
+      const hash = rawHash.split('?')[0];
+      if (['eco', 'create', 'boost', 'masteradmin', 'dashboard', 'contacts', 'dispatch', 'qrcode', 'profile'].includes(hash)) {
+        if (!currentUser) {
+          const user = localStorage.getItem('montanha_impersonate') || 'demo@eduflow.app';
+          loginUser(user);
+        }
+        switchTab(hash);
+      }
+    }
+
+    window.addEventListener('hashchange', handleHashRouting);
+
+    async function syncBackendContacts() {
+      try {
+        const baseUrl = getApiBaseUrl();
+        const response = await fetch(baseUrl + '/api/contacts');
+        const data = await response.json();
+        
+        if (Array.isArray(data) && data.length > 0) {
+          const existingPhones = new Set(userContacts.map(c => c.phone));
+          let syncedCount = 0;
+
+          data.forEach((item, idx) => {
+            const rawPhone = (item.phone || item.phone_number || item.formatted_phone || '').replace(/[^0-9]/g, '');
+            const rawName = (item.name || item.saved_name || item.public_name || 'Contato Sem Nome').trim();
+            
+            if (rawPhone && rawPhone.length >= 8 && !existingPhones.has(rawPhone)) {
+              let cat = 'GERAL';
+              const upperName = rawName.toUpperCase();
+              if (upperName.includes('CTH')) cat = 'CTH';
+              else if (upperName.includes('LEAD')) cat = 'LEAD';
+              else if (upperName.includes('PT')) cat = 'PT';
+
+              userContacts.push({
+                id: 'c_sync_' + idx + '_' + rawPhone,
+                name: rawName,
+                phone: rawPhone,
+                category: cat
+              });
+              existingPhones.add(rawPhone);
+              syncedCount++;
+            }
+          });
+
+          if (syncedCount > 0) {
+            saveUserContacts();
+            console.log(`✅ ${syncedCount} contatos sincronizados do backend com sucesso!`);
+          }
+        }
+      } catch (err) {
+        console.warn('Backend contacts sync unavailable:', err.message);
+      }
+    }
+
+    function loadUserData() {
+      const email = (currentUser && currentUser.email) ? currentUser.email : 'demo@eduflow.app';
+      const savedContacts = localStorage.getItem('eduflow_contacts_' + email);
+      userContacts = savedContacts ? JSON.parse(savedContacts) : [];
+      
+      renderContactsTable();
+      renderContactsManagementTable();
+      renderQuickTemplates();
+      renderDispatchesHistory();
+      initDatePickers();
+
+      // Auto-sync base of 763 contacts from backend server
+      syncBackendContacts();
+    }
+
+    function saveUserContacts() {
+      const email = (currentUser && currentUser.email) ? currentUser.email : 'demo@eduflow.app';
+      localStorage.setItem('eduflow_contacts_' + email, JSON.stringify(userContacts));
+      renderContactsTable();
+      renderContactsManagementTable();
+    }
+
+    let mgmtSelectedIds = new Set();
+
+    function renderContactsManagementTable() {
+      const tbody = document.getElementById('contactsManagementTableBody');
+      if (!tbody) return;
+      tbody.innerHTML = '';
+
+      const query = (document.getElementById('contactsMgmtSearch')?.value || '').toLowerCase();
+      const cat = document.getElementById('contactsMgmtCatFilter')?.value || 'all';
+
+      const filtered = userContacts.filter(c => {
+        const matchesQuery = !query || c.name.toLowerCase().includes(query) || c.phone.includes(query);
+        const matchesCat = cat === 'all' || c.category === cat;
+        return matchesQuery && matchesCat;
+      });
+
+      const countLabel = document.getElementById('mgmtSelectedCount');
+      if (countLabel) countLabel.innerText = `${mgmtSelectedIds.size} selecionado(s)`;
+
+      if (filtered.length === 0) {
+        tbody.innerHTML = `
+          <tr>
+            <td colspan="5" class="p-6 text-center text-slate-400">
+              Nenhum contato encontrado com os filtros selecionados.
+            </td>
+          </tr>
+        `;
+        return;
+      }
+
+      filtered.forEach(c => {
+        const tr = document.createElement('tr');
+        const isChecked = mgmtSelectedIds.has(c.id);
+        const createdDate = c.created_at ? new Date(c.created_at).toLocaleDateString('pt-BR') : 'Base Sincronizada';
+        tr.className = 'hover:bg-slate-800/40 transition text-xs';
+        tr.innerHTML = `
+          <td class="p-3 text-center">
+            <input type="checkbox" ${isChecked ? 'checked' : ''} onchange="toggleSelectMgmtContact('${c.id}')" class="rounded border-slate-700 text-purple-600 focus:ring-purple-500 cursor-pointer">
+          </td>
+          <td class="p-3">
+            <div class="font-bold text-white">${c.name}</div>
+            <div class="text-[10px] text-slate-400 font-mono">+${c.phone}</div>
+          </td>
+          <td class="p-3">
+            <span class="bg-purple-600/20 text-purple-300 border border-purple-500/30 text-[10px] px-2.5 py-1 rounded-full font-bold">
+              ${c.category || 'GERAL'}
+            </span>
+          </td>
+          <td class="p-3 text-slate-400 font-mono text-[10px]">
+            ${createdDate}
+          </td>
+          <td class="p-3 text-right space-x-1.5 whitespace-nowrap">
+            <button onclick="openEditContactModal('${c.id}')" class="bg-slate-800 hover:bg-slate-700 text-cyan-400 border border-cyan-500/30 px-2.5 py-1 rounded-lg font-bold text-[11px] transition">
+              ✏️ Editar
+            </button>
+            <button onclick="deleteSingleContact('${c.id}')" class="bg-red-950/40 hover:bg-red-900/60 text-red-400 border border-red-500/40 px-2.5 py-1 rounded-lg font-bold text-[11px] transition">
+              🗑️ Excluir
+            </button>
+          </td>
+        `;
+        tbody.appendChild(tr);
+      });
+    }
+
+    function toggleSelectMgmtContact(id) {
+      if (mgmtSelectedIds.has(id)) mgmtSelectedIds.delete(id);
+      else mgmtSelectedIds.add(id);
+      renderContactsManagementTable();
+    }
+
+    function toggleSelectAllMgmt(masterCb) {
+      if (masterCb.checked) {
+        userContacts.forEach(c => mgmtSelectedIds.add(c.id));
+      } else {
+        mgmtSelectedIds.clear();
+      }
+      renderContactsManagementTable();
+    }
+
+    function deleteSingleContact(id) {
+      const contact = userContacts.find(c => c.id === id);
+      if (!contact) return;
+      if (confirm(`Tem certeza que deseja excluir o contato "${contact.name}" da sua base?`)) {
+        userContacts = userContacts.filter(c => c.id !== id);
+        selectedContactIds.delete(id);
+        mgmtSelectedIds.delete(id);
+        saveUserContacts();
+      }
+    }
+
+    function bulkDeleteContacts() {
+      if (mgmtSelectedIds.size === 0) return alert('Selecione ao menos um contato na tabela para excluir.');
+      if (confirm(`Deseja excluir permanentemente os ${mgmtSelectedIds.size} contatos selecionados?`)) {
+        userContacts = userContacts.filter(c => !mgmtSelectedIds.has(c.id));
+        mgmtSelectedIds.forEach(id => selectedContactIds.delete(id));
+        mgmtSelectedIds.clear();
+        saveUserContacts();
+      }
+    }
+
+    function openAddContactModalDialog() {
+      document.getElementById('editContactId').value = '';
+      document.getElementById('contactModalTitle').innerText = '👤 Novo Contato';
+      document.getElementById('contactFormName').value = '';
+      document.getElementById('contactFormPhone').value = '';
+      document.getElementById('contactFormCategory').value = 'GERAL';
+      document.getElementById('contactFormModal').classList.remove('hidden');
+    }
+
+    function openEditContactModal(id) {
+      const c = userContacts.find(item => item.id === id);
+      if (!c) return;
+      document.getElementById('editContactId').value = c.id;
+      document.getElementById('contactModalTitle').innerText = '✏️ Editar Contato';
+      document.getElementById('contactFormName').value = c.name;
+      document.getElementById('contactFormPhone').value = c.phone;
+      document.getElementById('contactFormCategory').value = c.category || 'GERAL';
+      document.getElementById('contactFormModal').classList.remove('hidden');
+    }
+
+    function closeContactFormModal() {
+      document.getElementById('contactFormModal').classList.add('hidden');
+    }
+
+    function handleSaveContactForm(e) {
+      e.preventDefault();
+      const editId = document.getElementById('editContactId').value;
+      const name = document.getElementById('contactFormName').value.trim();
+      const phone = document.getElementById('contactFormPhone').value.replace(/[^0-9]/g, '');
+      const category = document.getElementById('contactFormCategory').value.toUpperCase();
+
+      if (!name || !phone) return alert('Preencha nome e telefone válidos.');
+
+      if (editId) {
+        const c = userContacts.find(item => item.id === editId);
+        if (c) {
+          c.name = name;
+          c.phone = phone;
+          c.category = category;
+        }
+      } else {
+        userContacts.unshift({
+          id: 'c_' + Date.now(),
+          name,
+          phone,
+          category,
+          created_at: new Date().toISOString()
+        });
+      }
+
+      saveUserContacts();
+      closeContactFormModal();
+    }
+
+    function openManageGroupsModal() {
+      renderGroupsList();
+      document.getElementById('groupsModal').classList.remove('hidden');
+    }
+
+    function closeGroupsModal() {
+      document.getElementById('groupsModal').classList.add('hidden');
+    }
+
+    function promptNewCategory() {
+      const name = prompt('Informe o nome do novo Grupo / Categoria:');
+      if (name && name.trim()) {
+        const cat = name.trim().toUpperCase();
+        addCategoryToSelects(cat);
+        document.getElementById('contactFormCategory').value = cat;
+      }
+    }
+
+    function addCustomGroupFromInput() {
+      const input = document.getElementById('newGroupNameInput');
+      if (!input || !input.value.trim()) return alert('Informe o nome do grupo.');
+      const cat = input.value.trim().toUpperCase();
+      addCategoryToSelects(cat);
+      input.value = '';
+      renderGroupsList();
+    }
+
+    function addCategoryToSelects(catName) {
+      const selects = ['categoryFilterSelect', 'contactsMgmtCatFilter', 'contactFormCategory'];
+      selects.forEach(id => {
+        const el = document.getElementById(id);
+        if (el && !Array.from(el.options).some(opt => opt.value === catName)) {
+          const opt = document.createElement('option');
+          opt.value = catName;
+          opt.innerText = '🏷️ ' + catName;
+          el.appendChild(opt);
+        }
+      });
+    }
+
+    function renderGroupsList() {
+      const container = document.getElementById('groupsListContainer');
+      if (!container) return;
+      container.innerHTML = '';
+      
+      const categories = new Set(['CTH', 'LEAD', 'PT', 'GERAL']);
+      userContacts.forEach(c => { if (c.category) categories.add(c.category); });
+
+      categories.forEach(cat => {
+        const count = userContacts.filter(c => c.category === cat).length;
+        const item = document.createElement('div');
+        item.className = 'p-2 bg-[var(--background)] border border-[var(--border)] rounded-lg flex justify-between items-center text-xs';
+        item.innerHTML = `
+          <span class="font-bold text-white">🏷️ ${cat}</span>
+          <span class="text-[11px] text-purple-400 font-semibold">${count} contato(s)</span>
+        `;
+        container.appendChild(item);
+      });
+    }
+
+    function triggerDeviceFileInput() {
+      document.getElementById('deviceFileInput').click();
+    }
+
+    function selectAllContactsInBase() {
+      userContacts.forEach(c => selectedContactIds.add(c.id));
+      renderContactsTable();
+    }
+
+    function selectAllInActiveGroup() {
+      const query = (document.getElementById('contactSearchInput')?.value || '').toLowerCase();
+      const cat = document.getElementById('categoryFilterSelect')?.value || 'all';
+      
+      userContacts.forEach(c => {
+        const matchesQuery = !query || c.name.toLowerCase().includes(query) || c.phone.includes(query);
+        const matchesCat = cat === 'all' || c.category === cat;
+        if (matchesQuery && matchesCat) {
+          selectedContactIds.add(c.id);
+        }
+      });
+      renderContactsTable();
+    }
+
+    function selectAllVisibleContacts() {
+      selectAllInActiveGroup();
+    }
+
+    function clearSelectedContacts() {
+      selectedContactIds.clear();
+      renderContactsTable();
+    }
+
+    function renderContactsTable() {
+      const queryInput = document.getElementById('contactSearchInput');
+      const catSelect = document.getElementById('categoryFilterSelect');
+      const query = (queryInput ? queryInput.value : '').toLowerCase();
+      const cat = catSelect ? catSelect.value : 'all';
+
+      const container = document.getElementById('contactsTableList');
+      if (!container) return;
+      container.innerHTML = '';
+
+      const filtered = userContacts.filter(c => {
+        const matchesQuery = !query || c.name.toLowerCase().includes(query) || c.phone.includes(query);
+        const matchesCat = cat === 'all' || c.category === cat;
+        return matchesQuery && matchesCat;
+      });
+
+      const cthCount = userContacts.filter(c => c.category === 'CTH').length;
+      const leadsCount = userContacts.filter(c => c.category === 'LEAD').length;
+
+      if (document.getElementById('statContactsCount')) document.getElementById('statContactsCount').innerText = userContacts.length;
+      if (document.getElementById('statCthCount')) document.getElementById('statCthCount').innerText = cthCount;
+      if (document.getElementById('statLeadsCount')) document.getElementById('statLeadsCount').innerText = leadsCount;
+
+      const selBadge = document.getElementById('selectedCountBadge');
+      if (selBadge) {
+        selBadge.innerText = selectedContactIds.size === 0 
+          ? 'Nenhum contato selecionado' 
+          : `👥 ${selectedContactIds.size} Contatos Selecionados`;
+      }
+
+      if (filtered.length === 0) {
+        container.innerHTML = '<div class="p-4 text-center text-xs text-[var(--muted-foreground)]">Nenhum contato encontrado.</div>';
+        return;
+      }
+
+      filtered.forEach(c => {
+        const row = document.createElement('div');
+        const isSelected = selectedContactIds.has(c.id);
+        row.className = 'p-3 flex items-center justify-between hover:bg-[var(--card)]/70 transition cursor-pointer text-xs';
+        row.onclick = () => toggleSelectContact(c.id);
+
+        row.innerHTML = `
+          <div class="flex items-center gap-3">
+            <input type="checkbox" ${isSelected ? 'checked' : ''} class="rounded border-slate-700 text-purple-600 focus:ring-purple-500 pointer-events-none">
+            <div>
+              <div class="font-bold text-white">${c.name}</div>
+              <div class="text-[10px] text-[var(--muted-foreground)]">+${c.phone}</div>
+            </div>
+          </div>
+          <span class="bg-slate-700/50 text-slate-300 text-[10px] px-2 py-0.5 rounded font-semibold">${c.category}</span>
+        `;
+        container.appendChild(row);
+      });
+
+      updateDispatchTargetSummary();
+    }
+
+    function toggleSelectContact(id) {
+      if (selectedContactIds.has(id)) selectedContactIds.delete(id);
+      else selectedContactIds.add(id);
+      renderContactsTable();
+    }
+
+    function triggerCsvImport() {
+      document.getElementById('csvFileInput').click();
+    }
+
+    function handleCsvUpload(input) {
+      const file = input.files[0];
+      if (!file) return;
+
+      const reader = new FileReader();
+      reader.onload = function(e) {
+        const text = e.target.result;
+        const lines = text.split(/\r?\n/).filter(l => l.trim().length > 0);
+        if (lines.length === 0) return alert('O arquivo CSV está vazio.');
+
+        let addedCount = 0;
+        const existingPhones = new Set(userContacts.map(c => c.phone));
+
+        // Smart Header Detection
+        const firstLine = lines[0].toLowerCase();
+        let nameColIdx = -1;
+        let phoneColIdx = -1;
+        let catColIdx = -1;
+
+        if (firstLine.includes('saved_name') || firstLine.includes('phone_number') || firstLine.includes('nome') || firstLine.includes('phone') || firstLine.includes('name') || firstLine.includes('celular') || firstLine.includes('telefone')) {
+          const headers = firstLine.split(',').map(h => h.trim().replace(/^"/, '').replace(/"$/, ''));
+          
+          headers.forEach((h, idx) => {
+            if (['saved_name', 'public_name', 'name', 'nome', 'display_name', 'contato'].includes(h)) {
+              if (nameColIdx === -1 || h === 'saved_name' || h === 'nome') nameColIdx = idx;
+            }
+            if (['phone_number', 'phone', 'formatted_phone', 'celular', 'telefone', 'mobile', 'number'].includes(h)) {
+              if (phoneColIdx === -1 || h === 'phone_number' || h === 'telefone') phoneColIdx = idx;
+            }
+            if (['category', 'labels', 'categoria', 'group'].includes(h)) {
+              catColIdx = idx;
+            }
+          });
+        }
+
+        const startRow = (nameColIdx !== -1 && phoneColIdx !== -1) ? 1 : 0;
+
+        for (let i = startRow; i < lines.length; i++) {
+          const rawLine = lines[i];
+          const parts = rawLine.split(',');
+          const cleanParts = parts.map(p => p.trim().replace(/^"/, '').replace(/"$/, ''));
+
+          let name = '';
+          let phone = '';
+          let category = 'GERAL';
+
+          if (nameColIdx !== -1 && phoneColIdx !== -1) {
+            name = cleanParts[nameColIdx] || '';
+            phone = (cleanParts[phoneColIdx] || '').replace(/[^0-9]/g, '');
+            if (catColIdx !== -1 && cleanParts[catColIdx]) {
+              category = cleanParts[catColIdx].toUpperCase();
+            }
+          } else {
+            // Auto-detect columns by value pattern
+            cleanParts.forEach(part => {
+              const digits = part.replace(/[^0-9]/g, '');
+              if (digits.length >= 8 && !phone) {
+                phone = digits;
+              } else if (part.length > 1 && !name && part.toLowerCase() !== 'true' && part.toLowerCase() !== 'false') {
+                name = part;
+              }
+            });
+          }
+
+          // Auto-classify category from contact name
+          if (name) {
+            const upperName = name.toUpperCase();
+            if (upperName.includes('CTH')) category = 'CTH';
+            else if (upperName.includes('LEAD')) category = 'LEAD';
+            else if (upperName.includes('PT')) category = 'PT';
+          }
+
+          if (name && phone && phone.length >= 8 && !existingPhones.has(phone)) {
+            userContacts.push({
+              id: 'c_csv_' + Date.now() + '_' + i,
+              name,
+              phone,
+              category
+            });
+            existingPhones.add(phone);
+            addedCount++;
+          }
+        }
+
+        saveUserContacts();
+        alert(`✅ ${addedCount} contatos importados do arquivo CSV com sucesso! Total na sua base: ${userContacts.length}`);
+      };
+      reader.readAsText(file);
+    }
+
+    function openAddContactModal() {
+      const name = prompt('Nome do Contato:');
+      if (!name) return;
+      const phone = prompt('Telefone com DDD (ex: 558399259385):');
+      if (!phone) return;
+      const category = prompt('Categoria (ex: CTH, LEAD, PT, GERAL):', 'GERAL') || 'GERAL';
+
+      userContacts.push({
+        id: 'c_' + Date.now(),
+        name,
+        phone: phone.replace(/[^0-9]/g, ''),
+        category: category.toUpperCase()
+      });
+      saveUserContacts();
+    }
+
+    function updateDispatchTargetSummary() {
+      const catSelect = document.getElementById('categoryFilterSelect');
+      const cat = catSelect ? catSelect.value : 'all';
+      const badge = document.getElementById('dispatchTargetSummary');
+      if (!badge) return;
+
+      if (selectedContactIds.size === 0) {
+        if (cat !== 'all') {
+          const catContacts = userContacts.filter(c => c.category === cat);
+          badge.innerText = `👥 Categoria ${cat}: ${catContacts.length} contato(s) da categoria`;
+          badge.className = 'font-bold text-sm text-cyan-300 block';
+        } else {
+          badge.innerText = '⚠️ Nenhum contato selecionado (Selecione ao menos 1 para disparar)';
+          badge.className = 'font-bold text-sm text-amber-400 block';
+        }
+      } else {
+        badge.innerText = `👥 ${selectedContactIds.size} Contato(s) Selecionado(s) Nominalmente`;
+        badge.className = 'font-bold text-sm text-purple-300 block';
+      }
+    }
+
+    function handleMediaSelectChange(select) {
+      if (select.value === 'custom') {
+        document.getElementById('deviceFileInput').click();
+      } else {
+        resetFileSelection();
+      }
+    }
+
+    function uploadDeviceFile(input) {
+      const file = input.files[0];
+      if (!file) return;
+
+      const reader = new FileReader();
+      reader.onload = async function(e) {
+        const base64Data = e.target.result;
+        try {
+          const baseUrl = getApiBaseUrl();
+          const response = await fetch(baseUrl + '/api/upload-media', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ fileName: file.name, fileData: base64Data })
+          });
+          const res = await response.json();
+          if (res.success) {
+            uploadedCustomFileName = res.fileName;
+            document.getElementById('fileNameDisplay').innerText = '✓ Arquivo: ' + file.name;
+            document.getElementById('fileUploadBadge').classList.remove('hidden');
+          }
+        } catch (err) {
+          uploadedCustomFileName = file.name;
+          document.getElementById('fileNameDisplay').innerText = '✓ Arquivo: ' + file.name;
+          document.getElementById('fileUploadBadge').classList.remove('hidden');
+        }
+      };
+      reader.readAsDataURL(file);
+    }
+
+    function resetFileSelection() {
+      uploadedCustomFileName = null;
+      const mediaSelect = document.getElementById('mediaSelect');
+      if (mediaSelect) mediaSelect.value = '';
+      const deviceFile = document.getElementById('deviceFileInput');
+      if (deviceFile) deviceFile.value = '';
+      const badge = document.getElementById('fileUploadBadge');
+      if (badge) badge.classList.add('hidden');
+    }
+
+    function getQuickTemplates() {
+      const email = (currentUser && currentUser.email) ? currentUser.email : 'demo@eduflow.app';
+      const saved = localStorage.getItem('eduflow_quick_templates_' + email);
+      return saved ? JSON.parse(saved) : DEFAULT_TEMPLATES;
+    }
+
+    function renderQuickTemplates() {
+      const list = getQuickTemplates();
+      const container = document.getElementById('quickTemplatesContainer');
+      if (!container) return;
+      container.innerHTML = '';
+
+      list.forEach(tpl => {
+        const btn = document.createElement('button');
+        btn.type = 'button';
+        btn.className = 'bg-purple-500/20 hover:bg-purple-500/30 text-purple-300 border border-purple-500/40 px-2.5 py-1 rounded-lg transition text-[11px] font-bold truncate max-w-[200px] cursor-pointer';
+        btn.innerText = tpl.title;
+        btn.onclick = () => {
+          const msgEl = document.getElementById('messageText');
+          if (msgEl) msgEl.value = tpl.text;
+        };
+        container.appendChild(btn);
+      });
+    }
+
+    function openTemplatesModal() {
+      renderTemplatesEditor();
+      const modal = document.getElementById('templatesModal');
+      if (modal) modal.classList.remove('hidden');
+    }
+
+    function closeTemplatesModal() {
+      const modal = document.getElementById('templatesModal');
+      if (modal) modal.classList.add('hidden');
+    }
+
+    function renderTemplatesEditor() {
+      const list = getQuickTemplates();
+      const container = document.getElementById('templatesListEditor');
+      if (!container) return;
+      container.innerHTML = '';
+
+      list.forEach((tpl, idx) => {
+        const item = document.createElement('div');
+        item.className = 'p-3 bg-[var(--background)] border border-[var(--border)] rounded-xl space-y-1 text-xs';
+        item.innerHTML = `
+          <div class="flex justify-between items-center font-bold text-purple-300">
+            <span>${tpl.title}</span>
+            <button type="button" onclick="deleteTemplate(${idx})" class="text-red-400 hover:underline">Excluir</button>
+          </div>
+          <p class="text-[var(--muted-foreground)] text-[11px] truncate">${tpl.text}</p>
+        `;
+        container.appendChild(item);
+      });
+    }
+
+    function addNewTemplate() {
+      const titleEl = document.getElementById('newTplTitle');
+      const textEl = document.getElementById('newTplText');
+      const title = titleEl ? titleEl.value.trim() : '';
+      const text = textEl ? textEl.value.trim() : '';
+
+      if (!title || !text) return alert('Por favor, preencha o título e o texto do modelo.');
+
+      const email = (currentUser && currentUser.email) ? currentUser.email : 'demo@eduflow.app';
+      const list = getQuickTemplates();
+      list.push({ id: 'tpl_' + Date.now(), title, text });
+      localStorage.setItem('eduflow_quick_templates_' + email, JSON.stringify(list));
+
+      if (titleEl) titleEl.value = '';
+      if (textEl) textEl.value = '';
+      renderQuickTemplates();
+      renderTemplatesEditor();
+      alert('✅ Novo modelo rápido salvo com sucesso!');
+    }
+
+    function deleteTemplate(idx) {
+      const email = (currentUser && currentUser.email) ? currentUser.email : 'demo@eduflow.app';
+      const list = getQuickTemplates();
+      list.splice(idx, 1);
+      localStorage.setItem('eduflow_quick_templates_' + email, JSON.stringify(list));
+      renderQuickTemplates();
+      renderTemplatesEditor();
+    }
+
+    function initDatePickers() {
+      const now = new Date();
+      const y = now.getFullYear();
+      const m = String(now.getMonth() + 1).padStart(2, '0');
+      const d = String(now.getDate()).padStart(2, '0');
+      document.getElementById('scheduleDate').value = `${y}-${m}-${d}`;
+      
+      const hh = String(now.getHours()).padStart(2, '0');
+      const mm = String(now.getMinutes()).padStart(2, '0');
+      document.getElementById('scheduleTime').value = `${hh}:${mm}`;
+    }
+
+    function loadDispatchesHistory() {
+      const email = (currentUser && currentUser.email) ? currentUser.email : 'demo@eduflow.app';
+      const saved = localStorage.getItem('eduflow_history_' + email);
+      return saved ? JSON.parse(saved) : [];
+    }
+
+    function renderDispatchesHistory() {
+      const list = loadDispatchesHistory();
+      const tbody = document.getElementById('dispatchesTableBody');
+      if (tbody) {
+        tbody.innerHTML = '';
+        list.forEach(item => {
+          const tr = document.createElement('tr');
+          tr.className = 'hover:bg-[var(--background)]/50 transition';
+          tr.innerHTML = `
+            <td class="p-3 font-semibold text-purple-300">${item.target}</td>
+            <td class="p-3">${item.media ? '📁 ' + item.media : '—'}</td>
+            <td class="p-3 text-[var(--muted-foreground)] max-w-xs truncate">"${item.message}"</td>
+            <td class="p-3 whitespace-nowrap">${item.datetime}</td>
+            <td class="p-3 text-right"><span class="bg-emerald-500/10 text-emerald-400 border border-emerald-500/30 px-2 py-1 rounded font-semibold">${item.status}</span></td>
+          `;
+          tbody.appendChild(tr);
+        });
+      }
+
+      const statCount = document.getElementById('statDispatchesCount');
+      if (statCount) statCount.innerText = list.length;
+
+      const statActive = document.getElementById('statActiveSchedules');
+      if (statActive) statActive.innerText = list.filter(i => i.status.includes('Agendado')).length;
+
+      syncLiveHistoryFromBackend();
+    }
+
+    function triggerSendNow() {
+      saveDispatchItem('⚡ Enviado (Agora)', '✓ Enviado', true);
+    }
+
+    function handleDispatchSubmitDirect() {
+      const dateInput = document.getElementById('scheduleDate');
+      const timeInput = document.getElementById('scheduleTime');
+      const date = dateInput ? dateInput.value : '';
+      const time = timeInput ? timeInput.value : '';
+      saveDispatchItem(`${date} às ${time}`, '⏳ Agendado', false);
+    }
+
+    function handleDispatchSubmit(e) {
+      if (e) e.preventDefault();
+      handleDispatchSubmitDirect();
+    }
+
+    async function saveDispatchItem(datetimeStr, statusStr, isImmediate = false) {
+      const msgInputs = document.querySelectorAll('#messageText');
+      let message = '';
+      msgInputs.forEach(input => {
+        if (input.value && input.value.trim()) message = input.value.trim();
+      });
+
+      if (!message) {
+        alert('Por favor, digite uma mensagem para realizar o disparo.');
+        return;
+      }
+
+      const catSelect = document.getElementById('categoryFilterSelect');
+      const cat = catSelect ? catSelect.value : 'all';
+
+      let targetContacts = [];
+
+      if (selectedContactIds.size > 0) {
+        targetContacts = userContacts.filter(c => selectedContactIds.has(c.id)).map(c => c.name || c.phone);
+      } else if (cat !== 'all') {
+        targetContacts = userContacts.filter(c => c.category === cat).map(c => c.name || c.phone);
+      } else {
+        alert('⚠️ Por favor, selecione ao menos 1 contato na lista (ou escolha uma categoria) antes de realizar o disparo.');
+        return;
+      }
+
+      if (targetContacts.length === 0) {
+        alert('⚠️ Nenhum contato válido encontrado na sua seleção para o disparo.');
+        return;
+      }
+
+      const mediaSelect = document.getElementById('mediaSelect');
+      const media = uploadedCustomFileName || (mediaSelect ? mediaSelect.value : '');
+
+      const userEmail = (currentUser && currentUser.email) ? currentUser.email : 'albertosarly@gmail.com';
+
+      // 1. Immediately record into permanent local history so it is never lost
+      const permItem = {
+        id: 'dispatch_' + Date.now(),
+        date: datetimeStr || new Date().toLocaleString('pt-BR'),
+        rawDate: Date.now(),
+        targets: targetContacts.length === 1 ? targetContacts[0] : `👥 ${targetContacts.length} Destinatários`,
+        message: message ? message.substring(0, 100) : '',
+        media: media ? '📎 ' + media : '🚫 Texto',
+        type: isImmediate ? '⚡ Envio Imediato' : '⏳ Programado',
+        statusBadge: isImmediate ? '<span class="inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-bold bg-emerald-500/20 text-emerald-400 border border-emerald-500/30">✓ Concluído</span>' : '<span class="inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-bold bg-amber-500/20 text-amber-400 border border-amber-500/30 animate-pulse">⏳ Aguardando Horário</span>',
+        auditUser: userEmail,
+        clientIp: '127.0.0.1'
+      };
+      const currentPerm = getStoredPermanentHistory();
+      currentPerm.unshift(permItem);
+      saveStoredPermanentHistory(currentPerm);
+      renderHistoryRows(currentPerm, false);
+
+      const baseUrl = getApiBaseUrl();
+      const endpoint = isImmediate ? '/api/send-now' : '/api/schedule';
+
+      try {
+        const response = await fetch(baseUrl + endpoint, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            userEmail: userEmail,
+            contacts: targetContacts,
+            message: message,
+            mediaPath: media || null,
+            datetime: datetimeStr,
+            isImmediate: isImmediate
+          })
+        });
+
+        const res = await response.json();
+        if (res && res.success) {
+          alert(`✅ ${isImmediate ? 'Disparo WhatsApp enviado' : 'Agendamento registrado'} com sucesso para ${targetContacts.length} contato(s)!`);
+          syncLiveHistoryFromBackend();
+        } else {
+          alert(`⚠️ Aviso do Servidor WhatsApp: ${res ? res.error : 'Não foi possível processar no servidor'}`);
+        }
+      } catch (err) {
+        console.error('Erro ao conectar à API de disparo WhatsApp:', err);
+        alert(`⚠️ Registro salvo no histórico local! (Servidor Backend em ${baseUrl} não respondeu: ${err.message})`);
+      }
+
+      msgInputs.forEach(input => input.value = '');
+    }
+
+    // Auto-login stored session if present
+    const savedUser = localStorage.getItem('eduflow_logged_user');
+    if (savedUser) {
+      loginUser(savedUser);
+    }
+
+    checkImpersonation();
+    handleHashRouting();
+  </script>
+</body>
+</html>
