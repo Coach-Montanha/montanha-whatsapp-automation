@@ -262,10 +262,6 @@
         <div aria-hidden class="absolute -top-24 -left-24 w-64 h-64 bg-[#10b981]/30 rounded-full blur-3xl pointer-events-none"></div>
         
         <div class="relative z-10 space-y-4">
-          <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#10b981]/20 border border-[#10b981]/40 text-[#10b981] text-xs font-bold">
-            <span>EMERALD GLOW • WHATSAPP</span>
-          </div>
-
           <div id="heroTextContainer" class="space-y-3">
             <h2 id="heroTitle" class="text-2xl md:text-3xl font-extrabold text-white tracking-tight leading-tight">
               Montanha WhatsApp Automation
@@ -279,7 +275,7 @@
         <div class="relative z-10 pt-6 border-t border-slate-800/80 space-y-3 text-xs text-slate-400">
           <div class="flex items-center gap-2">
             <span class="text-[#10b981] font-bold">✓</span>
-            <span>PIN de 10 Dígitos Padronizado</span>
+            <span>Autenticação rápida e segura por PIN</span>
           </div>
           <div class="flex items-center gap-2">
             <span class="text-[#10b981] font-bold">✓</span>
@@ -294,11 +290,8 @@
           <div class="flex items-center justify-between">
             <div>
               <h3 id="formPanelTitle" class="text-xl font-bold text-white">Acessar Plataforma</h3>
-              <p class="text-xs text-slate-400 mt-0.5">Informe seu e-mail e PIN de 10 dígitos para entrar.</p>
+              <p class="text-xs text-slate-400 mt-0.5">Informe seu e-mail e PIN ou Senha para entrar.</p>
             </div>
-            <span class="text-[11px] font-bold text-[#10b981] bg-[#10b981]/15 px-2.5 py-1 rounded-lg border border-[#10b981]/30">
-              PIN 10 Dígitos
-            </span>
           </div>
 
           <form id="authForm" onsubmit="handleAuthSubmit(event)" class="space-y-4 text-xs">
@@ -314,14 +307,10 @@
 
             <div class="space-y-1.5">
               <div class="flex justify-between items-center">
-                <label class="font-bold text-slate-300 uppercase tracking-wider text-[11px]">PIN de Accesso (10 dígitos)</label>
+                <label class="font-bold text-slate-300 uppercase tracking-wider text-[11px]">PIN ou Senha de Acesso</label>
                 <button type="button" onclick="showPasswordResetPrompt()" class="text-xs font-bold text-[#10b981] hover:underline">Esqueci a senha</button>
               </div>
-              <input type="password" id="authPassword" required inputmode="numeric" pattern="[0-9]*" maxlength="10" placeholder="•••••••••• (10 dígitos)" style="font-size: 16px;" oninput="updatePinCounter(this)" class="w-full h-11 px-4 bg-slate-900 border border-slate-800 rounded-xl text-white font-mono tracking-widest placeholder-slate-500 focus:outline-none focus:border-[#10b981] text-base md:text-sm">
-              <div class="flex justify-between items-center pt-0.5">
-                <span id="pinProgressCounter" class="text-[10px] text-slate-400 font-mono">0 / 10 dígitos</span>
-                <span class="text-[10px] text-[#10b981]">Formato mandatório</span>
-              </div>
+              <input type="password" id="authPassword" required placeholder="••••••••" style="font-size: 16px;" class="w-full h-11 px-4 bg-slate-900 border border-slate-800 rounded-xl text-white font-mono tracking-widest placeholder-slate-500 focus:outline-none focus:border-[#10b981] text-base md:text-sm">
             </div>
 
             <button type="submit" id="authSubmitBtn" aria-label="Entrar na Conta" class="w-full h-11 rounded-xl bg-gradient-to-r from-[#10b981] to-[#059669] text-slate-950 font-black text-xs uppercase tracking-wider shadow-lg shadow-[#10b981]/30 hover:opacity-95 transition-all flex items-center justify-center gap-2 min-h-[44px]">
