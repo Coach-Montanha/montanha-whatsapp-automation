@@ -1777,11 +1777,14 @@
     // ====================================================================
     // PERMANENT OFFLINE-FIRST HISTORY STORAGE (LOCALSTORAGE + BACKEND SYNC)
     // ====================================================================
-    const PERMANENT_DISPATCHES_KEY = 'montanha_permanent_dispatches_history_v2';
+    function getPermanentDispatchesKey() {
+      const tenantId = (typeof currentUser !== 'undefined' && currentUser && currentUser.email) ? currentUser.email : 'guest';
+      return `montanha_permanent_dispatches_history_v2_${tenantId}`;
+    }
 
     function getStoredPermanentHistory() {
       try {
-        const raw = localStorage.getItem(PERMANENT_DISPATCHES_KEY);
+        const raw = localStorage.getItem(getPermanentDispatchesKey());
         return raw ? JSON.parse(raw) : [];
       } catch (e) {
         return [];
@@ -1790,7 +1793,7 @@
 
     function saveStoredPermanentHistory(items) {
       try {
-        localStorage.setItem(PERMANENT_DISPATCHES_KEY, JSON.stringify(items));
+        localStorage.setItem(getPermanentDispatchesKey(), JSON.stringify(items));
       } catch (e) {}
     }
 
@@ -2098,10 +2101,10 @@
         return;
       }
 
-      const isMin6Digits = /^\d{6,}$/.test(password);
+      const isMin10Digits = /^\d{10}$/.test(password);
 
-      if (!isMin6Digits) {
-        alert('O PIN de acesso deve conter no mínimo 6 dígitos numéricos.');
+      if (!isMin10Digits) {
+        alert('O PIN de acesso deve conter exatamente 10 dígitos numéricos.');
         return;
       }
 
