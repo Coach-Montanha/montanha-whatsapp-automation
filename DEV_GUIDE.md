@@ -51,11 +51,13 @@ Montanha WhatsApp Automation/
 │   ├── build.mjs            # Script de compilação da aplicação para dist/
 │   └── dev.mjs              # Servidor local de desenvolvimento
 ├── capacitor.config.json    # Configuração de empacotamento mobile Android/iOS
-├── DEV_GUIDE.md             # ESTE MANUAL TÉCNICO INTERNO
+├── DEV_GUIDE.md             # ESTE MANUAL TÉCNICO INTERNO (Atualizado)
 ├── index.html               # Código-fonte principal da aplicação
 ├── manifest.json            # Manifesto PWA
 ├── package.json             # Scripts de execução
 ├── service-worker.js        # Service worker para cache PWA
+├── supabase_schema.sql      # Esquema local do CRM WhatsApp (profiles, contacts, templates, schedules)
+├── database/                # Esquema SQL unificado no repositório canônico: montanha-master-admin/database/ecosystem_schema.sql
 └── vercel.json              # Configuração de roteamento e segurança na Vercel
 ```
 
